@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django,pythonvanilla,angular,virtualenv,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,pythonvanilla,angular,virtualenv,windows
 
+#Diagrama
+UML/
+
 ### Angular ###
 ## Angular ##
 # compiled output
