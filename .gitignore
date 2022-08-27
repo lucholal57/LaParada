@@ -2,7 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,pythonvanilla,angular,virtualenv,windows
 
 #Diagrama
-UML/
+UML
+.mdj
 
 ### Angular ###
 ## Angular ##
