@@ -1,0 +1,11 @@
+body{ 
+    background-color:rgb(105, 12, 90);
+}
+table tbody tr td{ 
+    text-align:center;
+}
+
+legend{ 
+    color:white;
+    text-align:center;
+}

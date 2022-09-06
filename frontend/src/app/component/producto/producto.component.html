@@ -1,3 +1,72 @@
-<div class="container">
-    <h1>vista producto</h1>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <legend >Productos</legend>
+        <form action="">
+            <!-- Modal investigar codigo-->
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Agregar Producto
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="container-fluid">
+        <table class="table table-sm table-dark table-bordered table-striped table-responsive w-100 d-block d-md-table">
+            <thead class="thead-light">
+                <tr class="text-center">
+                    <th scope="col">ID</th>
+                    <th scope="col">IMEI</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td scope="row">activo.id</td>
+                <td scope="row">activo.imei</td>
+                <td scope="row">activo.marca</td>
+                <td scope="row">activo.modelo</td>
+                <td scope="row">activo.estado</td>
+                <td scope="row">activo.estado</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

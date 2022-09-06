@@ -1,25 +1,28 @@
-<div class="container-expand">
-    <!-- Nav Bar Horizontal-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <!-- Contenedor fluido Nav Bar-->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container-fluid">
-            <!-- Div de las enlaces en el contenedor -->
-            <div class="navbar-nav">
-                <a class="nav-link active" href="#">Ventas</a>
-                <a class="nav-link active" routerLink="/producto">Productos</a>
-                <a class="nav-link active" href="#">Cierre Caja</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" routerLink="/venta">Ventas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" routerLink="/producto">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" routerLink="/caja">Cierre Caja</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex">
+                    <a class href="">Cerrar Sesion</a>
+                </form>
             </div>
         </div>
-        <!-- Leyenda cerrar sesion en el extremo superior de navbar -->
-        <a class="navbar-brand" href="#">
-            Cerrar Sesion
-        </a>
     </nav>
-    <br>
-    <!-- Contenedor de leyenda mas iagen dentro del Body 
-    <div class="container" align="center">
-        <h1>Multirubro La Parada</h1>
-        <img src="../assets/jpg/Sin título.png" alt="" style="width:80%;">
-    </div>
-    -->
-</div>
+
+

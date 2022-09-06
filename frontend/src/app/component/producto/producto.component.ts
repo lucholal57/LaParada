@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-producto',
@@ -11,6 +12,10 @@ export class ProductoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  openWindowCustomClass(content) {
+    this.modalService.open(content, { windowClass: 'dark-modal' });
   }
 
 }

@@ -1,0 +1,9 @@
+body{ 
+    background-color:rebeccapurple;
+}
+
+
+nav .navbar-nav li a{
+    color: white !important;
+    font-size: 18px;
+    }
