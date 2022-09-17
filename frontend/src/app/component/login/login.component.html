@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <form [formGroup]="formularioLogin" (ngSubmit)="onSubmit()">
+        <section class="vh-100">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-2 col-lg-2 col-xl-8">
+                        <div class="card shadow-2-strong" style="border-radius: 2rem">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card-body p-5 text-center">
+                                            <h3 class="mb-5">Iniciar Sesion</h3>
+                                            <mat-icon>assignment_ind</mat-icon>
+
+                                            <div class="form-outline mb-4">
+                                                <input type="email" id="typeEmailX" class="form-control form-control-lg"
+                                                    name="username" formControlName="usuario" />
+                                                <label class="form-label" for="typeEmailX">Usuario</label>
+                                            </div>
+                                            <div class="form-outline mb-4">
+                                                <input type="password" id="typePasswordX"
+                                                    class="form-control form-control-lg" name="password" formControlName="password" />
+                                                <label class="form-label" for="typePasswordX">Contraseña</label>
+                                            </div>
+
+                                            <button class="btn btn-primary btn-lg btn-block" type="submit">
+                                                Login
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <img src="../../../assets/jpg/Laparada.png" width="140%" style="margin-left: -80px;" alt="">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </form>
+</body>
+
+</html>

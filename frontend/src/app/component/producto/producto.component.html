@@ -10,32 +10,73 @@
 
 <body>
     <div class="container-fluid">
-        <legend >Productos</legend>
-        <form action="">
-            <!-- Modal investigar codigo-->
+        <legend>PRODUCTOS</legend>
+        <!--Contenedor Busqueda -->
+        <div class="container-fluid" id="contedorBusqueda" >
+            <div class="row justify-content-between">
+                <div class="col-2">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        style="margin-left: -2%;">
+                        Registrar Productos
+                    </button>
+                </div>
+                <!--Input para la busqueda y filtro de tabla-->
+                <div class="col-2">
+                    <input type="text" class="form-control" [(ngModel)]="search" placeholder="Search... "
+                        style="margin-left: -480%;" (change)="p=1">
+                </div>
+            </div>
+        </div>
 
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Agregar Producto
-            </button>
-
+        <form [formGroup]="formularioRegistro">
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <h2 class="modal-title" id="exampleModalLabel">Productos</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            ...
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">Nombre</label>
+                                        <input type="text" class="form-control" placeholder="Nombre Producto" formControlName="nombre" >
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">Descripcion</label>
+                                        <input type="text" class="form-control" placeholder="Descripcion Producto" formControlName="descripcion">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">Cantidad</label>
+                                        <input type="number" class="form-control" placeholder="Cantidad" formControlName="cantidad">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">Serie</label>
+                                        <input type="text" class="form-control" placeholder="Serie Producto" formControlName="serie">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">Precio</label>
+                                        <input type="number" class="form-control" placeholder="Descripcion Producto" formControlName="precio">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary" >Registrar</button>
+                            <button type="button" class="btn btn-warning" (click)="limpiarFormulario()">Limpiar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -43,29 +84,35 @@
         </form>
     </div>
 
+
     <div class="container-fluid">
         <table class="table table-sm table-dark table-bordered table-striped table-responsive w-100 d-block d-md-table">
             <thead class="thead-light">
                 <tr class="text-center">
-                    <th scope="col">ID</th>
-                    <th scope="col">IMEI</th>
-                    <th scope="col">Marca</th>
-                    <th scope="col">Modelo</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col">SERIE</th>
+                    <th scope="col">NOMBRE</th>
+                    <th scope="col">DESCRIPCION</th>
+                    <th scope="col">CANTIDAD</th>
+                    <th scope="col">PRECIO</th>
+                    <th scope="col">ACCIONES</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <td scope="row">activo.id</td>
-                <td scope="row">activo.imei</td>
-                <td scope="row">activo.marca</td>
-                <td scope="row">activo.modelo</td>
-                <td scope="row">activo.estado</td>
-                <td scope="row">activo.estado</td>
-            </tr>
+                <!-- Usamos el filter Pipe primero despues de recorrer el array, y como ultima opcion la pagiancion con el atributo totalItems pasandole el length del array asi la busqueda funciona en las paginaciones, obteniendo toda la longitud del array-->
+                <tr *ngFor="let producto of arrayProductos | filter: search |  paginate: { itemsPerPage: 10, currentPage: p, totalItems: arrayProductos.length }">
+                    <td scope="row">{{producto.serie}}</td>
+                    <td scope="row">{{producto.nombre}}</td>
+                    <td scope="row">{{producto.descripcion}}</td>
+                    <td scope="row">{{producto.cantidad}}</td>
+                    <td scope="row">$ {{producto.precio}}</td>
+                    <td scope="row">
+                        <mat-icon style="color:skyblue ; margin-right:15px;"> edit </mat-icon>
+                        <mat-icon style="color:red ; "> delete </mat-icon>
+                    </td>
+                </tr>
             </tbody>
         </table>
+        <pagination-controls style="color:white;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
     </div>
 </body>
 

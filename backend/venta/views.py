@@ -8,6 +8,7 @@ from venta.models import Venta
 from venta.serializer import VentaSerializer,VentaPostPutSerializer,VentaObtenerEdicionSerializer
 # Create your views here.
 @api_view(['GET','POST'])
+@permission_classes((IsAuthenticated,))
 def VentaListado(request):
     #Listado
     if request.method == 'GET':
@@ -27,6 +28,7 @@ def VentaListado(request):
 
 #Funcion para edicion y eliminacion pasando id
 @api_view(['GET','PUT','DELETE'])
+@permission_classes((IsAuthenticated,))
 def VentaBuscarPorId(request,pk=None):
     #Consulta para obtener el listado sin First
     venta = Venta.objects.filter(id=pk)

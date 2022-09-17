@@ -1,11 +1,19 @@
 body{ 
-    background-color:rgb(105, 12, 90);
-}
-table tbody tr td{ 
-    text-align:center;
+    background-color:#a34483;
 }
 
-legend{ 
-    color:white;
-    text-align:center;
+table tbody tr td {
+    text-align: center;
 }
+
+legend {
+    color: white;
+    text-align: center;
+}
+
+.dark-modal .modal-content {
+    background-color: #292b2c;
+    color: white;
+}
+
+

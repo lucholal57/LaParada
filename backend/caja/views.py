@@ -10,6 +10,7 @@ from caja.serializer import CajaSerializer,CajaPostSerializer
 
 # Create your views here.
 @api_view(['GET','POST'])
+@permission_classes((IsAuthenticated,))
 def CajaListado(request):
     #Listado
     if request.method == 'GET':
@@ -28,6 +29,7 @@ def CajaListado(request):
     
 #Funcion para la edicion y eliminacion pasando id
 @api_view(['GET','PUT','DELETE'])
+@permission_classes((IsAuthenticated,))
 def CajaBuscarPorId(request,pk=None):
     #Consulta para obtener el objeto sin First
     caja = Caja.objects.filter(id=pk)
