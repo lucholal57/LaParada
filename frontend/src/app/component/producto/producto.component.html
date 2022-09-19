@@ -28,7 +28,9 @@
                 </div>
             </div>
         </div>
-
+    </div>
+<hr>
+    <div class="container-fluid">
         <form [formGroup]="formularioRegistro">
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -87,7 +89,7 @@
 
     <div class="container-fluid">
         <table class="table table-sm table-dark table-bordered table-striped table-responsive w-100 d-block d-md-table">
-            <thead class="thead-light">
+            <thead class="table-light">
                 <tr class="text-center">
                     <th scope="col">SERIE</th>
                     <th scope="col">NOMBRE</th>
@@ -99,7 +101,7 @@
             </thead>
             <tbody>
                 <!-- Usamos el filter Pipe primero despues de recorrer el array, y como ultima opcion la pagiancion con el atributo totalItems pasandole el length del array asi la busqueda funciona en las paginaciones, obteniendo toda la longitud del array-->
-                <tr *ngFor="let producto of arrayProductos | filter: search |  paginate: { itemsPerPage: 10, currentPage: p, totalItems: arrayProductos.length }">
+                <tr *ngFor="let producto of arrayProductos | filter: search |  paginate: { itemsPerPage: 20, currentPage: p, totalItems: arrayProductos.length }">
                     <td scope="row">{{producto.serie}}</td>
                     <td scope="row">{{producto.nombre}}</td>
                     <td scope="row">{{producto.descripcion}}</td>

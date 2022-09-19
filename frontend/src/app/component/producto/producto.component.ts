@@ -159,7 +159,6 @@ export class ProductoComponent implements OnInit {
     ];
 
   constructor(
-    private modalService: NgbModal,
     private formBuilder: FormBuilder,
               ) { }
   

@@ -18,6 +18,7 @@ export class InicioComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn$ = this.servicioLogin.isLoggedIn;
   }
+  
 
   onLogout() {
     this.servicioLogin.logout();

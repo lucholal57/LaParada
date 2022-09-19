@@ -11,7 +11,7 @@ legend {
     text-align: center;
 }
 
-.dark-modal .modal-content {
+.modal .modal-content {
     background-color: #292b2c;
     color: white;
 }
