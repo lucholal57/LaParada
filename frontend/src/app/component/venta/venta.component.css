@@ -1,3 +1,13 @@
 body{ 
     background-color:#a34483;
 }
+table{
+    scale: 100%;
+}
+
+th{
+  height:50px;
+  overflow:auto;
+  font-size:22px;
+}
+

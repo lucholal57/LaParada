@@ -10,6 +10,7 @@ export class VentaComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

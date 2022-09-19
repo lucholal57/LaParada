@@ -20,7 +20,7 @@ export class LoginService {
   login(formularioLogin : any) {
     if (formularioLogin.nombre !== '' && formularioLogin.password !== '' ) {
       this.loggedIn.next(true);
-      this.router.navigate(['/producto']);
+      this.router.navigate(['/venta']);
     }
     else{
       alert("EL usuario no se encuentra registrado");
