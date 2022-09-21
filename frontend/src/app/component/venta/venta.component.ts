@@ -11,6 +11,10 @@ export class VentaComponent implements OnInit {
   //FechaActual
   fechaActual = Date.now();
   hora:any;
+  //Variable
+  cuentaCorriente = false;
+  //Variable vuelto para poder mostrar el contenedor del mismo
+  vuelto = false;
 
   litadoVenta: Producto[]=[];
   
@@ -21,6 +25,8 @@ export class VentaComponent implements OnInit {
 
   ngOnInit(): void {
     this.mostrarHora();
+    this.reset();
+    
   }
   
   //Funcion mostrar hora
@@ -34,15 +40,43 @@ export class VentaComponent implements OnInit {
     }, 1000)
   }
 
-
   //FormularioVenta
   formularioVenta = this.formBuilder.group({
   id:[''],
   forma_pago: ['',[Validators.required]],
   fecha: ['',[Validators.required]],
   producto: ['',[Validators.required]],
+  cliente: ['',[Validators.required]],
+  direccion: ['',[Validators.required]],
+  telefono: ['',[Validators.required]],
   total: ['',[Validators.required]],
   })
+
+//Funcion para los Checkbox ocultando input dependiendo la forma de pago
+  formaDePago(): void {
+    if(this.formularioVenta.value.forma_pago == "EFECTIVO")
+    {
+      this.cuentaCorriente=false;
+      this.vuelto=true;
+    }
+    if(this.formularioVenta.value.forma_pago == "TARJETA")
+    {
+      this.cuentaCorriente=false;
+      this.vuelto=false;
+    }
+    if(this.formularioVenta.value.forma_pago == "CUENTAC")
+    {
+      this.cuentaCorriente=true;
+      this.vuelto=false;
+    }
+    
+  }
+  //Funcion Reset papra limpiar el formulario
+  reset(): void {
+    this.formularioVenta.reset();
+    this.vuelto=false;
+    this.cuentaCorriente=false;
+  }
 
 
 

@@ -164,6 +164,7 @@ export class ProductoComponent implements OnInit {
   
   ngOnInit(): void {
   }
+
   //Formulario Registro
   formularioRegistro = this.formBuilder.group({
     id:[''],
@@ -177,6 +178,11 @@ export class ProductoComponent implements OnInit {
 //Funcion para limpiar formulario
   limpiarFormulario():void {
     this.formularioRegistro.reset();
+  }
+
+  //Funcion para registrar Productos
+  registrarProducto(): void {
+    
   }
 
 

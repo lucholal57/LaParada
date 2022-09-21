@@ -40,10 +40,10 @@
                         </div>
                     </div>
 
-                    <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
+                    <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
                         <div class="card-header" align="center"> {{fechaActual | date}} {{hora | date:'hh:mm:ss a'}}</div>
                         <div class="card-body" align="center">
-                            <img src="../../../assets/jpg/Laparada.png" width="40%" style="margin-right:  0px; margin-top: -15px;"  alt="">
+                            <img src="../../../assets/jpg/Laparada.png" width="30%" style="margin-right:  0px; margin-top: -20px;"  alt="">
                         </div>
                     </div>
                     
@@ -51,7 +51,7 @@
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
+                        <div class="modal-dialog modal-md">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h2 class="modal-title" id="exampleModalLabel">Formas de Pago</h2>
@@ -63,32 +63,72 @@
                                     <div class="form-group">
                                         <div class="container-fluid">
                                             <div class="row ">
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-4">
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio"
-                                                            name="forma_pago" id="inlineRadio1" value="option1" formControlName="forma_pago">
+                                                            name="forma_pago" id="inlineRadio1" value="EFECTIVO" formControlName="forma_pago" (change)="formaDePago()">
                                                         <label class="form-check-label"
                                                             for="inlineRadio1">EFECTIVO</label>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-4">
 
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio"
-                                                            name="forma_pago" id="inlineRadio2" value="option2" formControlName="forma_pago">
+                                                            name="forma_pago" id="inlineRadio2" value="TARJETA" formControlName="forma_pago" (change)="formaDePago()">
                                                         <label class="form-check-label"
                                                             for="inlineRadio2">TARJETA</label>
                                                     </div>
                                                 </div>
-                                            </div>
-<hr>
-                                            <h1 class="display-1" align="center">Total: $1450</h1>
-<hr>
 
+                                                <div class="col-sm-4">
+
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="forma_pago" id="inlineRadio3" value="CUENTAC" formControlName="forma_pago" (change)="formaDePago()">
+                                                        <label class="form-check-label"
+                                                            for="inlineRadio2">CTA.CORRIENTE</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <hr>
+                                            <h1 class="display-1" align="center">Total: $1450</h1>
+
+                                            <hr>
+                                            <!-- Contenedor Cuenta Corriente -->
+                                            <div class="container" *ngIf="cuentaCorriente">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="form-control"  placeholder="Nombre" formControlName="cliente" >
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="form-control"  placeholder="Descripcion" formControlName="direccion">
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text" class="form-control"  placeholder="Telefono" formControlName="telefono">
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                </div>
+
+                                        <div class="container" id="contedorVuelto" *ngIf="vuelto">
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="text" class="form-control"  placeholder="Ingrese Monto para Vuelto" >
+                                                    <input type="number" class="form-control"  placeholder="Ingrese Monto para Vuelto" >
                                                 </div>
                                             </div>
 <hr>
@@ -97,11 +137,9 @@
                                                     <h1 class="display-1" align="center"> Vuelto: $1450</h1>
                                                 </div>
                                             </div>
-
                                         </div>
 
-
-
+                                        </div>
 
                                     </div>
 
@@ -109,7 +147,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary">TERMINAR VENTA</button>
                                     <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
+                                        data-bs-dismiss="modal" (click)="reset()">Close</button>
                                 </div>
                             </div>
                         </div>

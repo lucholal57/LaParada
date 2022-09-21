@@ -5,5 +5,8 @@ export class Venta {
     forma_pago="";
     fecha=new Date();
     producto: Producto[]=[];
-    total="";
+    cliente="";
+    direccion="";
+    telefono=0;
+    total=0;
 }

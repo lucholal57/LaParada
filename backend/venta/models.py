@@ -6,9 +6,12 @@ from producto.models import Producto
 class Venta(models.Model):
     forma_pago = models.CharField(max_length=10)
     fecha = models.DateField()
+    cliente = models.CharField(max_length=20, blank=True)
+    direccion = models.CharField(max_length=20,blank=True)
+    telefono = models.CharField(max_length=20,blank=True)
+    total = models.CharField(max_length=15)
     #Forenkey
     producto = models.ManyToManyField(Producto)
-    total = models.CharField(max_length=15)
     
     #Metodo str para mostrar los datos en django admin
     def __str__(self):
