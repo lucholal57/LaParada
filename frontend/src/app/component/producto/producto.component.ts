@@ -1,13 +1,16 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Producto } from 'src/app/entidades/producto/producto';
+import { AlertasService } from 'src/app/servicios/alertas/alertas.service';
+import Swal from 'sweetalert2';
+import { ProductoService } from '../../servicios/producto/producto.service';
+
+
 
 @Component({
   selector: 'app-producto',
   templateUrl: './producto.component.html',
   styleUrls: ['./producto.component.css'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class ProductoComponent implements OnInit {
   //VAriable p para la Paginacion
@@ -17,157 +20,19 @@ export class ProductoComponent implements OnInit {
   //Array de ´Productos
   listadoProductos : Producto[]=[];
   
-  
-
-  arrayProductos = [
-    {
-          
-          "nombre": "Coca Cola",
-          "descripcion": "Gaseosa 2.15L",
-          "serie": "123",
-          "cantidad": "10",
-          "precio": "350"
-      },
-      {
-        
-          "nombre": "Fanta Naranja",
-          "descripcion": "Gaseosa 1.5L",
-          "serie": "456",
-          "cantidad": "15",
-          "precio": "220"
-      },   {
-        
-        "nombre": "Cheetos",
-        "descripcion": "50Grs",
-        "serie": "111",
-        "cantidad": "20",
-        "precio": "150"
-    },
-    {
-      
-        "nombre": "Lays",
-        "descripcion": "45Grs",
-        "serie": "665",
-        "cantidad": "30",
-        "precio": "180"
-    },
-    {
-      
-      "nombre": "Doritos",
-      "descripcion": "55Grs",
-      "serie": "789",
-      "cantidad": "10",
-      "precio": "200"
-  },
-  {
-    
-      "nombre": "Monster",
-      "descripcion": "500ml",
-      "serie": "654",
-      "cantidad": "40",
-      "precio": "320"
-  },
-  {
-          
-    "nombre": "Coca Cola",
-    "descripcion": "Gaseosa 2.15L",
-    "serie": "123",
-    "cantidad": "10",
-    "precio": "350"
-},
-{
-          
-  "nombre": "Coca Cola",
-  "descripcion": "Gaseosa 2.15L",
-  "serie": "123",
-  "cantidad": "10",
-  "precio": "350"
-},
-{
-          
-  "nombre": "Coca Cola",
-  "descripcion": "Gaseosa 2.15L",
-  "serie": "123",
-  "cantidad": "10",
-  "precio": "350"
-},
-{
-          
-  "nombre": "Coca Cola",
-  "descripcion": "Gaseosa 2.15L",
-  "serie": "123",
-  "cantidad": "10",
-  "precio": "350"
-},
-{
-          
-  "nombre": "Coca Cola",
-  "descripcion": "Gaseosa 2.15L",
-  "serie": "123",
-  "cantidad": "10",
-  "precio": "350"
-},
-{
-          
-  "nombre": "Coca Cola",
-  "descripcion": "Gaseosa 2.15L",
-  "serie": "123",
-  "cantidad": "10",
-  "precio": "350"
-},
-{
-          
-  "nombre": "Coca Cola",
-  "descripcion": "Gaseosa 2.15L",
-  "serie": "123",
-  "cantidad": "10",
-  "precio": "350"
-},
-{
-          
-  "nombre": "Coca Cola",
-  "descripcion": "Gaseosa 2.15L",
-  "serie": "123",
-  "cantidad": "10",
-  "precio": "350"
-},
-{
-          
-  "nombre": "Coca Cola",
-  "descripcion": "Gaseosa 2.15L",
-  "serie": "123",
-  "cantidad": "10",
-  "precio": "350"
-},
-{
-          
-  "nombre": "Coca Cola",
-  "descripcion": "Gaseosa 2.15L",
-  "serie": "123",
-  "cantidad": "10",
-  "precio": "350"
-},
-{
-          
-  "nombre": "hamburguesas",
-  "descripcion": "4 Unidades",
-  "serie": "1323",
-  "cantidad": "10",
-  "precio": "350"
-},
-    
-    ];
-
   constructor(
     private formBuilder: FormBuilder,
+    private servicioProducto: ProductoService,
+    private alertas: AlertasService
               ) { }
   
   ngOnInit(): void {
+    this.getProducto();
   }
 
   //Formulario Registro
   formularioRegistro = this.formBuilder.group({
-    id:[''],
+    id: [0],
     nombre: ['',[Validators.required]],
     descripcion: ['',[Validators.required]],
     cantidad: ['',[Validators.required]],
@@ -175,15 +40,91 @@ export class ProductoComponent implements OnInit {
     precio: ['',[Validators.required]]
   })
 
-//Funcion para limpiar formulario
-  limpiarFormulario():void {
-    this.formularioRegistro.reset();
+  //Funcion get para obtener productos
+  getProducto():void{
+    this.servicioProducto.getProducto().subscribe(
+      (res) => {
+        this.listadoProductos = res;
+      },
+      (error) => {
+        console.log(error);
+        this.alertas.error();
+      }
+    )
   }
 
   //Funcion para registrar Productos
   registrarProducto(): void {
-    
+    if(this.formularioRegistro.valid){
+    this.servicioProducto.postProducto(this.formularioRegistro.value).subscribe(
+      (res) => {
+        this.alertas.registerOk();
+        this.getProducto();
+        this.limpiarFormulario();
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+    }
+    else{
+      this.alertas.error();
+    }
   }
+  //Funcion para editar producto
+  obtenerProducto(productoId : number): void {
+    this.servicioProducto.getProductoId(productoId).subscribe(
+      (res) => {
+        console.log(res);
+        this.formularioRegistro.patchValue({
+          id: res[0].id,
+          nombre: res[0].nombre,
+          descripcion: res[0].descripcion,
+          cantidad:res[0].cantidad,
+          serie: res[0].serie,
+          precio: res[0].precio,
+        })
+      }
+    )
+  }
+  //Funcion para editar producto
+  editarProducto(): void {
+    this.servicioProducto.putProducto(this.formularioRegistro.value,this.formularioRegistro.value.id).subscribe(
+      (res) => {
+        this.getProducto();
+        this.alertas.updateOk();
+      },
+      (error) => {
+        console.log(error);
+        this.alertas.error();
+      }
+    )
+  }
+  //Funcion para eliminar producto
+  eliminarProducto(id:number): void {
+    Swal.fire({
+      title: 'Esta seguro de eliminar??',
+      text: 'No podra revertir el cambio!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminar!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.servicioProducto.deleteProducto(id).subscribe((res) => {
+          this.getProducto();
+        });
+        this.alertas.deleteOk();
+      }
+    });
+  }
+
+  //Funcion para limpiar formulario
+  limpiarFormulario():void {
+    this.formularioRegistro.reset();
+  }
+
 
 
 

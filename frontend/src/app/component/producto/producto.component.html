@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <legend>PRODUCTOS</legend>
         <!--Contenedor Busqueda -->
-        <div class="container-fluid" id="contedorBusqueda" >
+        <div class="container-fluid" id="contedorBusqueda">
             <div class="row justify-content-between">
                 <div class="col-2">
                     <!-- Button trigger modal -->
@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-<hr>
+    <hr>
     <div class="container-fluid">
         <form [formGroup]="formularioRegistro">
             <!-- Modal -->
@@ -46,37 +46,45 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Nombre</label>
-                                        <input type="text" class="form-control" placeholder="Nombre Producto" formControlName="nombre" >
+                                        <input type="text" class="form-control" placeholder="Ingrese Nombre"
+                                            formControlName="nombre" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Descripcion</label>
-                                        <input type="text" class="form-control" placeholder="Descripcion Producto" formControlName="descripcion">
+                                        <input type="text" class="form-control" placeholder="Ingrese Descripcion"
+                                            formControlName="descripcion" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Cantidad</label>
-                                        <input type="number" class="form-control" placeholder="Cantidad" formControlName="cantidad">
+                                        <input type="number" class="form-control" placeholder="Ingrese Cantidad"
+                                            formControlName="cantidad" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Serie</label>
-                                        <input type="text" class="form-control" placeholder="Serie Producto" formControlName="serie">
+                                        <input type="text" class="form-control" placeholder="Ingrese Serie"
+                                            formControlName="serie" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Precio</label>
-                                        <input type="number" class="form-control" placeholder="Descripcion Producto" formControlName="precio">
+                                        <input type="number" class="form-control" placeholder="Ingrese Precio"
+                                            formControlName="precio" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" >Registrar</button>
+                            <button type="submit" class="btn btn-primary" (click)="registrarProducto()"
+                            data-bs-dismiss="modal">Registrar</button>
+                            <button type="button" class="btn btn-warning" 
+                            data-bs-dismiss="modal" (click)="editarProducto()">Actualizar</button>
                             <button type="button" class="btn btn-warning" (click)="limpiarFormulario()">Limpiar</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
@@ -101,15 +109,17 @@
             </thead>
             <tbody>
                 <!-- Usamos el filter Pipe primero despues de recorrer el array, y como ultima opcion la pagiancion con el atributo totalItems pasandole el length del array asi la busqueda funciona en las paginaciones, obteniendo toda la longitud del array-->
-                <tr *ngFor="let producto of arrayProductos | filter: search |  paginate: { itemsPerPage: 20, currentPage: p, totalItems: arrayProductos.length }">
+                <tr
+                    *ngFor="let producto of listadoProductos | filter: search |  paginate: { itemsPerPage: 20, currentPage: p, totalItems: listadoProductos.length }">
                     <td scope="row">{{producto.serie}}</td>
                     <td scope="row">{{producto.nombre}}</td>
                     <td scope="row">{{producto.descripcion}}</td>
                     <td scope="row">{{producto.cantidad}}</td>
                     <td scope="row">$ {{producto.precio}}</td>
                     <td scope="row">
-                        <mat-icon style="color:skyblue ; margin-right:15px;"> edit </mat-icon>
-                        <mat-icon style="color:red ; "> delete </mat-icon>
+                        
+                        <a type="button" (click)="obtenerProducto(producto.id)" data-bs-toggle="modal" data-bs-target="#exampleModal"><mat-icon style="color:skyblue ; margin-right:15px;"> edit </mat-icon></a>
+                        <a type="button" (click)="eliminarProducto(producto.id)"><mat-icon style="color:red ; "> delete </mat-icon></a>
                     </td>
                 </tr>
             </tbody>

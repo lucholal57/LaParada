@@ -5,12 +5,9 @@ from producto.models import Producto
 # Create your models here.
 class Venta(models.Model):
     forma_pago = models.CharField(max_length=10)
-    fecha = models.DateField()
-    cliente = models.CharField(max_length=20, blank=True)
-    direccion = models.CharField(max_length=20,blank=True)
-    telefono = models.CharField(max_length=20,blank=True)
+    fecha = models.DateTimeField()
     total = models.CharField(max_length=15)
-    #Forenkey
+    #ManyToMany
     producto = models.ManyToManyField(Producto)
     
     #Metodo str para mostrar los datos en django admin

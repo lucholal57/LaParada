@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // importamos modulo de search pipe
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+// importamos modulo HttpClient
+import { HttpClientModule } from '@angular/common/http';
 
 import { AngularMaterialModule} from '../app/angular-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,8 +18,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { VentaComponent } from './component/venta/venta.component';
 import { LoginComponent } from './component/login/login.component';
 import { CajaComponent } from './component/caja/caja.component';
-
-
+import { HistorialVentasComponent } from './component/historial-ventas/historial-ventas.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CajaComponent } from './component/caja/caja.component';
     InicioComponent,
     ProductoComponent,
     VentaComponent,
+    HistorialVentasComponent,
     CajaComponent,
     LoginComponent
     
@@ -39,6 +41,7 @@ import { CajaComponent } from './component/caja/caja.component';
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    HttpClientModule
   
 ],
   providers: [],

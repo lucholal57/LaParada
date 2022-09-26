@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <legend>LISTADO VENTAS</legend>
+    <div class="container-fuild">
+        <div class="row justify-content-center">
+
+            <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
+                <div class="card-header" align="center">Buscar Venta</div>
+                <div class="card-body">
+                    <input class="form-control" type="text" placeholder="Search..." >
+                </div>
+            </div>
+
+            <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
+                <div class="card-header" align="center">Desde</div>
+                <div class="card-body">
+                    <input class="form-control" type="date" >
+                </div>
+            </div>
+
+            <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
+                <div class="card-header" align="center">Hasta</div>
+                <div class="card-body">
+                    <input class="form-control" type="date" >
+                </div>
+            </div>
+
+            <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
+                <div class="card-header" align="center">Accion</div>
+                <div class="card-body" align="center">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary"
+                        style="margin-left: -2%;">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <table class="table table-xl table-dark table-striped table-bordered ">
+            <thead class="table-light">
+                <tr class="text-center">
+                    <th scope="col">Productos</th>
+                    <th scope="col">Forma Pago</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let venta of listadoVenta">
+                    <td scope="col">
+                        <ul *ngFor="let producto of venta.producto">
+                            <li>{{producto.nombre}} {{producto.descripcion}}</li>
+                        </ul></td>
+                    <td scope="col">{{venta.forma_pago}}</td>
+                    <td scope="col" >{{venta.fecha}}</td>
+                    <td scope="col"><h1>$ {{venta.total}}</h1></td>
+                    
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

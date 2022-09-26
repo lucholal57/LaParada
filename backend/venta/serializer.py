@@ -18,6 +18,7 @@ class VentaPostPutSerializer(serializers.ModelSerializer):
         model = Venta
         fields = '__all__'
         depth = 2
+        
 
 class VentaObtenerEdicionSerializer(serializers.ModelSerializer):
     """Serializador sin depth solo para obtener datos para la edicion"""
