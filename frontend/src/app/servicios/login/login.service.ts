@@ -1,36 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  get isLoggedIn() {
-    return this.loggedIn.asObservable();
-  }
+  // Variable para la url
+  private url = 'http://127.0.0.1:8000/';
 
   constructor(
-    private router: Router
+    private router: Router,
+    private http: HttpClient,
   ) { }
 
-  login(formularioLogin : any) {
-    if (formularioLogin.nombre !== '' && formularioLogin.password !== '' ) {
-      this.loggedIn.next(true);
-      this.router.navigate(['/venta']);
-    }
-    else{
-      alert("EL usuario no se encuentra registrado");
-    }
+  login(user: any): Observable<any> {
+    return this.http.post(this.url + 'account/login/', user);
   }
-
-  logout() {
-    this.loggedIn.next(false);
-    this.router.navigate(['/']);
-  }
-
 
 }

@@ -1,7 +1,16 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/servicios/login/login.service';
+
+// Constante de los headers para los encabezados con TOKEN de Autorizacion
+const httpOption = {
+  headers: new HttpHeaders({
+    'content-type': 'application/json',
+    'Authorization': 'Token' + " " + localStorage.getItem('token')
+  }),
+}
 
 @Component({
   selector: 'app-login',
@@ -10,27 +19,41 @@ import { LoginService } from 'src/app/servicios/login/login.service';
 })
 export class LoginComponent implements OnInit {
 
+  private formSubmitAttempt: boolean=false;;
+
   constructor(
-    private servicioLogin : LoginService,
-    private formBuilder : FormBuilder
+    private servicioLogin: LoginService,
+    private formBuilder: FormBuilder,
+    private router : Router
   ) { }
 
   ngOnInit(): void {
-
   }
 
   //Se crea formulario para poder obtener el usuario y password para acceder al programa sin mostrar la barra navbar antes de que este logueado
   formularioLogin = this.formBuilder.group({
-    usuario :['', [Validators.required]],
-    password : ['',[Validators.required]]
+    username: ['', [Validators.required]],
+    password: ['', [Validators.required]]
   })
 
-  onSubmit() {
-    this.servicioLogin.login(this.formularioLogin.value);
+  login(): void {
+    const user = { username: this.formularioLogin.value.username, password: this.formularioLogin.value.password }
+    this.servicioLogin.login(user).subscribe(
+      (res) => {
+        alert(res.token)
+        localStorage.setItem("token", res.token)
+        //Despues de setear y almacenar el token a localstorage, con router nos redirigimos a la pagina dhasboard y recargamos una ves dentro por que si no recargamos no detecta el TOKEN.
+        this.router.navigateByUrl('/venta')
+
+      },
+      (error) => {
+        console.log(error)
+
+      }
+
+    )
+
   }
 
-  onLogout() {
-    this.servicioLogin.logout();
-  }
 
 }

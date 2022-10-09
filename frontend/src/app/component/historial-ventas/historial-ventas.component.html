@@ -7,25 +7,27 @@
     <title>Document</title>
 </head>
 <body>
+  <app-inicio></app-inicio>
+
     <legend>LISTADO VENTAS</legend>
-    <div class="container-fuild">
+    <div class="container-fluid">
         <div class="row justify-content-center">
 
-            <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
-                <div class="card-header" align="center">Buscar Venta</div>
+            <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
+                <div class="card-header" align="center" >Buscar Venta</div>
                 <div class="card-body">
-                    <input class="form-control" type="text" placeholder="Search..." >
+                    <input class="form-control" type="text" placeholder="Search..." [(ngModel)]="search" >
                 </div>
             </div>
 
-            <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
+            <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
                 <div class="card-header" align="center">Desde</div>
                 <div class="card-body">
                     <input class="form-control" type="date" >
                 </div>
             </div>
 
-            <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
+            <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
                 <div class="card-header" align="center">Hasta</div>
                 <div class="card-body">
                     <input class="form-control" type="date" >
@@ -47,7 +49,7 @@
     </div>
 
     <div class="container-fluid">
-        <table class="table table-xl table-dark table-striped table-bordered ">
+        <table class="table table-sm table-dark table-bordered table-striped table-responsive w-100 d-block d-md-table">
             <thead class="table-light">
                 <tr class="text-center">
                     <th scope="col">Productos</th>
@@ -57,7 +59,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let venta of listadoVenta">
+                <tr *ngFor="let venta of listadoVenta  | filter: search |  paginate: { itemsPerPage: 4, currentPage: p, totalItems: listadoVenta.length }">
                     <td scope="col">
                         <ul *ngFor="let producto of venta.producto">
                             <li>{{producto.nombre}} {{producto.descripcion}}</li>
@@ -65,11 +67,12 @@
                     <td scope="col">{{venta.forma_pago}}</td>
                     <td scope="col" >{{venta.fecha}}</td>
                     <td scope="col"><h1>$ {{venta.total}}</h1></td>
-                    
-                    
+
+
                 </tr>
             </tbody>
         </table>
+        <pagination-controls style="color:white;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
     </div>
 </body>
 </html>

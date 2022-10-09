@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form [formGroup]="formularioLogin" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formularioLogin" (ngSubmit)="login()">
         <section class="vh-100">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -24,7 +24,7 @@
 
                                             <div class="form-outline mb-4">
                                                 <input type="email" id="typeEmailX" class="form-control form-control-lg"
-                                                    name="username" formControlName="usuario" />
+                                                    name="username" formControlName="username" />
                                                 <label class="form-label" for="typeEmailX">Usuario</label>
                                             </div>
                                             <div class="form-outline mb-4">

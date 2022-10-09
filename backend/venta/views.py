@@ -22,6 +22,7 @@ def VentaListado(request,*args, **kwargs):
         if serializer.is_valid():
             venta_productos = Venta.objects.create(**serializer.validated_data)
             venta_productos.producto.set(request.data.get('producto'))
+            venta_productos.cliente.set(request.data.get('cliente'))
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)

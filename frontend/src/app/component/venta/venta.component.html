@@ -9,6 +9,8 @@
 </head>
 
 <body>
+<app-inicio></app-inicio>
+
     <legend>VENTAS</legend>
     <!--Contenedor ingreso producto,sumatoria,forma_pago,fecha-->
     <div class="container-fluid">
@@ -186,7 +188,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let producto of listadoProductosVenta">
+                <tr *ngFor="let producto of listadoProductosVenta ">
                     <td scope="col">{{producto.serie}}</td>
                     <td scope="col">{{producto.nombre}} </td>
                     <td scope="col">{{producto.descripcion}}</td>

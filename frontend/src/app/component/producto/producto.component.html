@@ -9,27 +9,41 @@
 </head>
 
 <body>
+  <app-inicio></app-inicio>
     <div class="container-fluid">
         <legend>PRODUCTOS</legend>
         <!--Contenedor Busqueda -->
-        <div class="container-fluid" id="contedorBusqueda">
-            <div class="row justify-content-between">
-                <div class="col-2">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        style="margin-left: -2%;">
-                        Registrar Productos
-                    </button>
-                </div>
-                <!--Input para la busqueda y filtro de tabla-->
-                <div class="col-2">
-                    <input type="text" class="form-control" [(ngModel)]="search" placeholder="Search... "
-                        style="margin-left: -480%;" (change)="p=1">
-                </div>
+        <div class="row justify-content-center">
+
+          <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
+              <div class="card-header" align="center">Productos</div>
+              <div class="card-body" align="center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                style="margin-left: -2%;" (click)="openModal()">
+                Registrar
+            </button>
+              </div>
+          </div>
+
+          <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
+            <div class="card-header" align="center">Buscar Producto</div>
+            <div class="card-body">
+                <input class="form-control" type="text" [(ngModel)]="search" placeholder="Search... ">
             </div>
         </div>
+
+          <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
+              <div class="card-header" align="center">{{fechaActual}} </div>
+              <div class="card-body" align="center">
+                  <img src="../../../assets/jpg/Laparada.png" width="30%"
+                      style="margin-right:  0px; margin-top: -20px;" alt="">
+              </div>
+          </div>
+      </div>
     </div>
+
     <hr>
+
     <div class="container-fluid">
         <form [formGroup]="formularioRegistro">
             <!-- Modal -->
@@ -81,10 +95,10 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" (click)="registrarProducto()"
+                            <button type="submit" class="btn btn-primary" (click)="registrarProducto()" *ngIf="btnRegister"
                             data-bs-dismiss="modal">Registrar</button>
-                            <button type="button" class="btn btn-warning" 
-                            data-bs-dismiss="modal" (click)="editarProducto()">Actualizar</button>
+                            <button type="submit" class="btn btn-warning"
+                            data-bs-dismiss="modal" (click)="editarProducto()" *ngIf="btnUpdate">Actualizar</button>
                             <button type="button" class="btn btn-warning" (click)="limpiarFormulario()">Limpiar</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
@@ -117,7 +131,7 @@
                     <td scope="row">{{producto.cantidad}}</td>
                     <td scope="row">$ {{producto.precio}}</td>
                     <td scope="row">
-                        
+
                         <a type="button" (click)="obtenerProducto(producto.id)" data-bs-toggle="modal" data-bs-target="#exampleModal"><mat-icon style="color:skyblue ; margin-right:15px;"> edit </mat-icon></a>
                         <a type="button" (click)="eliminarProducto(producto.id)"><mat-icon style="color:red ; "> delete </mat-icon></a>
                     </td>

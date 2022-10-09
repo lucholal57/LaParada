@@ -16,16 +16,6 @@ table tbody tr td {
     text-align: center;
 }
 
-table {
-    scale: 100%;
-}
-
-th {
-    max-height: 50px;
-    overflow: auto;
-    font-size: 22px;
-}
-
 .modal .modal-content {
     background-color: #292b2c;
     color: white;

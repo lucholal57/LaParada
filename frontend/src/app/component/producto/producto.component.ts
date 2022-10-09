@@ -1,4 +1,5 @@
-import { Component, OnInit} from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Producto } from 'src/app/entidades/producto/producto';
 import { AlertasService } from 'src/app/servicios/alertas/alertas.service';
@@ -14,34 +15,59 @@ import { ProductoService } from '../../servicios/producto/producto.service';
 })
 export class ProductoComponent implements OnInit {
   //VAriable p para la Paginacion
-  p:any;
-  //Variable para la busqueda y filtro de tabla 
-  search:any;
+  p: any;
+  //Variable para la busqueda y filtro de tabla
+  search: any;
+  //FechaActual
+  pipe = new DatePipe('en-US');
+  fechaActual: any;
   //Array de ´Productos
-  listadoProductos : Producto[]=[];
-  
+  listadoProductos: Producto[] = [];
+  //Button Update y Register
+  btnRegister=false;
+  btnUpdate=false;
+
   constructor(
     private formBuilder: FormBuilder,
     private servicioProducto: ProductoService,
     private alertas: AlertasService
-              ) { }
-  
+  ) { }
+
   ngOnInit(): void {
+    this.btnRegister=true;
     this.getProducto();
+    this.mostrarHora();
+  }
+
+  //Funcion para cuando abra el programa el boton upgrade pase a falso y no lo muestro
+  openModal() {
+    this.btnRegister=true;
+    this.btnUpdate=false;
+  }
+
+  //Funcion mostrar hora
+  mostrarHora() {
+    //Usamos otra variable de fecha por como recibe el backen es necesaria la misma, distinta a la que se muestra en el front por la hora
+    this.fechaActual = this.pipe.transform(Date.now(), 'YYYY-MM-dd hh:mm:s ');
+    //Intervalo para que despues de 1000mls se actualize la hora dandonos asi los segundos por pantalla.
+    setInterval(() => {
+      //utilizamos este formato de hora solo para mostrar en el front
+      this.fechaActual = this.pipe.transform(Date.now(), 'YYYY-MM-dd hh:mm:ss ');
+    }, 1000)
   }
 
   //Formulario Registro
   formularioRegistro = this.formBuilder.group({
     id: [0],
-    nombre: ['',[Validators.required]],
-    descripcion: ['',[Validators.required]],
-    cantidad: ['',[Validators.required]],
-    serie: ['',[Validators.required]],
-    precio: ['',[Validators.required]]
+    nombre: ['', [Validators.required]],
+    descripcion: ['', [Validators.required]],
+    cantidad: ['', [Validators.required]],
+    serie: ['', [Validators.required]],
+    precio: ['', [Validators.required]]
   })
 
   //Funcion get para obtener productos
-  getProducto():void{
+  getProducto(): void {
     this.servicioProducto.getProducto().subscribe(
       (res) => {
         this.listadoProductos = res;
@@ -55,24 +81,26 @@ export class ProductoComponent implements OnInit {
 
   //Funcion para registrar Productos
   registrarProducto(): void {
-    if(this.formularioRegistro.valid){
-    this.servicioProducto.postProducto(this.formularioRegistro.value).subscribe(
-      (res) => {
-        this.alertas.registerOk();
-        this.getProducto();
-        this.limpiarFormulario();
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
+    if (this.formularioRegistro.valid) {
+      this.servicioProducto.postProducto(this.formularioRegistro.value).subscribe(
+        (res) => {
+          this.alertas.registerOk();
+          this.getProducto();
+          this.limpiarFormulario();
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
     }
-    else{
+    else {
       this.alertas.error();
     }
   }
   //Funcion para editar producto
-  obtenerProducto(productoId : number): void {
+  obtenerProducto(productoId: number): void {
+    this.btnUpdate=true;
+    this.btnRegister=false;
     this.servicioProducto.getProductoId(productoId).subscribe(
       (res) => {
         console.log(res);
@@ -80,7 +108,7 @@ export class ProductoComponent implements OnInit {
           id: res[0].id,
           nombre: res[0].nombre,
           descripcion: res[0].descripcion,
-          cantidad:res[0].cantidad,
+          cantidad: res[0].cantidad,
           serie: res[0].serie,
           precio: res[0].precio,
         })
@@ -89,10 +117,11 @@ export class ProductoComponent implements OnInit {
   }
   //Funcion para editar producto
   editarProducto(): void {
-    this.servicioProducto.putProducto(this.formularioRegistro.value,this.formularioRegistro.value.id).subscribe(
+    this.servicioProducto.putProducto(this.formularioRegistro.value, this.formularioRegistro.value.id).subscribe(
       (res) => {
         this.getProducto();
         this.alertas.updateOk();
+        this.limpiarFormulario();
       },
       (error) => {
         console.log(error);
@@ -101,7 +130,7 @@ export class ProductoComponent implements OnInit {
     )
   }
   //Funcion para eliminar producto
-  eliminarProducto(id:number): void {
+  eliminarProducto(id: number): void {
     Swal.fire({
       title: 'Esta seguro de eliminar??',
       text: 'No podra revertir el cambio!',
@@ -121,7 +150,7 @@ export class ProductoComponent implements OnInit {
   }
 
   //Funcion para limpiar formulario
-  limpiarFormulario():void {
+  limpiarFormulario(): void {
     this.formularioRegistro.reset();
   }
 

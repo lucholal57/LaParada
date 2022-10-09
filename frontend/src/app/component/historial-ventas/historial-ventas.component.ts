@@ -10,6 +10,11 @@ import { VentaService } from 'src/app/servicios/venta/venta.service';
   styleUrls: ['./historial-ventas.component.css']
 })
 export class HistorialVentasComponent implements OnInit {
+  //Variable para el pipe de busqueda
+  search:any
+  //Variable para el paginado
+  p:any;
+  //Pipe para la fecha
   pipe = new DatePipe('en-US');
   fecha:any;
   //Array de Ventas
@@ -22,7 +27,7 @@ export class HistorialVentasComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerVentas();
-    
+
   }
 
   obtenerVentas(): void {

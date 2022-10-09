@@ -33,8 +33,8 @@ export class VentaComponent implements OnInit {
   //Variable vuelto para poder mostrar el contenedor del mismo
   vuelto = false;
 
-  
-  
+
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,7 +48,7 @@ export class VentaComponent implements OnInit {
     this.resultado=0;
     this.mostrarHora();
     this.reset();
-    
+
   }
 
   //FormularioVenta
@@ -66,7 +66,7 @@ export class VentaComponent implements OnInit {
       this.servicioProducto.getProductoSerie(buscarSerie).subscribe(
         (res) => {
           if(res.length>0){
-            //Si encuentra el producto lo agrega 
+            //Si encuentra el producto lo agrega
           res.forEach( agrega => {
             //Si el producto existe le asignamos el valor a sumatoria del precio del producto
             //Tantas veces como valla agregando el mismo o distinto producto
@@ -85,7 +85,7 @@ export class VentaComponent implements OnInit {
         (error) => {
           console.log(error);
         }
-        
+
       )
     }
     //Funcion para obtener el vuelto
@@ -96,11 +96,11 @@ export class VentaComponent implements OnInit {
       //Una ves que obtenemos lo que ingreso a de efectivo, hacemos el calculo de resta y el resultado es el vuelto que hay que entregar
       this.resultado = (res-this.sumatoria)
     }
-      
-  
+
+
   //Funcion mostrar hora
   mostrarHora() {
-    //Usamos otra variable de fecha por como recibe el backen es necesaria la misma, distinta a la que se muestra en el front por la hora 
+    //Usamos otra variable de fecha por como recibe el backen es necesaria la misma, distinta a la que se muestra en el front por la hora
     this.fechaActual = this.pipe.transform(Date.now(), 'YYYY-MM-dd hh:mm:s ');
     //Intervalo para que despues de 1000mls se actualize la hora dandonos asi los segundos por pantalla.
     setInterval(() => {
@@ -109,7 +109,7 @@ export class VentaComponent implements OnInit {
     }, 1000)
   }
 
-  
+
 
 //Funcion para los Checkbox ocultando input dependiendo la forma de pago
   formaDePago(): void {
@@ -128,7 +128,7 @@ export class VentaComponent implements OnInit {
       this.cuentaCorriente=true;
       this.vuelto=false;
     }
-    
+
   }
   //Funcion para eliminar producto de array
   quitar(producto:Producto) : void {
@@ -137,7 +137,7 @@ export class VentaComponent implements OnInit {
     //Guardamos el index en index y eliminamos
     this.listadoProductosVenta.splice(index, 1);
     //A sumatoria tenemos que restarle el precio total a pagar ya que eliminamos un producto
-    //Le restamos el valor del precio del producto recibido  
+    //Le restamos el valor del precio del producto recibido
     this.sumatoria -= parseInt(producto.precio);
   }
 
@@ -160,8 +160,8 @@ export class VentaComponent implements OnInit {
         console.log(error)
       }
     )
-    
-    
+
+
     console.log(this.formularioVenta.value)
   }
 

@@ -1,26 +1,57 @@
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark" *ngIf="isLoggedIn$ | async as isLoggedIn">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" routerLink="/venta"><mat-icon>shopping_cart</mat-icon>Venta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" routerLink="/producto"><mat-icon>equalizer</mat-icon>Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" routerLink="/caja"><mat-icon> attach_money</mat-icon>Cierre Caja</a>
-                    </li>
-                    
-                </ul>
-                <form class="d-flex">
-                    <a class href=""> <mat-icon>settings_power</mat-icon>Cerrar Sesion </a>
-                </form>
-            </div>
+
+  <div id="wrapper">
+    <div class="overlay">
+    </div>
+    <!-- Sidebar -->
+    <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
+
+      <ul class="nav sidebar-nav">
+        <div class="sidebar-header">
+          <img src="../../../assets/jpg/Laparada.png" width="100px">
+          <h3 >La Parada Multirubro</h3>
         </div>
+
+        <li><a href="/producto">
+            <mat-icon >donut_large</mat-icon> PRODUCTOS
+          </a></li>
+        <li><a href="/venta">
+            <mat-icon>add_shopping_cart</mat-icon> VENTAS
+          </a></li>
+        <li><a href="/venta/historial">
+            <mat-icon>shopping_cart</mat-icon> HISTORIAL VENTAS
+          </a></li>
+          <li><a href="">
+            <mat-icon >people</mat-icon> CLIENTES
+          </a></li>
+        <li><a href="/caja">
+            <mat-icon>store</mat-icon> CIERRE CAJA
+          </a></li>
+          <li><a href="">
+            <mat-icon >dashboard</mat-icon> DASHBOARD
+          </a></li>
+        <li><a type="button">
+            <mat-icon>exit_to_app</mat-icon> CERRAR SESION
+          </a></li>
+      </ul>
+
     </nav>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+        <span class="hamb-top"></span>
+        <span class="hamb-middle"></span>
+        <span class="hamb-bottom"></span>
+      </button>
+      <div class="container">
+        <div class="row">
+
+        </div>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
