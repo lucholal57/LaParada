@@ -42,7 +42,7 @@
             </div>
 
             <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
-                <div class="card-header" align="center"> {{fechaActual}}</div>
+                <div class="card-header" align="center"> {{fechaActual | date:'short'}}</div>
                 <div class="card-body" align="center">
                     <img src="../../../assets/jpg/Laparada.png" width="30%"
                         style="margin-right:  0px; margin-top: -20px;" alt="">
@@ -194,7 +194,7 @@
                     <td scope="col">{{producto.descripcion}}</td>
                     <td scope="col">1 ud.</td>
                     <td scope="col">${{producto.precio}}</td>
-                    <td scope="col">{{fechaActual}}</td>
+                    <td scope="col">{{fechaActual | date:'short'}}</td>
                     <td scope="col">
                         <a type="button" (click)="quitar(producto)"><mat-icon style="color:red ; "> delete </mat-icon></a>
                     </td>

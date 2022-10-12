@@ -32,10 +32,7 @@ export class VentaComponent implements OnInit {
   cuentaCorriente = false;
   //Variable vuelto para poder mostrar el contenedor del mismo
   vuelto = false;
-
-
-
-
+  
   constructor(
     private formBuilder: FormBuilder,
     private servicioProducto: ProductoService,

@@ -2,6 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertasService } from 'src/app/servicios/alertas/alertas.service';
 import { LoginService } from 'src/app/servicios/login/login.service';
 
 // Constante de los headers para los encabezados con TOKEN de Autorizacion
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private servicioLogin: LoginService,
     private formBuilder: FormBuilder,
-    private router : Router
+    private router : Router,
+    private alertas: AlertasService
   ) { }
 
   ngOnInit(): void {
@@ -40,15 +42,14 @@ export class LoginComponent implements OnInit {
     const user = { username: this.formularioLogin.value.username, password: this.formularioLogin.value.password }
     this.servicioLogin.login(user).subscribe(
       (res) => {
-        alert(res.token)
         localStorage.setItem("token", res.token)
         //Despues de setear y almacenar el token a localstorage, con router nos redirigimos a la pagina dhasboard y recargamos una ves dentro por que si no recargamos no detecta el TOKEN.
         this.router.navigateByUrl('/venta')
 
       },
       (error) => {
-        console.log(error)
-
+        this.alertas.errorLogin()
+        this.formularioLogin.reset();
       }
 
     )

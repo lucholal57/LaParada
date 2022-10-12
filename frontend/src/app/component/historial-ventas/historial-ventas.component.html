@@ -65,7 +65,7 @@
                             <li>{{producto.nombre}} {{producto.descripcion}}</li>
                         </ul></td>
                     <td scope="col">{{venta.forma_pago}}</td>
-                    <td scope="col" >{{venta.fecha}}</td>
+                    <td scope="col" >{{venta.fecha | date:'short'}}</td>
                     <td scope="col"><h1>$ {{venta.total}}</h1></td>
 
 

@@ -35,10 +35,9 @@ export class HistorialVentasComponent implements OnInit {
     this.servicioVenta.getVenta().subscribe(
       (res) => {
         this.listadoVenta = res;
-        this.listadoVenta.forEach( a => {
-          hora = this.pipe.transform((a.fecha), 'YYYY-MM-dd hh+3:mm:ss ');
+        this.listadoVenta.forEach(a =>{
+          console.log(a.fecha.toLocaleDateString)
         })
-        console.log("fechaaaa"+hora)
       }
     )
   }

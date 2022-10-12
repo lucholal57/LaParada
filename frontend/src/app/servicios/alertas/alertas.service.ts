@@ -9,7 +9,7 @@ export class AlertasService {
   constructor() { }
 
 //alerta registro ok
-registerOk(){ 
+registerOk(){
   Swal.fire({
     position: 'center',
     icon: 'success',
@@ -19,7 +19,7 @@ registerOk(){
   })
 }
 //alerta registro ok
-deleteOk(){ 
+deleteOk(){
   Swal.fire({
     position: 'center',
     icon: 'success',
@@ -29,7 +29,7 @@ deleteOk(){
   })
 }
 //alerta actualizacion ok
-updateOk(){ 
+updateOk(){
   Swal.fire({
     position: 'center',
     icon: 'success',
@@ -39,15 +39,23 @@ updateOk(){
   })
 }
 //alerta error
-error(){ 
+error(){
   Swal.fire({
     icon: 'error',
     title: 'Oops...',
     text: 'Algo Salio Mal Consulte al Admin del Software!',
   })
 }
+
+errorLogin(){
+  Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: 'EL usuario no se encuentra en la Base de Datos',
+  })
+}
 //alert el producto no existe
-productoNoExist(){ 
+productoNoExist(){
   Swal.fire({
     position: 'center',
     icon: 'warning',

@@ -1,12 +1,10 @@
 from rest_framework import serializers
-from cliente.serializer import ClienteSerializer
 from venta.models import Venta
 from producto.serializer import ProductoSerializer
 
 class VentaSerializer(serializers.ModelSerializer):
     """Serializer Venta con Producto"""
     producto = ProductoSerializer(many=True)
-    cliente = ClienteSerializer(many=True)
     class Meta:
         model = Venta
         fields = '__all__'

@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'caja',
     'venta',
     'producto',
-    'cliente',
 ]
 
 MIDDLEWARE = [
