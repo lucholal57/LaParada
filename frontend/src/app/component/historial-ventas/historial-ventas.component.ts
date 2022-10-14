@@ -17,8 +17,13 @@ export class HistorialVentasComponent implements OnInit {
   //Pipe para la fecha
   pipe = new DatePipe('en-US');
   fecha:any;
+  //Variable para Switch mostrar tablas
+  switch = false;
   //Array de Ventas
   listadoVenta : Venta[]=[]
+  //Array Ventas efectivo
+  listadoVentaEfectivo: Venta[]=[];
+  listadoVentaCc: Venta[]=[];
 
   constructor(
     private servicioVenta: VentaService,
@@ -27,6 +32,7 @@ export class HistorialVentasComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerVentas();
+    this.switch=false;
 
   }
 
@@ -35,6 +41,15 @@ export class HistorialVentasComponent implements OnInit {
     this.servicioVenta.getVenta().subscribe(
       (res) => {
         this.listadoVenta = res;
+        this.listadoVenta.forEach(efectivo => {
+          if(efectivo.forma_pago == "efectivo"){
+            this.listadoVentaEfectivo.push(efectivo);
+          }
+          if(efectivo.forma_pago == "cuentaCorriente"){
+            this.listadoVentaCc.push(efectivo);
+          }
+
+        })
         this.listadoVenta.forEach(a =>{
           console.log(a.fecha.toLocaleDateString)
         })

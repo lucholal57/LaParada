@@ -3,7 +3,7 @@ from producto.models import Producto
 
 # Create your models here.
 class Venta(models.Model):
-    forma_pago = models.CharField(max_length=10)
+    forma_pago = models.CharField(max_length=20)
     fecha = models.DateTimeField()
     total = models.CharField(max_length=15)
     cliente_nombre = models.CharField(max_length=100,null=True)

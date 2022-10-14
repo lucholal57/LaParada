@@ -110,7 +110,7 @@
                                             <div class="container" *ngIf="cuentaCorriente">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <input type="text" class="form-control" placeholder="Nombre">
+                                                        <input type="text" class="form-control" placeholder="Nombre" formControlName="cliente_nombre">
                                                     </div>
                                                 </div>
 
@@ -119,8 +119,8 @@
 
                                                 <div class="row">
                                                     <div class="col">
-                                                        <input type="text" class="form-control"
-                                                            placeholder="Descripcion">
+                                                        <input type="text" class="form-control" placeholder="Descripcion"
+                                                        formControlName="cliente_descripcion">
                                                     </div>
                                                 </div>
 
@@ -129,7 +129,7 @@
 
                                                 <div class="row">
                                                     <div class="col">
-                                                        <input type="text" class="form-control" placeholder="Telefono">
+                                                        <input type="text" class="form-control" placeholder="Telefono" formControlName="cliente_telefono">
                                                     </div>
                                                 </div>
                                                 <hr>

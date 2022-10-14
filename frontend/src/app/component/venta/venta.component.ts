@@ -32,7 +32,7 @@ export class VentaComponent implements OnInit {
   cuentaCorriente = false;
   //Variable vuelto para poder mostrar el contenedor del mismo
   vuelto = false;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private servicioProducto: ProductoService,
@@ -56,6 +56,9 @@ export class VentaComponent implements OnInit {
     total: ['',[Validators.required]],
     producto: [{},[Validators.required]],
     recibo_efectivo: [0,[Validators.required]],
+    cliente_nombre: ['',[Validators.required]],
+    cliente_descripcion:['',[Validators.required]],
+    cliente_telefono: ['',[Validators.required]],
     })
     //Funcion para editar producto, recibimos por parametro el numero de serie a buscar
     obtenerProductoSerie(buscarSerie : number): void {
