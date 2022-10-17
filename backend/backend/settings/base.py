@@ -23,13 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-w9+z3m$g=q0eg9%m&atzc^+t-6*-cvy*w^c@hn=g2jl9a56vq5'
 
-CORS_ORIGIN_ALLOW_ALL = True
-
-CORS_ALLOWED_ORIGINS = [
-    "http://192.168.0.100",
-]
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,13 +39,14 @@ INSTALLED_APPS = [
     'venta',
     'producto',
     'cliente',
-    "corsheaders",
+    'corsheaders',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     #Agregamos el corsheaders
-    "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.common.CommonMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
