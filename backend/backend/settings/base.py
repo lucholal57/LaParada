@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'caja',
     'venta',
     'producto',
-    'cliente'
+    'cliente',
     "corsheaders",
 ]
 
