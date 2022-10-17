@@ -8,7 +8,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class LoginService {
   // Variable para la url
-  private url = 'http://127.0.0.1:8000/';
+  private url_dev = 'http://127.0.0.1:8000/';
+  private url_prod = 'http://192.168.0.100:8080/';
 
   constructor(
     private router: Router,
@@ -16,7 +17,7 @@ export class LoginService {
   ) { }
 
   login(user: any): Observable<any> {
-    return this.http.post(this.url + 'account/login/', user);
+    return this.http.post(this.url_prod + 'account/login/', user);
   }
 
 }
