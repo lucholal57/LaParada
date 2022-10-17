@@ -1,0 +1,22 @@
+body {
+  background-color: #a34483;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  /* atributo css para definir el minimo de largo de body*/
+  min-height: 100vh;
+}
+legend {
+  color: white;
+  text-align: center;
+}
+table tbody tr td {
+  text-align: center;
+}
+
+.modal .modal-content {
+  background-color: #292b2c;
+  color: white;
+}
+

@@ -7,14 +7,14 @@ from .base import *
 DEBUG = False
 
 #Aqui agregamos la ip del servidor y el dominio
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.100']
 
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'LaParada_db',
-        'USER' : 'postgres',
+        'NAME': 'LaParadaProd',
+        'USER' : 'laparadauser',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '5432'

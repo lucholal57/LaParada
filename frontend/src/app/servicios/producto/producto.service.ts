@@ -38,8 +38,8 @@ constructor( private http: HttpClient) { }
   deleteProducto(id:number):Observable<Producto[]> {
     return this.http.delete<Producto[]>(this.url_dev + 'producto/' + id)
   }
-   //get producto pasando Serie
-   getProductoSerie(buscarSerie: number):Observable<Producto[]> {
+  //get producto pasando Serie
+  getProductoSerie(buscarSerie: number):Observable<Producto[]> {
     return this.http.get<Producto[]>(this.url_dev + 'producto/serie/' + buscarSerie);
   }
 }

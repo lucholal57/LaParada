@@ -49,23 +49,30 @@
         </div>
     </div>
 
-    <div class="container-fluid" *ngIf="!switch">
+    <div class="container-fluid">
         <table class="table table-sm table-dark table-bordered table-striped table-responsive w-100 d-block d-md-table">
             <thead class="table-light">
                 <tr class="text-center">
                     <th scope="col">Productos</th>
                     <th scope="col">Forma Pago</th>
+                    <th scope="col">Cliente</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Total</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let venta of listadoVentaEfectivo  | filter: search |  paginate: { itemsPerPage: 10, currentPage: p, totalItems: listadoVenta.length }">
+                <tr *ngFor="let venta of listadoVenta  | filter: search |  paginate: { itemsPerPage: 8, currentPage: p, totalItems: listadoVenta.length }">
                     <td scope="col">
-                        <ul *ngFor="let producto of venta.producto">
-                            <li>{{producto.nombre}} {{producto.descripcion}}</li>
-                        </ul></td>
+                        <div *ngFor="let producto of venta.producto">
+                            <h4>{{producto.nombre}} {{producto.descripcion}}</h4>
+                        </div>
+                    </td>
                     <td scope="col">{{venta.forma_pago}}</td>
+                    <td scope="col">
+                      <div *ngFor="let cliente of venta.cliente"  >
+                          <h4 *ngIf="cliente.nombre!= null" > {{cliente.nombre}}</h4>
+                      </div>
+                  </td>
                     <td scope="col" >{{venta.fecha | date:'short'}}</td>
                     <td scope="col"><h1>$ {{venta.total}}</h1></td>
                 </tr>
@@ -73,38 +80,5 @@
         </table>
         <pagination-controls style="color:white;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
     </div>
-
-    <div class="container-fluid" *ngIf="switch">
-      <table class="table table-sm table-dark table-bordered table-striped table-responsive w-100 d-block d-md-table">
-          <thead class="table-light">
-              <tr class="text-center">
-                  <th scope="col">Productos</th>
-                  <th scope="col">Forma Pago</th>
-                  <th scope="col">Cliente</th>
-                  <th scope="col">Descripcion</th>
-                  <th scope="col">Telefono</th>
-                  <th scope="col">Fecha</th>
-                  <th scope="col">Total</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr  *ngFor="let venta of listadoVentaCc | filter: search |  paginate: { itemsPerPage: 10, currentPage: p, totalItems: listadoVenta.length }">
-                  <td scope="col">
-                      <ul *ngFor="let producto of venta.producto">
-                          <li>{{producto.nombre}} {{producto.descripcion}}</li>
-                      </ul></td>
-                  <td scope="col">{{venta.forma_pago}}</td>
-                  <td scope="col">{{venta.cliente_nombre}}</td>
-                  <td scope="col">{{venta.cliente_descripcion}}</td>
-                  <td scope="col">{{venta.cliente_telefono}}</td>
-                  <td scope="col" >{{venta.fecha | date:'short'}}</td>
-                  <td scope="col"><h1>$ {{venta.total}}</h1></td>
-              </tr>
-          </tbody>
-      </table>
-      <pagination-controls style="color:white;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
-  </div>
-
-
 </body>
 </html>

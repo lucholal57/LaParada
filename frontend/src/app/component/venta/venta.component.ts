@@ -7,6 +7,9 @@ import { DatePipe } from '@angular/common';
 import { Venta } from 'src/app/entidades/venta/venta';
 import { AlertasService } from 'src/app/servicios/alertas/alertas.service';
 import { VentaService } from 'src/app/servicios/venta/venta.service';
+import { Cliente } from 'src/app/entidades/cliente/cliente';
+import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-venta',
@@ -21,6 +24,8 @@ export class VentaComponent implements OnInit {
   listadoProductosVenta: Producto[]=[];
   //Array de ventas para registrar
   listadoVenta: Venta[]=[];
+  //Array para el listado de clientes para mostrar en el select
+  listadoClientes: Cliente[]=[];
   //Variable ngModel Productos para recibir el serie y si existe sumarlo al arrya de productosVentas
   producto:any;
   //Vriable para ir acumulando el precio
@@ -33,19 +38,30 @@ export class VentaComponent implements OnInit {
   //Variable vuelto para poder mostrar el contenedor del mismo
   vuelto = false;
 
+  dropdownSettings: IDropdownSettings = {};
+
   constructor(
     private formBuilder: FormBuilder,
     private servicioProducto: ProductoService,
     private alertas: AlertasService,
     private servicioVenta: VentaService,
+    private servicioCliente: ClienteService
   ) { }
 
   ngOnInit(): void {
+    this.obtenerCliente();
+    this.dropdownSettings = {
+      singleSelection: true,
+      idField: 'id',
+      textField: 'nombre',
+      itemsShowLimit: 5,
+      allowSearchFilter: true,
+      closeDropDownOnSelection: true
+    };
     this.sumatoria=0;
     this.resultado=0;
     this.mostrarHora();
     this.reset();
-
   }
 
   //FormularioVenta
@@ -56,10 +72,9 @@ export class VentaComponent implements OnInit {
     total: ['',[Validators.required]],
     producto: [{},[Validators.required]],
     recibo_efectivo: [0,[Validators.required]],
-    cliente_nombre: ['',[Validators.required]],
-    cliente_descripcion:['',[Validators.required]],
-    cliente_telefono: ['',[Validators.required]],
+    cliente:[{}]
     })
+
     //Funcion para editar producto, recibimos por parametro el numero de serie a buscar
     obtenerProductoSerie(buscarSerie : number): void {
       //Enviamos al servicio el numero de serie y si lo encuentra lo arrega a listadoProductoVenta
@@ -88,6 +103,19 @@ export class VentaComponent implements OnInit {
 
       )
     }
+    //Funcion para obtener los clientes
+    obtenerCliente(): void {
+      this.servicioCliente.getCliente().subscribe(
+        (res) => {
+          this.listadoClientes = res;
+          console.log(this.listadoClientes)
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+
+    }
     //Funcion para obtener el vuelto
     obtenerVuelto(): void {
       //Creamos la variable res la cual guardara el valor del compo en donde ingresa efectivo recibido para el vuelto
@@ -115,16 +143,19 @@ export class VentaComponent implements OnInit {
   formaDePago(): void {
     if(this.formularioVenta.value.forma_pago == "efectivo")
     {
+      this.formularioVenta.controls.cliente.reset();
       this.cuentaCorriente=false;
       this.vuelto=true;
     }
     if(this.formularioVenta.value.forma_pago == "tarjeta")
     {
+      this.formularioVenta.controls.cliente.reset();
       this.cuentaCorriente=false;
       this.vuelto=false;
     }
     if(this.formularioVenta.value.forma_pago == "cuentaCorriente")
     {
+
       this.cuentaCorriente=true;
       this.vuelto=false;
     }
@@ -143,12 +174,14 @@ export class VentaComponent implements OnInit {
 
   //Funcion para registrar venta
   registrarVenta(): void {
+    console.log(this.formularioVenta.value)
     var idsProductos = new Array();
     this.formularioVenta.controls['fecha'].setValue(this.fechaActual)
     this.formularioVenta.controls['total'].setValue(this.sumatoria)
     this.listadoProductosVenta.forEach( a => {
       idsProductos.push(a.id)
     })
+
     this.formularioVenta.controls['producto'].setValue(idsProductos)
     this.servicioVenta.postVenta(this.formularioVenta.value).subscribe(
       (res) => {
@@ -160,9 +193,6 @@ export class VentaComponent implements OnInit {
         console.log(error)
       }
     )
-
-
-    console.log(this.formularioVenta.value)
   }
 
   //Funcion Reset papra limpiar el formulario
@@ -171,6 +201,7 @@ export class VentaComponent implements OnInit {
     this.vuelto=false;
     this.cuentaCorriente=false;
     this.resultado=0;
+    this.sumatoria=0;
   }
 
 

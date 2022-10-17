@@ -1,3 +1,4 @@
+import { Cliente } from "../cliente/cliente";
 import { Producto } from "../producto/producto";
 
 export class Venta {
@@ -5,8 +6,6 @@ export class Venta {
     forma_pago="";
     fecha=new Date();
     total=0;
-    cliente_nombre="";
-    cliente_decripcion="";
-    cliente_telefono="";
     producto: Producto[]=[];
+    cliente: Cliente[]=[];
 }

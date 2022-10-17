@@ -8,6 +8,7 @@ urlpatterns = [
     # path('',include('caja.urls')),
     path('', include('venta.urls')),
     path('', include('producto.urls')),
+    path('',include('cliente.urls')),
 
     #Rutas para api de user_app
     path('account/', include('user_app.api.urls')),

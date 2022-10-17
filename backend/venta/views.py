@@ -1,4 +1,5 @@
 
+from contextlib import nullcontext
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
@@ -22,6 +23,10 @@ def VentaListado(request,*args, **kwargs):
         if serializer.is_valid():
             venta_productos = Venta.objects.create(**serializer.validated_data)
             venta_productos.producto.set(request.data.get('producto'))
+            #Lo que validamos aqui es que si el request es distinto de None lo setee, y en el caso de ser None directamente no setea nada
+            if (request.data.get('cliente') != None):{
+                venta_productos.cliente.add(request.data.get('cliente'))
+            }
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)

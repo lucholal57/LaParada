@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <app-inicio></app-inicio>
+  <div class="container-fluid">
+    <legend>CLIENTES</legend>
+    <!--Contenedor Busqueda -->
+    <div class="row justify-content-center">
+
+      <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
+          <div class="card-header" align="center">Clientes</div>
+          <div class="card-body" align="center">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            style="margin-left: -2%;" (click)="openModal()">
+            Registrar
+        </button>
+          </div>
+      </div>
+
+      <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
+        <div class="card-header" align="center">Buscar Cliente</div>
+        <div class="card-body">
+            <input class="form-control" type="text" [(ngModel)]="search" placeholder="Search... ">
+        </div>
+    </div>
+
+      <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
+          <div class="card-header" align="center">{{fechaActual | date:'short'}} </div>
+          <div class="card-body" align="center">
+              <img src="../../../assets/jpg/Laparada.png" width="30%"
+                  style="margin-right:  0px; margin-top: -20px;" alt="">
+          </div>
+      </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="container-fluid">
+    <form [formGroup]="formularioCliente">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="exampleModalLabel">Productos</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="">Nombre</label>
+                                    <input type="text" class="form-control" placeholder="Ingrese Nombre"
+                                        formControlName="nombre" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="">Descripcion</label>
+                                    <input type="text" class="form-control" placeholder="Ingrese Descripcion"
+                                        formControlName="descripcion" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="">Telefono</label>
+                                    <input type="number" class="form-control" placeholder="Ingrese Telefono"
+                                        formControlName="telefono" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" (click)="registrarCliente()" *ngIf="btnRegister"
+                        data-bs-dismiss="modal">Registrar</button>
+                        <button type="submit" class="btn btn-warning"
+                        data-bs-dismiss="modal" (click)="editarCliente()"  *ngIf="btnUpdate">Actualizar</button>
+                        <button type="button" (click)="limpiarFormulario()" class="btn btn-warning" >Limpiar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiarFormulario()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container-fluid">
+  <table class="table table-sm table-dark table-bordered table-striped table-responsive w-100 d-block d-md-table">
+      <thead class="table-light">
+          <tr class="text-center">
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Telefono</th>
+              <th scope="col">Acciones</th>
+          </tr>
+      </thead>
+      <tbody>
+          <!-- Usamos el filter Pipe primero despues de recorrer el array, y como ultima opcion la pagiancion con el atributo totalItems pasandole el length del array asi la busqueda funciona en las paginaciones, obteniendo toda la longitud del array-->
+          <tr
+              *ngFor="let cliente of listadoClientes | filter: search |  paginate: { itemsPerPage: 20, currentPage: p, totalItems: listadoClientes.length }">
+              <td scope="row">{{cliente.nombre}}</td>
+              <td scope="row">{{cliente.descripcion}}</td>
+              <td scope="row">{{cliente.telefono}}</td>
+              <td scope="row">
+                  <a type="button"  data-bs-toggle="modal" (click)="obtenerCliente(cliente.id)" data-bs-target="#exampleModal"><mat-icon style="color:skyblue ; margin-right:15px;"> edit </mat-icon></a>
+                  <a type="button" (click)="eliminarCliente(cliente.id)" ><mat-icon style="color:red ; "> delete </mat-icon></a>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  <pagination-controls style="color:white;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
+</div>
+
+
+</body>
+</html>

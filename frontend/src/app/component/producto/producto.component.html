@@ -79,17 +79,17 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                  <div class="col-sm-12">
+                                      <label for="">Precio</label>
+                                      <input type="number" class="form-control" placeholder="Ingrese Precio"
+                                          formControlName="precio" required>
+                                  </div>
+                              </div>
+                                <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Serie</label>
                                         <input type="text" class="form-control" placeholder="Ingrese Serie"
                                             formControlName="serie" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <label for="">Precio</label>
-                                        <input type="number" class="form-control" placeholder="Ingrese Precio"
-                                            formControlName="precio" required>
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                             <button type="submit" class="btn btn-warning"
                             data-bs-dismiss="modal" (click)="editarProducto()" *ngIf="btnUpdate">Actualizar</button>
                             <button type="button" class="btn btn-warning" (click)="limpiarFormulario()">Limpiar</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiarFormulario()">Close</button>
                         </div>
                     </div>
                 </div>

@@ -19,6 +19,8 @@ import { VentaComponent } from './component/venta/venta.component';
 import { LoginComponent } from './component/login/login.component';
 import { CajaComponent } from './component/caja/caja.component';
 import { HistorialVentasComponent } from './component/historial-ventas/historial-ventas.component';
+import { ClienteComponent } from './component/cliente/cliente.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -28,8 +30,9 @@ import { HistorialVentasComponent } from './component/historial-ventas/historial
     VentaComponent,
     HistorialVentasComponent,
     CajaComponent,
+    ClienteComponent,
     LoginComponent
-    
+
   ],
   imports: [
     BrowserModule,
@@ -41,8 +44,9 @@ import { HistorialVentasComponent } from './component/historial-ventas/historial
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    HttpClientModule
-  
+    HttpClientModule,
+    NgMultiSelectDropDownModule.forRoot(),
+
 ],
   providers: [],
   bootstrap: [AppComponent]

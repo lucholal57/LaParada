@@ -97,7 +97,7 @@ export class ProductoComponent implements OnInit {
       this.alertas.error();
     }
   }
-  //Funcion para editar producto
+  //Funcion para obtener producto
   obtenerProducto(productoId: number): void {
     this.btnUpdate=true;
     this.btnRegister=false;
