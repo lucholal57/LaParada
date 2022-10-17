@@ -38,17 +38,17 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'user_app',
-    "corsheaders",
     'caja',
     'venta',
     'producto',
     'cliente'
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     #Agregamos el corsheaders
     "corsheaders.middleware.CorsMiddleware",
-
+    "django.middleware.common.CommonMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
