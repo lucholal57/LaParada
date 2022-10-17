@@ -4,7 +4,7 @@ from .base import *
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DEBUG = False
+DEBUG = True
 
 #Aqui agregamos la ip del servidor y el dominio
 ALLOWED_HOSTS = ['192.168.0.100','*']
