@@ -13,8 +13,8 @@ ALLOWED_HOSTS = ['192.168.0.100']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'LaParadaProd',
-        'USER' : 'laparadauser',
+        'NAME': 'laparadaprod',
+        'USER' : 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '5432'
