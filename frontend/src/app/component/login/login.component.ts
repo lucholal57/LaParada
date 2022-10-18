@@ -44,7 +44,9 @@ export class LoginComponent implements OnInit {
       (res) => {
         localStorage.setItem("token", res.token)
         //Despues de setear y almacenar el token a localstorage, con router nos redirigimos a la pagina dhasboard y recargamos una ves dentro por que si no recargamos no detecta el TOKEN.
-        this.router.navigateByUrl('/venta')
+        this.router.navigateByUrl('/venta').then(() =>{
+          window.location.reload();
+        })
 
       },
       (error) => {
