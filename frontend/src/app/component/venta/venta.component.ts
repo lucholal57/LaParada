@@ -182,18 +182,19 @@ export class VentaComponent implements OnInit {
 
   //Funcion para registrar venta
   registrarVenta(): void {
-    console.log(this.formularioVenta.value)
+    if(this.formularioVenta.value.producto == null){
+      alert("No registro productos para la venta")
+    }else{
     var idsProductos = new Array();
     this.formularioVenta.controls['fecha'].setValue(this.fechaActual)
     this.formularioVenta.controls['total'].setValue(this.sumatoria)
     this.listadoProductosVenta.forEach( a => {
       idsProductos.push(a.id)
     })
-
     this.formularioVenta.controls['producto'].setValue(idsProductos)
     this.servicioVenta.postVenta(this.formularioVenta.value).subscribe(
       (res) => {
-        alert("registro exitoso")
+        this.alertas.ventaOk();
         this.reset();
         this.listadoProductosVenta=new Array();
       },
@@ -201,6 +202,7 @@ export class VentaComponent implements OnInit {
         console.log(error)
       }
     )
+    }
   }
 
   //Funcion Reset papra limpiar el formulario

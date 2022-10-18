@@ -48,6 +48,16 @@ updateOk(){
     timer: 1200
   })
 }
+//alerta venta ok
+ventaOk(){
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Venta Exitosa!',
+    showConfirmButton: false,
+    timer: 1200
+  })
+}
 //alerta error
 error(){
   Swal.fire({
