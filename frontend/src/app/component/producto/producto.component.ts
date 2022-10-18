@@ -36,7 +36,6 @@ export class ProductoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    alert(localStorage.length)
     if(localStorage.length!=0){
       this.btnRegister=true;
       this.getProducto();
