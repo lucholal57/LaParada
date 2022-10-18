@@ -7,7 +7,7 @@ from .base import *
 DEBUG = True
 
 #Aqui agregamos la ip del servidor y el dominio
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.100']
 
 
 DATABASES = {
