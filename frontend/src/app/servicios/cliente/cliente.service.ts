@@ -15,7 +15,7 @@ const httpOption = {
 export class ClienteService {
   //Variables para las rudas dev y prod
 private url_dev = 'http://127.0.0.1:8000/';
-private url_prod = 'http://192.168.0.100:8080/';
+private url_prod = 'http://192.168.17.201:8080/';
 
   constructor( private http: HttpClient) { }
 
