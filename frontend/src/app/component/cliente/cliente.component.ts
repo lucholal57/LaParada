@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Cliente } from 'src/app/entidades/cliente/cliente';
 import { AlertasService } from 'src/app/servicios/alertas/alertas.service';
 import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
@@ -29,13 +30,20 @@ export class ClienteComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private alertas: AlertasService,
-    private servicioCliente : ClienteService
+    private servicioCliente : ClienteService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.getCliente();
-    this.btnRegister=true;
-    this.mostrarHora();
+    if(localStorage.length!=0){
+      this.getCliente();
+      this.btnRegister=true;
+      this.mostrarHora();
+    }else{
+      this.alertas.alertToken();
+      setTimeout(() => {this.router.navigate(['']);},2000)
+    }
+
   }
 
   //Funcion para cuando abra el programa el boton upgrade pase a falso y no lo muestro

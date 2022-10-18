@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import * as $ from 'jquery';
 import { LoginService } from 'src/app/servicios/login/login.service';
 import { LoginComponent } from '../login/login.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -14,6 +15,7 @@ export class InicioComponent implements OnInit {
 
   constructor(
     public servicioLogin: LoginService,
+    private router : Router,
   ) { }
 
 
@@ -48,6 +50,11 @@ export class InicioComponent implements OnInit {
       });
     });
 
+  }
+
+  logout(): void {
+    localStorage.removeItem("token")
+    this.router.navigateByUrl('')
   }
 
 

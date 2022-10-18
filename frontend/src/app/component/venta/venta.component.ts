@@ -10,6 +10,7 @@ import { VentaService } from 'src/app/servicios/venta/venta.service';
 import { Cliente } from 'src/app/entidades/cliente/cliente';
 import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-venta',
@@ -45,23 +46,30 @@ export class VentaComponent implements OnInit {
     private servicioProducto: ProductoService,
     private alertas: AlertasService,
     private servicioVenta: VentaService,
-    private servicioCliente: ClienteService
+    private servicioCliente: ClienteService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.obtenerCliente();
-    this.dropdownSettings = {
-      singleSelection: true,
-      idField: 'id',
-      textField: 'nombre',
-      itemsShowLimit: 5,
-      allowSearchFilter: true,
-      closeDropDownOnSelection: true
-    };
-    this.sumatoria=0;
-    this.resultado=0;
-    this.mostrarHora();
-    this.reset();
+    if(localStorage.length!=0){
+      this.obtenerCliente();
+      this.dropdownSettings = {
+        singleSelection: true,
+        idField: 'id',
+        textField: 'nombre',
+        itemsShowLimit: 5,
+        allowSearchFilter: true,
+        closeDropDownOnSelection: true
+      };
+      this.sumatoria=0;
+      this.resultado=0;
+      this.mostrarHora();
+      this.reset();
+    }else{
+      this.alertas.alertToken();
+      setTimeout(() => {this.router.navigate(['']);},2000)
+    }
+
   }
 
   //FormularioVenta

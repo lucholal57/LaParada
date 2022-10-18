@@ -8,7 +8,7 @@ from producto.serializer import ProductoSerializer
 
 # Create your views here.
 @api_view(['GET', 'POST'])
-#@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,))
 def ProductoListado(request):
     # Listado
     if request.method == 'GET':
@@ -27,7 +27,7 @@ def ProductoListado(request):
 
 # Funcion para edicion y eliminacion pasando id
 @api_view(['GET', 'PUT', 'DELETE'])
-#@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,))
 def ProductoBuscarPorId(request,pk=None):
     #Consulta para obtener el listado sin First
     producto = Producto.objects.filter(id=pk)
@@ -56,7 +56,7 @@ def ProductoBuscarPorId(request,pk=None):
 
 #Obtener producto por serie
 @api_view(['GET'])
-#@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,))
 def getProductoSerie(request,buscarSerie):
     producto = Producto.objects.filter(serie=buscarSerie)
     serializer = ProductoSerializer(producto, many=True)

@@ -15,25 +15,25 @@ const httpOption = {
 export class ClienteService {
   //Variables para las rudas dev y prod
 private url_dev = 'http://127.0.0.1:8000/';
-private url_prod = 'http://192.168.17.201:8080/';
+private url_prod = 'http://192.168.0.100:8080/';
 
   constructor( private http: HttpClient) { }
 
   //get Cliente
   getCliente():Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(this.url_prod + 'cliente')
+    return this.http.get<Cliente[]>(this.url_prod + 'cliente',httpOption)
   }
   //get cliente pasando ID
   getClienteId(clienteId:number):Observable<Cliente[]>{
-    return this.http.get<Cliente[]>(this.url_prod + 'cliente/'+ clienteId)
+    return this.http.get<Cliente[]>(this.url_prod + 'cliente/'+ clienteId,httpOption)
   }
   //post Cliente
   postCliente(formularioCliente:any):Observable<Cliente[]> {
-    return this.http.post<Cliente[]>(this.url_prod + 'cliente', formularioCliente)
+    return this.http.post<Cliente[]>(this.url_prod + 'cliente', formularioCliente,httpOption)
   }
   //update Cliente
   putCliente(formularioCliente:any,id:any):Observable<Cliente[]> {
-    return this.http.put<Cliente[]>(this.url_prod + 'cliente/' + id, formularioCliente)
+    return this.http.put<Cliente[]>(this.url_prod + 'cliente/' + id, formularioCliente,httpOption)
   }
   //delete Cliente
   deleteCliente(id:any):Observable<Cliente[]>{

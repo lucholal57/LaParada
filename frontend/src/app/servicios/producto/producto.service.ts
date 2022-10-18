@@ -21,26 +21,26 @@ constructor( private http: HttpClient) { }
 
   //get Producto
   getProducto():Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.url_prod+ 'producto');
+    return this.http.get<Producto[]>(this.url_prod + 'producto',httpOption);
   }
   //post producto
   postProducto(formularioRegistro:any):Observable<Producto[]> {
-    return this.http.post<Producto[]>(this.url_prod+ 'producto', formularioRegistro);
+    return this.http.post<Producto[]>(this.url_prod+ 'producto', formularioRegistro,httpOption);
   }
   //get producto pasando ID
   getProductoId(productoId: number):Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.url_prod+ 'producto/' + productoId);
+    return this.http.get<Producto[]>(this.url_prod+ 'producto/' + productoId,httpOption);
   }
   //update producto
   putProducto(formularioRegistro:any, id:any): Observable<Producto[]> {
-    return this.http.put<Producto[]>(this.url_prod+ 'producto/' + id, formularioRegistro)
+    return this.http.put<Producto[]>(this.url_prod+ 'producto/' + id, formularioRegistro,httpOption)
   }
   //delete producto
   deleteProducto(id:number):Observable<Producto[]> {
-    return this.http.delete<Producto[]>(this.url_prod+ 'producto/' + id)
+    return this.http.delete<Producto[]>(this.url_prod+ 'producto/' + id,httpOption)
   }
   //get producto pasando Serie
   getProductoSerie(buscarSerie: number):Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.url_prod+ 'producto/serie/' + buscarSerie);
+    return this.http.get<Producto[]>(this.url_prod+ 'producto/serie/' + buscarSerie,httpOption);
   }
 }

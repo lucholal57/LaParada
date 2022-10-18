@@ -8,7 +8,7 @@ from cliente.serializer import ClienteSerializer
 
 # Create your views here.
 @api_view(['GET','POST'])
-#@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,))
 def ClienteListado(request):
     #Listado
     if request.method == 'GET':
@@ -27,7 +27,7 @@ def ClienteListado(request):
 
 #Funcion para edicion y eliminacion pasando id
 @api_view(['GET', 'PUT', 'DELETE'])
-#@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,))
 def ClienteBuscarPorId(request,pk=None):
     #Consulta para obtener el listado sin First
     cliente = Cliente.objects.filter(id=pk)

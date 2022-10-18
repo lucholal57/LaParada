@@ -18,7 +18,9 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "sweetalert2"
+              "sweetalert2",
+              "rxjs-compat",
+              "jquery"
             ],
             "outputPath": "dist/frontend",
             "index": "src/index.html",

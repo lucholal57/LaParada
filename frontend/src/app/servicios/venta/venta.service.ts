@@ -21,22 +21,22 @@ private url_prod = 'http://192.168.0.100:8080/';
 
   //get venta
   getVenta():Observable<Venta[]> {
-    return this.http.get<Venta[]>(this.url_prod + 'venta');
+    return this.http.get<Venta[]>(this.url_prod + 'venta',httpOption);
   }
   //post venta
   postVenta(formularioVenta:any):Observable<Venta[]> {
-    return this.http.post<Venta[]>(this.url_prod + 'venta', formularioVenta);
+    return this.http.post<Venta[]>(this.url_prod + 'venta', formularioVenta,httpOption);
   }
   //get venta pasando ID
   getVentaId(VentaId: number):Observable<Venta[]> {
-    return this.http.get<Venta[]>(this.url_prod + 'venta/' + VentaId);
+    return this.http.get<Venta[]>(this.url_prod + 'venta/' + VentaId,httpOption);
   }
   //update venta
   putVenta(formularioVenta:any, id:any): Observable<Venta[]> {
-    return this.http.put<Venta[]>(this.url_prod + 'venta/' + id, formularioVenta)
+    return this.http.put<Venta[]>(this.url_prod + 'venta/' + id, formularioVenta,httpOption)
   }
   //delete venta
   deleteVenta(id:number):Observable<Venta[]> {
-    return this.http.delete<Venta[]>(this.url_prod + 'venta/' + id)
+    return this.http.delete<Venta[]>(this.url_prod + 'venta/' + id,httpOption)
   }
 }

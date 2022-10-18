@@ -28,6 +28,16 @@ deleteOk(){
     timer: 1200
   })
 }
+//Alerta sin token
+alertToken(){
+  Swal.fire({
+    position: 'center',
+    icon: 'warning',
+    title: 'No inicio Sesion, Redirigiendo',
+    showConfirmButton: false,
+    timer: 2000
+  })
+}
 //alerta actualizacion ok
 updateOk(){
   Swal.fire({
