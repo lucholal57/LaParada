@@ -69,7 +69,7 @@ export class ProductoComponent implements OnInit {
     id: [0],
     nombre: ['', [Validators.required]],
     descripcion: ['', [Validators.required]],
-    cantidad: ['', [Validators.required]],
+    cantidad: [0, [Validators.required]],
     serie: ['', [Validators.required]],
     precio: ['', [Validators.required]]
   })
@@ -89,15 +89,26 @@ export class ProductoComponent implements OnInit {
 
   //Funcion para registrar Productos
   registrarProducto(): void {
+    var serie=this.formularioRegistro.value.serie;
     if (this.formularioRegistro.valid) {
-      this.servicioProducto.postProducto(this.formularioRegistro.value).subscribe(
+      //Con el signo ! de negacion le decimos a Typescripts que serie nunva va a ser null
+      this.servicioProducto.getProductoSerie(this.formularioRegistro.value.serie!).subscribe(
         (res) => {
-          this.alertas.registerOk();
-          this.getProducto();
-          this.limpiarFormulario();
-        },
-        (error) => {
-          console.log(error);
+          if(res.length==0)
+          {
+            this.servicioProducto.postProducto(this.formularioRegistro.value).subscribe(
+              (res) => {
+                this.alertas.registerOk();
+                this.getProducto();
+                this.limpiarFormulario();
+              },
+              (error) => {
+                console.log(error);
+              }
+            )
+          }else{
+            this.alertas.productoExist();
+          }
         }
       )
     }

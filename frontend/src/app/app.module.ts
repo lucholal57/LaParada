@@ -21,6 +21,7 @@ import { CajaComponent } from './component/caja/caja.component';
 import { HistorialVentasComponent } from './component/historial-ventas/historial-ventas.component';
 import { ClienteComponent } from './component/cliente/cliente.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { AutoFocusDirective } from './directiva/AutoFocus.directive';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     HistorialVentasComponent,
     CajaComponent,
     ClienteComponent,
-    LoginComponent
+    LoginComponent,
+    AutoFocusDirective
 
   ],
   imports: [

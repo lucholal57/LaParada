@@ -21,11 +21,11 @@ constructor( private http: HttpClient) { }
 
   //get Producto
   getProducto():Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.url_prod + 'producto',httpOption);
+    return this.http.get<Producto[]>(this.url_dev + 'producto',httpOption);
   }
   //post producto
   postProducto(formularioRegistro:any):Observable<Producto[]> {
-    return this.http.post<Producto[]>(this.url_prod+ 'producto', formularioRegistro,httpOption);
+    return this.http.post<Producto[]>(this.url_dev + 'producto', formularioRegistro,httpOption);
   }
   //get producto pasando ID
   getProductoId(productoId: number):Observable<Producto[]> {
@@ -40,7 +40,7 @@ constructor( private http: HttpClient) { }
     return this.http.delete<Producto[]>(this.url_prod+ 'producto/' + id,httpOption)
   }
   //get producto pasando Serie
-  getProductoSerie(buscarSerie: number):Observable<Producto[]> {
-    return this.http.get<Producto[]>(this.url_prod+ 'producto/serie/' + buscarSerie,httpOption);
+  getProductoSerie(buscarSerie: String):Observable<Producto[]> {
+    return this.http.get<Producto[]>(this.url_dev + 'producto/serie/' + buscarSerie,httpOption);
   }
 }

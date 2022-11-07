@@ -1,188 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ventas</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ventas</title>
-</head>
+  <body>
+    <app-inicio></app-inicio>
+    <legend>VENTAS</legend>
+    <!--Contenedor ingreso producto,sumatoria,forma_pago,fecha-->
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div
+          class="card text-white bg-dark mb-3"
+          style="max-width: 20rem; max-height: 8rem"
+        >
+          <div class="card-header" align="center">Producto</div>
+          <div class="card-body">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Ingrese Codigo de Producto"
+              ngDefaultControl
+              [(ngModel)]="producto"
+              (change)="obtenerProductoSerie(producto)"
+              appAutoFocus
+            />
+          </div>
+        </div>
 
-<body>
-  <app-inicio></app-inicio>
+        <div
+          class="card text-white bg-dark mb-3"
+          style="max-width: 15rem; max-height: 8rem"
+        >
+          <div class="card-header" align="center">Sumatoria</div>
+          <div class="card-body" align="center">
+            <h1 class="display-1" ngDefaultControl [(ngModel)]="sumatoria">
+              $ {{ sumatoria }}
+            </h1>
+          </div>
+        </div>
 
-  <legend>VENTAS</legend>
-  <!--Contenedor ingreso producto,sumatoria,forma_pago,fecha-->
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
-        <div class="card-header" align="center">Producto</div>
-        <div class="card-body">
-          <input class="form-control" type="text" placeholder="Ingrese Codigo de Producto" ngDefaultControl
-            [(ngModel)]="producto" (change)="obtenerProductoSerie(producto)">
+        <div
+          class="card text-white bg-dark mb-3"
+          style="max-width: 15rem; max-height: 8rem"
+        >
+          <div class="card-header" align="center">Accion</div>
+          <div class="card-body" align="center">
+            <!-- Button trigger modal -->
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              style="margin-left: -2%"
+            >
+              Forma de Pago
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="card text-white bg-dark mb-3"
+          style="max-width: 20rem; max-height: 8rem"
+        >
+          <div class="card-header" align="center">
+            {{ fechaActual | date: "short" }}
+          </div>
+          <div class="card-body" align="center">
+            <img
+              src="../../../assets/jpg/Laparada.png"
+              width="30%"
+              style="margin-right: 0px; margin-top: -20px"
+              alt=""
+            />
+          </div>
         </div>
       </div>
 
-      <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
-        <div class="card-header" align="center">Sumatoria</div>
-        <div class="card-body" align="center">
-          <h1 class="display-1" ngDefaultControl [(ngModel)]="sumatoria">$ {{sumatoria}}</h1>
-        </div>
-      </div>
-
-      <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
-        <div class="card-header" align="center">Accion</div>
-        <div class="card-body" align="center">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            style="margin-left: -2%;">
-            Forma de Pago
-          </button>
-        </div>
-      </div>
-
-      <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
-        <div class="card-header" align="center"> {{fechaActual | date:'short'}}</div>
-        <div class="card-body" align="center">
-          <img src="../../../assets/jpg/Laparada.png" width="30%" style="margin-right:  0px; margin-top: -20px;" alt="">
-        </div>
-      </div>
-    </div>
-
-
-    <form [formGroup]="formularioVenta">
-      <div class="container-fluid">
-        <div class="row justify-content-center">
-
-          <!--Espacio de codigo para el modal que va a contener la forma de pago y de ser fectivo el ingreso de pagoy vuelto-->
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-md">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h2 class="modal-title" id="exampleModalLabel">Formas de Pago</h2>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <!--CheckBox Forma de pago e Inputs para el ingreso de vuelto-->
-                  <div class="form-group">
-                    <div class="container-fluid">
-                      <div class="row ">
-                        <div class="col-sm-4">
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="forma_pago" id="inlineRadio1"
-                              value="efectivo" formControlName="forma_pago" (change)="formaDePago()">
-                            <label class="form-check-label" for="inlineRadio1">EFECTIVO</label>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-4">
-
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="forma_pago" id="inlineRadio2"
-                              value="tarjeta" formControlName="forma_pago" (change)="formaDePago()">
-                            <label class="form-check-label" for="inlineRadio2">TARJETA</label>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-4">
-
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="forma_pago" id="inlineRadio3"
-                              value="cuentaCorriente" formControlName="forma_pago" (change)="formaDePago()">
-                            <label class="form-check-label" for="inlineRadio2">CTA.CORRIENTE</label>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-12" *ngIf="cuentaCorriente">
-                          <hr>
-                          <select  id="" class="form-control" formControlName="cliente">
-                            <option value="" hidden selected>Seleccione Cliente</option>
-                            <option [ngValue]="cliente.id" *ngFor="let cliente of listadoClientes"> {{cliente.nombre}}</option>
-                          </select>
-                        </div>
-
-                      </div>
-                      <hr>
-                      <h1 class="display-1" align="center">Total: $ {{sumatoria}} </h1>
-
-                      <hr>
-                      <!-- Contenedor Cuenta Corriente -->
-                      <div class="container" *ngIf="cuentaCorriente">
-                        <div class="row">
-                          <!-- Aqui va el select de los clientes a la hora de hacer un compra en cuenta corriente-->
-                        </div>
-                      </div>
-
-                      <div class="container" id="contedorVuelto" *ngIf="vuelto">
-                        <div class="row">
-                          <div class="col">
-                            <input type="number" class="form-control" placeholder="Ingrese Monto para Vuelto"
-                              formControlName="recibo_efectivo" (change)="obtenerVuelto()">
-                          </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                          <div class="col">
-                            <h1 class="display-1" align="center"> Vuelto: $ {{resultado}}
-                            </h1>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-
+      <form [formGroup]="formularioVenta">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <!--Espacio de codigo para el modal que va a contener la forma de pago y de ser fectivo el ingreso de pagoy vuelto-->
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="exampleModal"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">
+                      Formas de Pago
+                    </h2>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
                   </div>
+                  <div class="modal-body">
+                    <!--CheckBox Forma de pago e Inputs para el ingreso de vuelto-->
+                    <div class="form-group">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="forma_pago"
+                                value="efectivo"
+                                formControlName="forma_pago"
+                                checked
+                                (change)="formaDePago()"
+                              />
+                              <label class="form-check-label" for="inlineRadio1"
+                                >EFECTIVO</label
+                              >
+                            </div>
+                          </div>
 
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                    (click)="registrarVenta()">TERMINAR VENTA</button>
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                    (click)="reset()">Close</button>
+                          <div class="col-sm-4">
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="forma_pago"
+                                value="tarjeta"
+                                formControlName="forma_pago"
+                                (change)="formaDePago()"
+                              />
+                              <label class="form-check-label" for="inlineRadio2"
+                                >TARJETA</label
+                              >
+                            </div>
+                          </div>
+
+                          <div class="col-sm-4">
+                            <div class="form-check form-check-inline">
+                              <input
+                                class="form-check-input"
+                                type="radio"
+                                name="forma_pago"
+                                value="cuentaCorriente"
+                                formControlName="forma_pago"
+                                (change)="formaDePago()"
+                              />
+                              <label class="form-check-label" for="inlineRadio3"
+                                >CTA.CORRIENTE</label
+                              >
+                            </div>
+                          </div>
+
+                          <div class="col-sm-12" *ngIf="cuentaCorriente">
+                            <hr />
+                            <select
+                              class="form-control"
+                              formControlName="cliente"
+                            >
+                              <option value="" hidden selected>
+                                Seleccione Cliente
+                              </option>
+                              <option
+                                [ngValue]="cliente.id"
+                                *ngFor="let cliente of listadoClientes"
+                              >
+                                {{ cliente.nombre }}
+                              </option>
+                            </select>
+                          </div>
+
+                          <div class="container-fluid" *ngIf="tarjeta">
+                            <hr />
+                            <div class="col-sm-5 offset-sm-4" >
+                          <input class="form-control" type="number" Placeholder="Ingrese Porcentaje %..." formControlName="interes" (change)="obtenerInteres()" appAutoFocus>
+                            </div>
+                          </div>
+                        </div>
+                        <hr />
+
+                        <h1 class="display-1" align="center">
+                          Total: $ {{ sumatoria }}
+                        </h1>
+
+                        <hr />
+
+                        <div
+                          class="container"
+                          id="contedorVuelto"
+                          *ngIf="vuelto"
+                        >
+                          <div class="row">
+                            <div class="col">
+                              <input
+                                type="number"
+                                class="form-control"
+                                placeholder="Ingrese Monto para Vuelto"
+                                formControlName="recibo_efectivo"
+                                (change)="obtenerVuelto()"
+                                appAutoFocus
+                              />
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="row">
+                            <div class="col">
+                              <h1 class="display-1" align="center">
+                                Vuelto: $ {{ resultado }}
+                              </h1>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-bs-dismiss="modal"
+                      (click)="registrarVenta()"
+
+                    >
+                      TERMINAR VENTA
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                      (click)="reset()"
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
-      </div>
-    </form>
-  </div>
+      </form>
+    </div>
 
-  <hr>
+    <hr />
 
-  <div class="container-fluid table-responsive">
-    <table class="table table-xl table-dark table-striped table-bordered ">
-      <thead class="table-light">
-        <tr class="text-center">
-          <th scope="col">Serie</th>
-          <th scope="col">Producto</th>
-          <th scope="col">Descripcion</th>
-          <th scope="col">Cantidad</th>
-          <th scope="col">Precio</th>
-          <th scope="col">Fecha</th>
-          <th scope="col">Quitar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let producto of listadoProductosVenta ">
-          <td scope="col">{{producto.serie}}</td>
-          <td scope="col">{{producto.nombre}} </td>
-          <td scope="col">{{producto.descripcion}}</td>
-          <td scope="col">1 ud.</td>
-          <td scope="col">${{producto.precio}}</td>
-          <td scope="col">{{fechaActual | date:'short'}}</td>
-          <td scope="col">
-            <a type="button" (click)="quitar(producto)">
-              <mat-icon style="color:red ; "> delete </mat-icon>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</body>
-
+    <div class="container-fluid table-responsive">
+      <table class="table table-xl table-dark table-striped table-bordered">
+        <thead class="table-light">
+          <tr class="text-center">
+            <th scope="col">Serie</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Quitar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of listadoProductosVenta">
+            <td scope="col">{{ producto.serie }}</td>
+            <td scope="col">{{ producto.nombre }}</td>
+            <td scope="col">{{ producto.descripcion }}</td>
+            <td scope="col">1 ud.</td>
+            <td scope="col">${{ producto.precio }}</td>
+            <td scope="col">{{ fechaActual | date: "short" }}</td>
+            <td scope="col">
+              <a type="button" (click)="quitar(producto)">
+                <mat-icon style="color: red"> delete </mat-icon>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
 </html>

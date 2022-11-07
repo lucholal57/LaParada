@@ -2,7 +2,7 @@ export class Producto {
     id=0;
     nombre="";
     descripcion="";
-    cantidad="";
+    cantidad=0;
     serie="";
     precio="";
 }

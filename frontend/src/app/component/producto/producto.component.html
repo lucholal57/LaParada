@@ -28,7 +28,7 @@
           <div class="card text-white bg-dark mb-3" style="max-width: 20rem; max-height:8rem">
             <div class="card-header" align="center">Buscar Producto</div>
             <div class="card-body">
-                <input class="form-control" type="text" [(ngModel)]="search" placeholder="Search... ">
+                <input class="form-control" type="text" [(ngModel)]="search" placeholder="Search... " >
             </div>
         </div>
 
@@ -60,8 +60,10 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Nombre</label>
-                                        <input type="text" class="form-control" placeholder="Ingrese Nombre"
-                                            formControlName="nombre" required>
+                                        <input type="text" class="form-control"
+                                        id="nombre"
+                                        placeholder="Ingrese Nombre"
+                                            formControlName="nombre"  appAutoFocus required>
                                     </div>
                                 </div>
                                 <div class="row">

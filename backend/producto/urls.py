@@ -5,5 +5,5 @@ urlpatterns = [
     #Rutas para los productos
     path('producto',ProductoListado),
     path('producto/<int:pk>',ProductoBuscarPorId),
-    path('producto/serie/<int:buscarSerie>', getProductoSerie)
+    path('producto/serie/<str:buscarSerie>', getProductoSerie)
 ]

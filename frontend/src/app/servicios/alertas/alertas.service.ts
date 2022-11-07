@@ -85,5 +85,48 @@ productoNoExist(){
   })
 }
 
+//alert el producto ya existe
+productoExist(){
+  Swal.fire({
+    position: 'center',
+    icon: 'warning',
+    title: 'El producto ya existe!',
+    showConfirmButton: false,
+    timer: 1200
+  })
+}
+
+//alert el producto ya existe
+ventaSinProductos(){
+  Swal.fire({
+    position: 'center',
+    icon: 'warning',
+    title: 'No agrego Productos a la venta!',
+    showConfirmButton: false,
+    timer: 1200
+  })
+}
+
+//alert el producto ya existe
+pocoStock(){
+  Swal.fire({
+    position: 'center',
+    icon: 'warning',
+    title: 'El Stock de Producto es menor o igual a 5 !!!!!',
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
+
+//alert el producto ya existe
+sinStock(){
+  Swal.fire({
+    position: 'center',
+    icon: 'warning',
+    title: 'Producto sin Stock!',
+    showConfirmButton: false,
+    timer: 1200
+  })
+}
 
 }
