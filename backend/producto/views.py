@@ -61,3 +61,4 @@ def getProductoSerie(request,buscarSerie):
     producto = Producto.objects.filter(serie=buscarSerie)
     serializer = ProductoSerializer(producto, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+

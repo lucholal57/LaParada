@@ -94,7 +94,7 @@ export class ProductoComponent implements OnInit {
       //Con el signo ! de negacion le decimos a Typescripts que serie nunva va a ser null
       this.servicioProducto.getProductoSerie(this.formularioRegistro.value.serie!).subscribe(
         (res) => {
-          if(res.length==0)
+          if(res!==null)
           {
             this.servicioProducto.postProducto(this.formularioRegistro.value).subscribe(
               (res) => {

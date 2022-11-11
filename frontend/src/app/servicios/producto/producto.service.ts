@@ -33,7 +33,7 @@ constructor( private http: HttpClient) { }
   }
   //update producto
   putProducto(formularioRegistro:any, id:any): Observable<Producto[]> {
-    return this.http.put<Producto[]>(this.url_prod+ 'producto/' + id, formularioRegistro,httpOption)
+    return this.http.put<Producto[]>(this.url_dev+ 'producto/' + id, formularioRegistro,httpOption)
   }
   //delete producto
   deleteProducto(id:number):Observable<Producto[]> {

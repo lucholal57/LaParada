@@ -37,6 +37,7 @@ export class VentaComponent implements OnInit {
   interes:any;
 
 
+
   //Variable para las cuentas corrientes y tarjetas
   cuentaCorriente = false;
   tarjeta = false;
@@ -92,35 +93,43 @@ export class VentaComponent implements OnInit {
 
   //Funcion para editar producto, recibimos por parametro el numero de serie a buscar
   obtenerProductoSerie(buscarSerie: String): void {
+    var result:Producto =new Producto();
     //Enviamos al servicio el numero de serie y si lo encuentra lo arrega a listadoProductoVenta
     this.servicioProducto.getProductoSerie(buscarSerie).subscribe(
       (res) => {
-        if (res.length > 0) {
-          //Si encuentra el producto lo agrega
-          res.forEach((agrega) => {
-            if(agrega.cantidad==0){
-              this.alertas.sinStock();
-            }
-            else{
-              //Y este se agrega al array listado ProductosVenta los cuales con ngFor se recorre para mostrar en la tabla
-              this.listadoProductosVenta.push(agrega);
-              //Si el producto existe le asignamos el valor a sumatoria del precio del producto
-              //Tantas veces como valla agregando el mismo o distinto producto
-              this.sumatoria += parseInt(agrega.precio);
-            }
-          });
-          //Se deja en blanco el input despues de recibir un producto para ingresar mas
+        console.log(res);
+        if(res.length>0) {
+          res.forEach((elemento) => {
+            result=elemento;
+          })
+          var indexCantidad=0;
+          const productoIgual=this.listadoProductosVenta.find((producto) => producto.id === result.id)
+          if(productoIgual){
+            productoIgual.cantidad++;
+            console.log("Cantidad de producto igual " ,productoIgual.cantidad)
+          }
+          if(this.listadoProductosVenta.find((producto) => producto.id === result.id))
+          {
+            indexCantidad = this.listadoProductosVenta.findIndex((producto) => producto.id === result.id)
+            console.log("El producto ya existe por eso no se agrega y su indice es : " + indexCantidad)
+            this.listadoProductosVenta
+            this.producto = '';
+          }
+        else{
+          this.listadoProductosVenta.push(result);
           this.producto = '';
-        } else {
-          //Si el producto no existe se deja en blanco el input y se retorna una alerta mencionando que no existe
+        }
+        }else{
           this.producto = '';
           this.alertas.productoNoExist();
         }
-      },
+        },
       (error) => {
         console.log(error);
       }
+
     );
+    console.log("Array resultado ",this.listadoProductosVenta)
   }
   //Funcion para obtener los clientes
   obtenerCliente(): void {
@@ -220,22 +229,44 @@ export class VentaComponent implements OnInit {
 
   //Funcion para registrar venta
   registrarVenta(): void {
+    //Si el listado es igual a 0 quiere decir que no agrego productos para la venta
     if(this.listadoProductosVenta.length == 0){
       this.alertas.ventaSinProductos();
     }else{
+      console.log("Cantidad de elementos en listado" + this.listadoProductosVenta.length)
+      //Se crea array para obtener los ids de los productos que va a ir agregando
     var idsProductos = new Array();
+    //Seteamos la fecha y el total de las sumatoria para registrar la venta
     this.formularioVenta.controls['fecha'].setValue(this.fechaActual);
     this.formularioVenta.controls['total'].setValue(this.sumatoria);
+    //Recorremos el listadoProductosVenta de tipo producto
+    //vamos agregando los ids para poder setearlo en el formulario para enviar y registrar la venta
     this.listadoProductosVenta.forEach((a) => {
       idsProductos.push(a.id);
     });
+    //Seteamos la venta
     this.formularioVenta.controls['producto'].setValue(idsProductos);
+    //Accedemos al servicioVenta enviando el formulario
     this.servicioVenta.postVenta(this.formularioVenta.value).subscribe(
       (res) => {
+        //Cuado la venta se registra recorremos el listado de productos ventas accedemos a cada objeto y le restamos 1
+        /*
+        for(let a of this.listadoProductosVenta){
+          console.log("Entro al for")
+          var prueba = a.cantidad-1;
+          console.log("cantidad" + a.cantidad)
+          console.log("cantidad prueba" + prueba)
+          this.servicioProducto.putProducto(a,a.id).subscribe(
+            (res) => {
+              console.log("Se vendio y resto 1 stock correcto");
+            }
+          )
+        }
+        */
         this.alertas.ventaOk();
         this.reset();
         this.listadoProductosVenta = new Array();
-        window.location.reload();
+
       },
       (error) => {
         console.log(error);
