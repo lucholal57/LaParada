@@ -36,7 +36,7 @@ export class VentaComponent implements OnInit {
   resultado: any;
   //Intereses
   interes: any;
-  contador:any;
+
 
 
 
@@ -96,15 +96,29 @@ export class VentaComponent implements OnInit {
 
   //Funcion para editar producto, recibimos por parametro el numero de serie a buscar
   obtenerProductoSerie(buscarSerie: String): void {
-    var result: Producto = new Producto();
+    var descuento=1;
     //Enviamos al servicio el numero de serie y si lo encuentra lo arrega a listadoProductoVenta
     this.servicioProducto.getProductoSerie(buscarSerie).subscribe(
       (res) => {
-        var index = 0;
+
         if (res.length > 0) {
           res.forEach((elemento) => {
-            this.listadoProductosVenta.push(elemento);
+              if(this.listadoProductosVenta.length==0){
+                this.listadoProductosVenta.push(elemento);
+              }
+            if(this.listadoProductosVenta.find((producto) => producto.id === elemento.id)){
+              const indexCantidad = this.listadoProductosVenta.findIndex((producto) => producto.id === elemento.id);
+              this.listadoProductosVenta[indexCantidad].cantidad--;
+            }else{
+              elemento.cantidad--;
+              this.listadoProductosVenta.push(elemento);
+
+            }
+
+
+            console.log(this.listadoProductosVenta)
             this.sumatoria+=parseInt(elemento.precio);
+
           })
           this.producto = '';
         } else {
@@ -216,7 +230,6 @@ export class VentaComponent implements OnInit {
 
   //Funcion para registrar venta
   registrarVenta(): void {
-    this.contador=1;
     //Si el listado es igual a 0 quiere decir que no agrego productos para la venta
     if (this.listadoProductosVenta.length == 0) {
       this.alertas.ventaSinProductos();
@@ -238,17 +251,12 @@ export class VentaComponent implements OnInit {
       this.servicioVenta.postVenta(this.formularioVenta.value).subscribe(
         (res) => {
           //Cuado la venta se registra recorremos el listado de productos ventas accedemos a cada objeto y le restamos 1
-
-          const array:any=[];
           this.listadoProductosVenta.forEach((elemento) => {
-            if(!array.find((a:any) => a.id==elemento.id)){
-              this.contador++;
-              array.push(elemento);
-            }
-
+            this.servicioProducto.putProducto(elemento,elemento.id).subscribe(
+              (result) =>
+              alert("producto registrado y descontado")
+            )
           })
-
-          console.log("resultado " , array);
           /*for(let a of this.listadoProductosVenta){
             console.log("Entro al for")
             var prueba = a.cantidad-1;
