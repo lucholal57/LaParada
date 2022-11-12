@@ -96,13 +96,15 @@ export class VentaComponent implements OnInit {
 
   //Funcion para editar producto, recibimos por parametro el numero de serie a buscar
   obtenerProductoSerie(buscarSerie: String): void {
-    var descuento=1;
+    var contador = 1;
     //Enviamos al servicio el numero de serie y si lo encuentra lo arrega a listadoProductoVenta
     this.servicioProducto.getProductoSerie(buscarSerie).subscribe(
       (res) => {
 
         if (res.length > 0) {
           res.forEach((elemento) => {
+            this.listadoProductosVenta.push(elemento);
+            /*
               if(this.listadoProductosVenta.length==0){
                 this.listadoProductosVenta.push(elemento);
               }
@@ -114,10 +116,9 @@ export class VentaComponent implements OnInit {
               this.listadoProductosVenta.push(elemento);
 
             }
-
-
+            */
             console.log(this.listadoProductosVenta)
-            this.sumatoria+=parseInt(elemento.precio);
+            this.sumatoria += parseInt(elemento.precio);
 
           })
           this.producto = '';
@@ -230,6 +231,7 @@ export class VentaComponent implements OnInit {
 
   //Funcion para registrar venta
   registrarVenta(): void {
+    let array: Producto[] = [];
     //Si el listado es igual a 0 quiere decir que no agrego productos para la venta
     if (this.listadoProductosVenta.length == 0) {
       this.alertas.ventaSinProductos();
@@ -237,26 +239,38 @@ export class VentaComponent implements OnInit {
       console.log("Cantidad de elementos en listado" + this.listadoProductosVenta.length)
       //Se crea array para obtener los ids de los productos que va a ir agregando
       var idsProductos = new Array();
+      var contador =1;
       //Seteamos la fecha y el total de las sumatoria para registrar la venta
       this.formularioVenta.controls['fecha'].setValue(this.fechaActual);
       this.formularioVenta.controls['total'].setValue(this.sumatoria);
       //Recorremos el listadoProductosVenta de tipo producto
       //vamos agregando los ids para poder setearlo en el formulario para enviar y registrar la venta
-      this.listadoProductosVenta.forEach((a) => {
-        idsProductos.push(a.id);
+      this.listadoProductosVenta.forEach((elemento) => {
+        idsProductos.push(elemento.id);
       });
+      console.log("ides de productos ", idsProductos);
       //Seteamos la venta
       this.formularioVenta.controls['producto'].setValue(idsProductos);
       //Accedemos al servicioVenta enviando el formulario
       this.servicioVenta.postVenta(this.formularioVenta.value).subscribe(
         (res) => {
-          //Cuado la venta se registra recorremos el listado de productos ventas accedemos a cada objeto y le restamos 1
-          this.listadoProductosVenta.forEach((elemento) => {
-            this.servicioProducto.putProducto(elemento,elemento.id).subscribe(
-              (result) =>
-              alert("producto registrado y descontado")
-            )
+          this.listadoProductosVenta.forEach((producto) => {
+
+            if(array.length == 0) {
+              array.push(producto);
+            }
+            const resultado = array.some((producto2:any) => producto2.id === producto.id);
+            const index = array.findIndex((producto2:any) => JSON.stringify(producto2) === JSON.stringify(producto));
+            if(resultado) {
+              array[index].cantidad-=1;
+              console.log("cantidad repetidos", array[index].cantidad!);
+            }else{
+              console.log("cantidad sin repetir", array[index].cantidad!);
+              array.push(producto);
+            }
+            console.log("Array Final" ,array);
           })
+
           /*for(let a of this.listadoProductosVenta){
             console.log("Entro al for")
             var prueba = a.cantidad-1;
@@ -268,7 +282,7 @@ export class VentaComponent implements OnInit {
               }
             )
           }*/
-          this.sumatoria=0;
+          this.sumatoria = 0;
           this.alertas.ventaOk();
           this.reset();
           this.listadoProductosVenta = new Array();
