@@ -12,6 +12,7 @@ import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-venta',
   templateUrl: './venta.component.html',
@@ -34,7 +35,9 @@ export class VentaComponent implements OnInit {
   //resultado resta. para calcular la diferencia de los que nos entregaron en efectivo restandole el total
   resultado: any;
   //Intereses
-  interes:any;
+  interes: any;
+  contador:any;
+
 
 
 
@@ -56,7 +59,7 @@ export class VentaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.interes=0;
+    this.interes = 0;
     if (localStorage.length != 0) {
       this.obtenerCliente();
       this.dropdownSettings = {
@@ -93,43 +96,27 @@ export class VentaComponent implements OnInit {
 
   //Funcion para editar producto, recibimos por parametro el numero de serie a buscar
   obtenerProductoSerie(buscarSerie: String): void {
-    var result:Producto =new Producto();
+    var result: Producto = new Producto();
     //Enviamos al servicio el numero de serie y si lo encuentra lo arrega a listadoProductoVenta
     this.servicioProducto.getProductoSerie(buscarSerie).subscribe(
       (res) => {
-        console.log(res);
-        if(res.length>0) {
+        var index = 0;
+        if (res.length > 0) {
           res.forEach((elemento) => {
-            result=elemento;
+            this.listadoProductosVenta.push(elemento);
+            this.sumatoria+=parseInt(elemento.precio);
           })
-          var indexCantidad=0;
-          const productoIgual=this.listadoProductosVenta.find((producto) => producto.id === result.id)
-          if(productoIgual){
-            productoIgual.cantidad++;
-            console.log("Cantidad de producto igual " ,productoIgual.cantidad)
-          }
-          if(this.listadoProductosVenta.find((producto) => producto.id === result.id))
-          {
-            indexCantidad = this.listadoProductosVenta.findIndex((producto) => producto.id === result.id)
-            console.log("El producto ya existe por eso no se agrega y su indice es : " + indexCantidad)
-            this.listadoProductosVenta
-            this.producto = '';
-          }
-        else{
-          this.listadoProductosVenta.push(result);
           this.producto = '';
-        }
-        }else{
+        } else {
           this.producto = '';
           this.alertas.productoNoExist();
         }
-        },
+      },
       (error) => {
         console.log(error);
       }
 
     );
-    console.log("Array resultado ",this.listadoProductosVenta)
   }
   //Funcion para obtener los clientes
   obtenerCliente(): void {
@@ -154,10 +141,10 @@ export class VentaComponent implements OnInit {
 
   //Funcion para obtener el total con intereses paga con tarjeta
   obtenerInteres() {
-    this.interes=0;
+    this.interes = 0;
     //console.log(this.formularioVenta.value.interes);
-    this.interes = (this.sumatoria * this.formularioVenta.value.interes!)/100;
-    this.sumatoria+=this.interes;
+    this.interes = (this.sumatoria * this.formularioVenta.value.interes!) / 100;
+    this.sumatoria += this.interes;
 
 
   }
@@ -187,9 +174,9 @@ export class VentaComponent implements OnInit {
       this.tarjeta = false;
       this.vuelto = true;
       //Se descuenta interes,dependiendo si el interes es distinto de 0
-      if(this.interes!=0){
-        this.sumatoria-=this.interes;
-        this.interes=0;
+      if (this.interes != 0) {
+        this.sumatoria -= this.interes;
+        this.interes = 0;
       }
     }
     if (this.formularioVenta.value.forma_pago == 'tarjeta') {
@@ -207,9 +194,9 @@ export class VentaComponent implements OnInit {
       this.cuentaCorriente = true;
       this.vuelto = false;
       //Se descuenta interes,dependiendo si el interes es distinto de 0
-      if(this.interes!=0){
-        this.sumatoria-=this.interes;
-        this.interes=0;
+      if (this.interes != 0) {
+        this.sumatoria -= this.interes;
+        this.interes = 0;
       }
     }
   }
@@ -221,7 +208,7 @@ export class VentaComponent implements OnInit {
     this.listadoProductosVenta.splice(index, 1);
     //A sumatoria tenemos que restarle el precio total a pagar ya que eliminamos un producto
     //Le restamos el valor del precio del producto recibido
-    if(this.sumatoria!=0){
+    if (this.sumatoria != 0) {
       this.sumatoria -= parseInt(producto.precio);
     }
 
@@ -229,49 +216,60 @@ export class VentaComponent implements OnInit {
 
   //Funcion para registrar venta
   registrarVenta(): void {
+    this.contador=1;
     //Si el listado es igual a 0 quiere decir que no agrego productos para la venta
-    if(this.listadoProductosVenta.length == 0){
+    if (this.listadoProductosVenta.length == 0) {
       this.alertas.ventaSinProductos();
-    }else{
+    } else {
       console.log("Cantidad de elementos en listado" + this.listadoProductosVenta.length)
       //Se crea array para obtener los ids de los productos que va a ir agregando
-    var idsProductos = new Array();
-    //Seteamos la fecha y el total de las sumatoria para registrar la venta
-    this.formularioVenta.controls['fecha'].setValue(this.fechaActual);
-    this.formularioVenta.controls['total'].setValue(this.sumatoria);
-    //Recorremos el listadoProductosVenta de tipo producto
-    //vamos agregando los ids para poder setearlo en el formulario para enviar y registrar la venta
-    this.listadoProductosVenta.forEach((a) => {
-      idsProductos.push(a.id);
-    });
-    //Seteamos la venta
-    this.formularioVenta.controls['producto'].setValue(idsProductos);
-    //Accedemos al servicioVenta enviando el formulario
-    this.servicioVenta.postVenta(this.formularioVenta.value).subscribe(
-      (res) => {
-        //Cuado la venta se registra recorremos el listado de productos ventas accedemos a cada objeto y le restamos 1
-        /*
-        for(let a of this.listadoProductosVenta){
-          console.log("Entro al for")
-          var prueba = a.cantidad-1;
-          console.log("cantidad" + a.cantidad)
-          console.log("cantidad prueba" + prueba)
-          this.servicioProducto.putProducto(a,a.id).subscribe(
-            (res) => {
-              console.log("Se vendio y resto 1 stock correcto");
-            }
-          )
-        }
-        */
-        this.alertas.ventaOk();
-        this.reset();
-        this.listadoProductosVenta = new Array();
+      var idsProductos = new Array();
+      //Seteamos la fecha y el total de las sumatoria para registrar la venta
+      this.formularioVenta.controls['fecha'].setValue(this.fechaActual);
+      this.formularioVenta.controls['total'].setValue(this.sumatoria);
+      //Recorremos el listadoProductosVenta de tipo producto
+      //vamos agregando los ids para poder setearlo en el formulario para enviar y registrar la venta
+      this.listadoProductosVenta.forEach((a) => {
+        idsProductos.push(a.id);
+      });
+      //Seteamos la venta
+      this.formularioVenta.controls['producto'].setValue(idsProductos);
+      //Accedemos al servicioVenta enviando el formulario
+      this.servicioVenta.postVenta(this.formularioVenta.value).subscribe(
+        (res) => {
+          //Cuado la venta se registra recorremos el listado de productos ventas accedemos a cada objeto y le restamos 1
 
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+          const array:any=[];
+          this.listadoProductosVenta.forEach((elemento) => {
+            if(!array.find((a:any) => a.id==elemento.id)){
+              this.contador++;
+              array.push(elemento);
+            }
+
+          })
+
+          console.log("resultado " , array);
+          /*for(let a of this.listadoProductosVenta){
+            console.log("Entro al for")
+            var prueba = a.cantidad-1;
+            console.log("cantidad" + a.cantidad)
+            console.log("cantidad prueba" + prueba)
+            this.servicioProducto.putProducto(a,a.id).subscribe(
+              (res) => {
+                console.log("Se vendio y resto 1 stock correcto");
+              }
+            )
+          }*/
+          this.sumatoria=0;
+          this.alertas.ventaOk();
+          this.reset();
+          this.listadoProductosVenta = new Array();
+
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
   }
 
