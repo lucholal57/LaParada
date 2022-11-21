@@ -248,45 +248,23 @@ export class VentaComponent implements OnInit {
       this.listadoProductosVenta.forEach((elemento) => {
         idsProductos.push(elemento.id);
       });
-      console.log("ides de productos ", idsProductos);
+      console.log("ids de productos ", idsProductos);
       //Seteamos la venta
       this.formularioVenta.controls['producto'].setValue(idsProductos);
       //Accedemos al servicioVenta enviando el formulario
       this.servicioVenta.postVenta(this.formularioVenta.value).subscribe(
         (res) => {
-          this.listadoProductosVenta.forEach((producto) => {
-
-            if(array.length == 0) {
-              array.push(producto);
+          var count=1;
+          for (let i = 0; i < this.listadoProductosVenta.length; i++) {
+            if (this.listadoProductosVenta[i + 1].id === this.listadoProductosVenta[i].id) {
+              console.log("cantidad " , count)
             }
-            const resultado = array.some((producto2:any) => producto2.id === producto.id);
-            const index = array.findIndex((producto2:any) => JSON.stringify(producto2) === JSON.stringify(producto));
-            if(resultado) {
-              array[index].cantidad-=1;
-              console.log("cantidad repetidos", array[index].cantidad!);
-            }else{
-              console.log("cantidad sin repetir", array[index].cantidad!);
-              array.push(producto);
-            }
-            console.log("Array Final" ,array);
-          })
+          }
 
-          /*for(let a of this.listadoProductosVenta){
-            console.log("Entro al for")
-            var prueba = a.cantidad-1;
-            console.log("cantidad" + a.cantidad)
-            console.log("cantidad prueba" + prueba)
-            this.servicioProducto.putProducto(a,a.id).subscribe(
-              (res) => {
-                console.log("Se vendio y resto 1 stock correcto");
-              }
-            )
-          }*/
           this.sumatoria = 0;
           this.alertas.ventaOk();
           this.reset();
           this.listadoProductosVenta = new Array();
-
         },
         (error) => {
           console.log(error);

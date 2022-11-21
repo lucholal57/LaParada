@@ -12,6 +12,7 @@
     <legend>VENTAS</legend>
     <!--Contenedor ingreso producto,sumatoria,forma_pago,fecha-->
     <div class="container-fluid">
+
       <div class="row justify-content-center">
         <div
           class="card text-white bg-dark mb-3"
@@ -28,8 +29,23 @@
               (change)="obtenerProductoSerie(producto)"
               appAutoFocus
             />
+
           </div>
         </div>
+
+        <div
+        class="card text-white bg-dark mb-3"
+        style="max-width: 15rem; max-height: 8rem"
+      >
+        <div class="card-header" align="center">Producto Manual</div>
+        <div class="card-body" align="center">
+          <button
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModalProductoManual">
+            Manual</button>
+        </div>
+      </div>
 
         <div
           class="card text-white bg-dark mb-3"
@@ -80,10 +96,11 @@
         </div>
       </div>
 
+      <!--Formulario modal para la venta-->
       <form [formGroup]="formularioVenta">
         <div class="container-fluid">
           <div class="row justify-content-center">
-            <!--Espacio de codigo para el modal que va a contener la forma de pago y de ser fectivo el ingreso de pagoy vuelto-->
+            <!--Espacio de codigo para el modal que va a contener la forma de pago y de ser fectivo el ingreso de pago y vuelto-->
             <!-- Modal -->
             <div
               class="modal fade"
@@ -246,6 +263,82 @@
           </div>
         </div>
       </form>
+
+      <!--Formulario modal para la venta producto manual-->
+      <form [formGroup]="formularioVenta">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <!--Espacio de codigo para el modal que va a contener la forma de pago y de ser fectivo el ingreso de pago y vuelto-->
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="exampleModalProductoManual"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                  <div class="modal-header">
+                      <h2 class="modal-title" id="exampleModalLabel">Productos</h2>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="form-group">
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <label for="">Nombre</label>
+                                  <input type="text" class="form-control"
+                                  id="nombre"
+                                  placeholder="Ingrese Nombre"
+                                        appAutoFocus required>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <label for="">Descripcion</label>
+                                  <input type="text" class="form-control" placeholder="Ingrese Descripcion"
+                                       required>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <label for="">Cantidad</label>
+                                  <input type="number" class="form-control" placeholder="Ingrese Cantidad"
+                                       required>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                                <label for="">Precio</label>
+                                <input type="number" class="form-control" placeholder="Ingrese Precio"
+                                     required>
+                            </div>
+                        </div>
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <label for="">Serie</label>
+                                  <input type="text" class="form-control" placeholder="Ingrese Serie"
+                                       required>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary"
+                      data-bs-dismiss="modal">Registrar</button>
+                      <button type="submit" class="btn btn-warning"
+                      data-bs-dismiss="modal">Actualizar</button>
+                      <button type="button" class="btn btn-warning" >Limpiar</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
     </div>
 
     <hr />
