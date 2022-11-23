@@ -1,32 +1,13 @@
 {
     "configurations": [
-        {
-            "type": "firefox",
-            "request": "launch",
-            "reAttach": true,
-            "name": "Launch localhost",
-            "url": "http://localhost:4200",
-            "webRoot": "${workspaceFolder}",
-            "pathMappings": [
-                {
-                    "url": "webpack:///src",
-                    "path": "${workspaceFolder}/frontend/src"
-                }
-            ]
-        },
-        {
-            "type": "firefox",
-            "request": "launch",
-            "reAttach": true,
-            "name": "Launch index.html",
-            "file": "${workspaceFolder}/index.html"
-        },
-        {
-            "type": "firefox",
-            "request": "launch",
-            "reAttach": true,
-            "name": "Launch add-on",
-            "addonPath": "${workspaceFolder}"
-        }
+        
+    {
+        "type": "firefox",
+        "request": "launch",
+        "reAttach": true,
+        "name": "Launch localhost",
+        "url": "http://localhost:4200",
+        "webRoot": "${workspaceFolder}"
+    }
     ]
 }

@@ -36,16 +36,15 @@ export class VentaComponent implements OnInit {
   resultado: any;
   //Intereses
   interes: any;
-
-
-
-
-
+  //Variable para tabla mixta
+  tableMixta:boolean=false;
   //Variable para las cuentas corrientes y tarjetas
   cuentaCorriente = false;
   tarjeta = false;
   //Variable vuelto para poder mostrar el contenedor del mismo
   vuelto = false;
+  //Listado producto manual para recorrer en tabla
+  listadoProductoManual = new Array();
 
   dropdownSettings: IDropdownSettings = {};
 
@@ -60,6 +59,7 @@ export class VentaComponent implements OnInit {
 
   ngOnInit(): void {
     this.interes = 0;
+    this.tableMixta=false;
     if (localStorage.length != 0) {
       this.obtenerCliente();
       this.dropdownSettings = {
@@ -80,6 +80,8 @@ export class VentaComponent implements OnInit {
         this.router.navigate(['']);
       }, 2000);
     }
+
+
   }
 
   //FormularioVenta
@@ -92,11 +94,19 @@ export class VentaComponent implements OnInit {
     recibo_efectivo: [0, [Validators.required]],
     interes: [0],
     cliente: [{}],
+    productoManual:[{}]
+    //variables destro del formulario para agregar solo los productos manuales
   });
+  //Formulario Producto manual
+  formularioProductoManual = this.formBuilder.group({
+    nombre:[''],
+    descripcion:[''],
+    precio:[0],
+    serie:[0]
+    })
 
   //Funcion para editar producto, recibimos por parametro el numero de serie a buscar
   obtenerProductoSerie(buscarSerie: String): void {
-    var contador = 1;
     //Enviamos al servicio el numero de serie y si lo encuentra lo arrega a listadoProductoVenta
     this.servicioProducto.getProductoSerie(buscarSerie).subscribe(
       (res) => {
@@ -132,6 +142,16 @@ export class VentaComponent implements OnInit {
       }
 
     );
+  }
+  //Funcion para cargar producto manual
+  productoManual(): void {
+    this.tableMixta=true;
+    this.listadoProductoManual.push(this.formularioProductoManual.value)
+        console.log("Producto manual " , this.formularioProductoManual.value)
+    this.formularioVenta.controls['productoManual'].setValue(this.formularioProductoManual.value)
+
+    console.log("Formulario venta con producto manual agregado " , this.formularioVenta.value)
+
   }
   //Funcion para obtener los clientes
   obtenerCliente(): void {
@@ -248,18 +268,12 @@ export class VentaComponent implements OnInit {
       this.listadoProductosVenta.forEach((elemento) => {
         idsProductos.push(elemento.id);
       });
-      console.log("ids de productos ", idsProductos);
+      console.log("ids de productos ", );
       //Seteamos la venta
       this.formularioVenta.controls['producto'].setValue(idsProductos);
       //Accedemos al servicioVenta enviando el formulario
       this.servicioVenta.postVenta(this.formularioVenta.value).subscribe(
         (res) => {
-          var count=1;
-          for (let i = 0; i < this.listadoProductosVenta.length; i++) {
-            if (this.listadoProductosVenta[i + 1].id === this.listadoProductosVenta[i].id) {
-              console.log("cantidad " , count)
-            }
-          }
 
           this.sumatoria = 0;
           this.alertas.ventaOk();

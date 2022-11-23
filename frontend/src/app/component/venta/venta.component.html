@@ -12,11 +12,10 @@
     <legend>VENTAS</legend>
     <!--Contenedor ingreso producto,sumatoria,forma_pago,fecha-->
     <div class="container-fluid">
-
       <div class="row justify-content-center">
         <div
           class="card text-white bg-dark mb-3"
-          style="max-width: 20rem; max-height: 8rem"
+          style="max-width: 15rem; max-height: 8rem"
         >
           <div class="card-header" align="center">Producto</div>
           <div class="card-body">
@@ -29,27 +28,28 @@
               (change)="obtenerProductoSerie(producto)"
               appAutoFocus
             />
-
           </div>
         </div>
 
         <div
-        class="card text-white bg-dark mb-3"
-        style="max-width: 15rem; max-height: 8rem"
-      >
-        <div class="card-header" align="center">Producto Manual</div>
-        <div class="card-body" align="center">
-          <button
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModalProductoManual">
-            Manual</button>
+          class="card text-white bg-dark mb-3"
+          style="max-width: 12rem; max-height: 8rem"
+        >
+          <div class="card-header" align="center">Producto Manual</div>
+          <div class="card-body" align="center">
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModalProductoManual"
+            >
+              Manual
+            </button>
+          </div>
         </div>
-      </div>
 
         <div
           class="card text-white bg-dark mb-3"
-          style="max-width: 15rem; max-height: 8rem"
+          style="max-width: 12rem; max-height: 8rem"
         >
           <div class="card-header" align="center">Sumatoria</div>
           <div class="card-body" align="center">
@@ -61,7 +61,7 @@
 
         <div
           class="card text-white bg-dark mb-3"
-          style="max-width: 15rem; max-height: 8rem"
+          style="max-width: 12rem; max-height: 8rem"
         >
           <div class="card-header" align="center">Accion</div>
           <div class="card-body" align="center">
@@ -80,7 +80,7 @@
 
         <div
           class="card text-white bg-dark mb-3"
-          style="max-width: 20rem; max-height: 8rem"
+          style="max-width: 15rem; max-height: 8rem"
         >
           <div class="card-header" align="center">
             {{ fechaActual | date: "short" }}
@@ -196,8 +196,15 @@
 
                           <div class="container-fluid" *ngIf="tarjeta">
                             <hr />
-                            <div class="col-sm-5 offset-sm-4" >
-                          <input class="form-control" type="number" Placeholder="Ingrese Porcentaje %..." formControlName="interes" (change)="obtenerInteres()" appAutoFocus>
+                            <div class="col-sm-5 offset-sm-4">
+                              <input
+                                class="form-control"
+                                type="number"
+                                Placeholder="Ingrese Porcentaje %..."
+                                formControlName="interes"
+                                (change)="obtenerInteres()"
+                                appAutoFocus
+                              />
                             </div>
                           </div>
                         </div>
@@ -244,7 +251,6 @@
                       class="btn btn-primary"
                       data-bs-dismiss="modal"
                       (click)="registrarVenta()"
-
                     >
                       TERMINAR VENTA
                     </button>
@@ -265,11 +271,9 @@
       </form>
 
       <!--Formulario modal para la venta producto manual-->
-      <form [formGroup]="formularioVenta">
+      <form [formGroup]="formularioProductoManual">
         <div class="container-fluid">
           <div class="row justify-content-center">
-            <!--Espacio de codigo para el modal que va a contener la forma de pago y de ser fectivo el ingreso de pago y vuelto-->
-            <!-- Modal -->
             <div
               class="modal fade"
               id="exampleModalProductoManual"
@@ -280,72 +284,102 @@
               <div class="modal-dialog modal-md">
                 <div class="modal-content">
                   <div class="modal-header">
-                      <h2 class="modal-title" id="exampleModalLabel">Productos</h2>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h2 class="modal-title" id="exampleModalLabel">
+                      Producto Manual
+                    </h2>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
                   </div>
                   <div class="modal-body">
-                      <div class="form-group">
-                          <div class="row">
-                              <div class="col-sm-12">
-                                  <label for="">Nombre</label>
-                                  <input type="text" class="form-control"
-                                  id="nombre"
-                                  placeholder="Ingrese Nombre"
-                                        appAutoFocus required>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-sm-12">
-                                  <label for="">Descripcion</label>
-                                  <input type="text" class="form-control" placeholder="Ingrese Descripcion"
-                                       required>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-sm-12">
-                                  <label for="">Cantidad</label>
-                                  <input type="number" class="form-control" placeholder="Ingrese Cantidad"
-                                       required>
-                              </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-12">
-                                <label for="">Precio</label>
-                                <input type="number" class="form-control" placeholder="Ingrese Precio"
-                                     required>
-                            </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <label for="">Nombre</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="nombre"
+                            placeholder="Ingrese Nombre"
+                            formControlName="nombre"
+                            appAutoFocus
+                            required
+                          />
                         </div>
-                          <div class="row">
-                              <div class="col-sm-12">
-                                  <label for="">Serie</label>
-                                  <input type="text" class="form-control" placeholder="Ingrese Serie"
-                                       required>
-                              </div>
-                          </div>
                       </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <label for="">Descripcion</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="descripcion"
+                            placeholder="Ingrese Descripcion"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <label for="">Precio</label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            formControlName="precio"
+                            placeholder="Ingrese Precio"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <label for="">Serie</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="serie"
+                            placeholder="Ingrese Serie"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary"
-                      data-bs-dismiss="modal">Registrar</button>
-                      <button type="submit" class="btn btn-warning"
-                      data-bs-dismiss="modal">Actualizar</button>
-                      <button type="button" class="btn btn-warning" >Limpiar</button>
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      data-bs-dismiss="modal"
+                      (click)="productoManual()"
+                    >
+                      Cargar
+                    </button>
+                    <button type="button" class="btn btn-warning">
+                      Limpiar
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
                   </div>
-              </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </form>
-
     </div>
 
-    <hr />
 
-    <div class="container-fluid table-responsive">
-      <table class="table table-xl table-dark table-striped table-bordered">
-        <thead class="table-light">
+    <div class="container table-responsive" *ngIf="!tableMixta">
+      <table class="table table-sm table-dark table-striped table-bordered">
+        <thead class="table-ligth">
           <tr class="text-center">
             <th scope="col">Serie</th>
             <th scope="col">Producto</th>
@@ -370,6 +404,79 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="container mixed" *ngIf="tableMixta">
+      <div class="row">
+      <div class="col">
+        <div class="container table-responsive">
+          <table class="table table-sm table-dark table-striped table-bordered">
+            <thead class="table-dark">
+              <tr class="text-center">
+                <th colspan="6">PRODUCTO</th>
+              </tr>
+              <tr class="text-center">
+
+                <th scope="col">Serie</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Quitar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let producto of listadoProductosVenta">
+                <td scope="col">{{ producto.serie }}</td>
+                <td scope="col">{{ producto.nombre }}</td>
+                <td scope="col">{{ producto.descripcion }}</td>
+                <td scope="col">${{ producto.precio }}</td>
+                <td scope="col">{{ fechaActual | date: "short" }}</td>
+                <td scope="col">
+                  <a type="button" >
+                    <mat-icon style="color: red"> delete </mat-icon>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col">
+
+        <div class="container table-responsive">
+          <table class="table table-sm table-dark table-striped table-bordered">
+            <thead class="table-dark">
+              <tr class="text-center" >
+                <th colspan="6">MANUAL</th>
+              </tr>
+              <tr class="text-center">
+                <th scope="col">Serie</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Quitar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let manual of listadoProductoManual">
+                <td scope="col">{{ manual.serie }}</td>
+                <td scope="col">{{ manual.nombre }}</td>
+                <td scope="col">{{ manual.descripcion }}</td>
+                <td scope="col">${{ manual.precio }}</td>
+                <td scope="col">{{ fechaActual | date: "short" }}</td>
+                <td scope="col">
+                  <a type="button" (click)="quitar(producto)">
+                    <mat-icon style="color: red"> delete </mat-icon>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
     </div>
   </body>
 </html>
