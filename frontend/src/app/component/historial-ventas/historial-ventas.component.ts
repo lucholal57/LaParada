@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./historial-ventas.component.css']
 })
 export class HistorialVentasComponent implements OnInit {
+  //FechaActual
+  pipe = new DatePipe('en-US');
+  fechaActual: any;
   //Variable para el pipe de busqueda
   search:any
   //Variable para el paginado
@@ -36,8 +39,24 @@ export class HistorialVentasComponent implements OnInit {
       this.alertas.alertToken();
       setTimeout(() => {this.router.navigate(['']);},2000)
     }
+    this.mostrarHora();
 
   }
+
+  //Funcion mostrar hora
+  mostrarHora() {
+    //Usamos otra variable de fecha por como recibe el backen es necesaria la misma, distinta a la que se muestra en el front por la hora
+    this.fechaActual = this.pipe.transform(Date.now(), 'YYYY-MM-dd hh:mm:s ');
+    //Intervalo para que despues de 1000mls se actualize la hora dandonos asi los segundos por pantalla.
+    setInterval(() => {
+      //utilizamos este formato de hora solo para mostrar en el front
+      this.fechaActual = this.pipe.transform(
+        Date.now(),
+        'YYYY-MM-dd hh:mm:ss '
+      );
+    }, 1000);
+  }
+
 
   obtenerVentas(): void {
     this.servicioVenta.getVenta().subscribe(

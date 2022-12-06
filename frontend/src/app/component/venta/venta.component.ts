@@ -80,8 +80,6 @@ export class VentaComponent implements OnInit {
         this.router.navigate(['']);
       }, 2000);
     }
-
-
   }
 
   //FormularioVenta
@@ -91,8 +89,8 @@ export class VentaComponent implements OnInit {
     fecha: ['', [Validators.required]],
     total: ['', [Validators.required]],
     producto: [{}, [Validators.required]],
-    recibo_efectivo: [0, [Validators.required]],
-    interes: [0],
+    recibo_efectivo: [, [Validators.required]],
+    interes: [],
     cliente: [{}],
     productoManual:[{}]
     //variables destro del formulario para agregar solo los productos manuales
@@ -100,9 +98,7 @@ export class VentaComponent implements OnInit {
   //Formulario Producto manual
   formularioProductoManual = this.formBuilder.group({
     nombre:[''],
-    descripcion:[''],
-    precio:[0],
-    serie:[0]
+    precio:[],
     })
 
   //Funcion para editar producto, recibimos por parametro el numero de serie a buscar
@@ -146,12 +142,10 @@ export class VentaComponent implements OnInit {
   //Funcion para cargar producto manual
   productoManual(): void {
     this.tableMixta=true;
-    this.listadoProductoManual.push(this.formularioProductoManual.value)
-        console.log("Producto manual " , this.formularioProductoManual.value)
-    this.formularioVenta.controls['productoManual'].setValue(this.formularioProductoManual.value)
-
-    console.log("Formulario venta con producto manual agregado " , this.formularioVenta.value)
-
+    this.listadoProductoManual.push(this.formularioProductoManual.value);
+    console.log("Producto manual " , this.formularioProductoManual.value)
+    //Al cargar producto manual ir sumando los precios
+    this.sumatoria += parseInt(this.formularioProductoManual.value.precio!);
   }
   //Funcion para obtener los clientes
   obtenerCliente(): void {
@@ -180,8 +174,6 @@ export class VentaComponent implements OnInit {
     //console.log(this.formularioVenta.value.interes);
     this.interes = (this.sumatoria * this.formularioVenta.value.interes!) / 100;
     this.sumatoria += this.interes;
-
-
   }
 
   //Funcion mostrar hora
@@ -246,12 +238,22 @@ export class VentaComponent implements OnInit {
     if (this.sumatoria != 0) {
       this.sumatoria -= parseInt(producto.precio);
     }
-
+  }
+   //Funcion para eliminar producto MANUAL de array
+  quitarProductoManual(manual:any): void {
+    //Obtenemos el indice del producto recibido al hacer click en eliminar para poder quitarlo del array
+    var index = this.listadoProductoManual.indexOf(manual);
+    //Guardamos el index en index y eliminamos
+    this.listadoProductoManual.splice(index, 1);
+    //A sumatoria tenemos que restarle el precio total a pagar ya que eliminamos un producto
+    //Le restamos el valor del precio del producto recibido
+    if (this.sumatoria != 0) {
+      this.sumatoria -= parseInt(manual.precio);
+    }
   }
 
   //Funcion para registrar venta
   registrarVenta(): void {
-    let array: Producto[] = [];
     //Si el listado es igual a 0 quiere decir que no agrego productos para la venta
     if (this.listadoProductosVenta.length == 0) {
       this.alertas.ventaSinProductos();
@@ -268,7 +270,10 @@ export class VentaComponent implements OnInit {
       this.listadoProductosVenta.forEach((elemento) => {
         idsProductos.push(elemento.id);
       });
-      console.log("ids de productos ", );
+      var array=new Array();
+      this.listadoProductoManual.forEach((elemento) =>{
+        this.formularioVenta.controls['productoManual'].setValue(elemento.nombre);
+      })
       //Seteamos la venta
       this.formularioVenta.controls['producto'].setValue(idsProductos);
       //Accedemos al servicioVenta enviando el formulario

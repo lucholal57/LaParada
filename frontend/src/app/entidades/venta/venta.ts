@@ -7,5 +7,7 @@ export class Venta {
     fecha=new Date();
     total=0;
     producto: Producto[]=[];
+    //Array para los productos manuales
+    productoManual=new Array();
     cliente: Cliente[]=[];
 }

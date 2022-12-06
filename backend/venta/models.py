@@ -7,6 +7,8 @@ class Venta(models.Model):
     forma_pago = models.CharField(max_length=20)
     fecha = models.DateTimeField()
     total = models.CharField(max_length=15)
+    #model para Producto Manual
+    productoManual = models.CharField(max_length=40, blank=True)
     #PrimaryKey
     cliente = models.ManyToManyField(Cliente,blank=True)
     #ManyToMany

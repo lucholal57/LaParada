@@ -22,7 +22,7 @@
             <input
               class="form-control"
               type="text"
-              placeholder="Ingrese Codigo de Producto"
+              placeholder="Ingrese Codigo..."
               ngDefaultControl
               [(ngModel)]="producto"
               (change)="obtenerProductoSerie(producto)"
@@ -312,18 +312,6 @@
                       </div>
                       <div class="row">
                         <div class="col-sm-12">
-                          <label for="">Descripcion</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            formControlName="descripcion"
-                            placeholder="Ingrese Descripcion"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-12">
                           <label for="">Precio</label>
                           <input
                             type="number"
@@ -334,18 +322,7 @@
                           />
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-sm-12">
-                          <label for="">Serie</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            formControlName="serie"
-                            placeholder="Ingrese Serie"
-                            required
-                          />
-                        </div>
-                      </div>
+
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -433,7 +410,7 @@
                 <td scope="col">${{ producto.precio }}</td>
                 <td scope="col">{{ fechaActual | date: "short" }}</td>
                 <td scope="col">
-                  <a type="button" >
+                  <a type="button" (click)="quitar(producto)">
                     <mat-icon style="color: red"> delete </mat-icon>
                   </a>
                 </td>
@@ -451,9 +428,7 @@
                 <th colspan="6">MANUAL</th>
               </tr>
               <tr class="text-center">
-                <th scope="col">Serie</th>
                 <th scope="col">Producto</th>
-                <th scope="col">Descripcion</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Quitar</th>
@@ -461,13 +436,11 @@
             </thead>
             <tbody>
               <tr *ngFor="let manual of listadoProductoManual">
-                <td scope="col">{{ manual.serie }}</td>
                 <td scope="col">{{ manual.nombre }}</td>
-                <td scope="col">{{ manual.descripcion }}</td>
                 <td scope="col">${{ manual.precio }}</td>
                 <td scope="col">{{ fechaActual | date: "short" }}</td>
                 <td scope="col">
-                  <a type="button" (click)="quitar(producto)">
+                  <a type="button" (click)="quitarProductoManual(manual)">
                     <mat-icon style="color: red"> delete </mat-icon>
                   </a>
                 </td>

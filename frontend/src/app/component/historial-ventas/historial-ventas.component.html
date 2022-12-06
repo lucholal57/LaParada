@@ -20,31 +20,26 @@
                 </div>
             </div>
 
-            <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
-                <div class="card-header" align="center">Desde</div>
-                <div class="card-body">
-                    <input class="form-control" type="date" >
-                </div>
-            </div>
+            <div
+          class="card text-white bg-dark mb-3"
+          style="max-width: 15rem; max-height: 8rem"
+        >
+          <div class="card-header" align="center">
+            {{ fechaActual | date: "short" }}
+          </div>
+          <div class="card-body" align="center">
+            <img
+              src="../../../assets/jpg/Laparada.png"
+              width="30%"
+              style="margin-right: 0px; margin-top: -20px"
+              alt=""
+            />
+          </div>
+        </div>
 
-            <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
-                <div class="card-header" align="center">Hasta</div>
-                <div class="card-body">
-                    <input class="form-control" type="date" >
-                </div>
-            </div>
 
-            <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
-                <div class="card-header" align="center">Accion</div>
-                <div class="card-body" align="center">
-                    <!-- Button trigger modal -->
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" style="margin-left: -2%;" [(ngModel)]=switch>
-                      <label class="form-check-label"  for="flexSwitchCheckDefault">Mostrar CC</label>
-                    </div>
 
-                </div>
-            </div>
+
 
         </div>
     </div>
@@ -65,6 +60,7 @@
                     <td scope="col">
                         <div *ngFor="let producto of venta.producto">
                             <h4>{{producto.nombre}} {{producto.descripcion}}</h4>
+                            <h4>{{venta.productoManual}}</h4>
                         </div>
                     </td>
                     <td scope="col">{{venta.forma_pago}}</td>
