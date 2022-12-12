@@ -8,7 +8,7 @@ class Venta(models.Model):
     fecha = models.DateTimeField()
     total = models.CharField(max_length=15)
     #model para Producto Manual
-    productoManual = models.CharField(max_length=40, blank=True)
+    productoManual = models.CharField(max_length=40, blank=True, null=True)
     #PrimaryKey
     cliente = models.ManyToManyField(Cliente,blank=True)
     #ManyToMany

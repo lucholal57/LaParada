@@ -284,6 +284,7 @@ export class VentaComponent implements OnInit {
           this.alertas.ventaOk();
           this.reset();
           this.listadoProductosVenta = new Array();
+          this.listadoProductoManual = new Array();
         },
         (error) => {
           console.log(error);
@@ -295,10 +296,10 @@ export class VentaComponent implements OnInit {
   //Funcion Reset papra limpiar el formulario
   reset(): void {
     this.formularioVenta.reset();
+    this.formularioProductoManual.reset();
     this.vuelto = false;
     this.cuentaCorriente = false;
     this.resultado = 0;
-
   }
 }
 
