@@ -23,6 +23,10 @@ private url_prod = 'http://192.168.0.100:8080/';
   getVenta():Observable<Venta[]> {
     return this.http.get<Venta[]>(this.url_prod + 'venta',httpOption);
   }
+  //get venta
+  getVentaCC():Observable<Venta[]> {
+    return this.http.get<Venta[]>(this.url_prod + 'venta',httpOption);
+  }
   //post venta
   postVenta(formularioVenta:any):Observable<Venta[]> {
     return this.http.post<Venta[]>(this.url_prod + 'venta', formularioVenta,httpOption);

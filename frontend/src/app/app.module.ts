@@ -19,6 +19,7 @@ import { VentaComponent } from './component/venta/venta.component';
 import { LoginComponent } from './component/login/login.component';
 import { CajaComponent } from './component/caja/caja.component';
 import { HistorialVentasComponent } from './component/historial-ventas/historial-ventas.component';
+import { HistorialVentasCcComponent } from './component/historial-ventas-cc/historial-ventas-cc.component';
 import { ClienteComponent } from './component/cliente/cliente.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AutoFocusDirective } from './directiva/AutoFocus.directive';
@@ -30,6 +31,7 @@ import { AutoFocusDirective } from './directiva/AutoFocus.directive';
     ProductoComponent,
     VentaComponent,
     HistorialVentasComponent,
+    HistorialVentasCcComponent,
     CajaComponent,
     ClienteComponent,
     LoginComponent,

@@ -92,7 +92,7 @@ export class VentaComponent implements OnInit {
     recibo_efectivo: [, [Validators.required]],
     interes: [],
     cliente: [{}],
-    productoManual:[{}]
+    productoManual:[]
     //variables destro del formulario para agregar solo los productos manuales
   });
   //Formulario Producto manual
@@ -254,10 +254,6 @@ export class VentaComponent implements OnInit {
 
   //Funcion para registrar venta
   registrarVenta(): void {
-    //Si el listado es igual a 0 quiere decir que no agrego productos para la venta
-    if (this.listadoProductosVenta.length == 0) {
-      this.alertas.ventaSinProductos();
-    } else {
       console.log("Cantidad de elementos en listado" + this.listadoProductosVenta.length)
       //Se crea array para obtener los ids de los productos que va a ir agregando
       var idsProductos = new Array();
@@ -290,7 +286,6 @@ export class VentaComponent implements OnInit {
           console.log(error);
         }
       );
-    }
   }
 
   //Funcion Reset papra limpiar el formulario

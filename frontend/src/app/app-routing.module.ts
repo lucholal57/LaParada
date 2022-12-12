@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CajaComponent } from './component/caja/caja.component';
 import { ClienteComponent } from './component/cliente/cliente.component';
+import { HistorialVentasCcComponent } from './component/historial-ventas-cc/historial-ventas-cc.component';
 import { HistorialVentasComponent } from './component/historial-ventas/historial-ventas.component';
 import { InicioComponent } from './component/inicio/inicio.component';
 import { LoginComponent } from './component/login/login.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path:'producto',component: ProductoComponent},
   {path:'venta', component: VentaComponent},
   {path:'venta/historial', component: HistorialVentasComponent},
+  {path:'venta/historial/cc', component: HistorialVentasCcComponent},
   {path:'caja',component: CajaComponent},
   {path:'cliente',component: ClienteComponent},
   {path:'login',component: LoginComponent},
