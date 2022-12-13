@@ -9,5 +9,5 @@ export class Venta {
     producto: Producto[]=[];
     //Array para los productos manuales
     productoManual=new Array();
-    cliente: Cliente[]=[];
+    cliente=0;
 }

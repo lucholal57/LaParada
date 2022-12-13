@@ -10,7 +10,7 @@ class Venta(models.Model):
     #model para Producto Manual
     productoManual = models.CharField(max_length=40, blank=True, null=True)
     #PrimaryKey
-    cliente = models.ManyToManyField(Cliente,blank=True)
+    cliente = models.ForeignKey(Cliente,blank=True, null=True, on_delete=models.DO_NOTHING)
     #ManyToMany
     producto = models.ManyToManyField(Producto)
     #Metodo str para mostrar los datos en django admin

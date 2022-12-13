@@ -25,8 +25,9 @@ def VentaListado(request,*args, **kwargs):
             venta_productos.producto.set(request.data.get('producto'))
             #Lo que validamos aqui es que si el request es distinto de None lo setee, y en el caso de ser None directamente no setea nada
             if (request.data.get('cliente') != None):{
-                venta_productos.cliente.add(request.data.get('cliente'))
+                venta_productos.cliente.set(request.data.get('cliente'))
             }
+            
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
@@ -60,5 +61,17 @@ def VentaBuscarPorId(request,pk=None):
 
     #Validacion si no se encontro la venta
     return Response({'message':'No se encontro la venta'},status=status.HTTP_400_BAD_REQUEST)
+
+#Fucnion para Traer solo listado de ventas sin clientes
+##Funcion para edicion y eliminacion pasando id
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def VentaCC(request,*args, **kwargs):
+    if request.method == 'GET':
+        ventacc = Venta.objects.filter(cliente__isnull = False )
+        serializer = VentaSerializer(ventacc,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    else:
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 

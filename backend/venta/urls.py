@@ -1,5 +1,5 @@
 from django.urls import path
-from venta.views import VentaListado,VentaBuscarPorId
+from venta.views import VentaListado,VentaBuscarPorId,VentaCC
 
 urlpatterns = [
     #Rutas para las ventas

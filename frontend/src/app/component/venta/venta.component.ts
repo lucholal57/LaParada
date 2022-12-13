@@ -91,7 +91,7 @@ export class VentaComponent implements OnInit {
     producto: [{}, [Validators.required]],
     recibo_efectivo: [, [Validators.required]],
     interes: [],
-    cliente: [{}],
+    cliente: [],
     productoManual:[]
     //variables destro del formulario para agregar solo los productos manuales
   });

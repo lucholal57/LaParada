@@ -8,7 +8,7 @@ class VentaSerializer(serializers.ModelSerializer):
     #many true es para realaciones de many to many
     producto = ProductoSerializer(many=True)
     #read_only true es para relaciones de forenkey
-    cliente = ClienteSerializer(many=True)
+    cliente = ClienteSerializer(read_only=True)
     class Meta:
         model = Venta
         fields = '__all__'
