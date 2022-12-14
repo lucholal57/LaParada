@@ -21,11 +21,12 @@ private url_prod = 'http://192.168.0.100:8080/';
 
   //get venta
   getVenta():Observable<Venta[]> {
-    return this.http.get<Venta[]>(this.url_dev + 'venta',httpOption);
+    return this.http.get<Venta[]>(this.url_dev + 'venta/cliente/null',httpOption);
   }
+
   //get venta
   getVentaCC():Observable<Venta[]> {
-    return this.http.get<Venta[]>(this.url_dev + 'venta',httpOption);
+    return this.http.get<Venta[]>(this.url_dev + 'venta/cliente/not_null',httpOption);
   }
   //post venta
   postVenta(formularioVenta:any):Observable<Venta[]> {

@@ -91,7 +91,7 @@ export class VentaComponent implements OnInit {
     producto: [{}, [Validators.required]],
     recibo_efectivo: [, [Validators.required]],
     interes: [],
-    cliente: [],
+    cliente: [{}],
     productoManual:[]
     //variables destro del formulario para agregar solo los productos manuales
   });
@@ -270,8 +270,13 @@ export class VentaComponent implements OnInit {
       this.listadoProductoManual.forEach((elemento) =>{
         this.formularioVenta.controls['productoManual'].setValue(elemento.nombre);
       })
-      //Seteamos la venta
-      this.formularioVenta.controls['producto'].setValue(idsProductos);
+      //Seteamos el producto a la venta
+      if(idsProductos.length>0){
+        this.formularioVenta.controls['producto'].setValue(idsProductos);
+      }else{
+        this.formularioVenta.controls['producto'].setValue([]);
+      }
+
       //Accedemos al servicioVenta enviando el formulario
       this.servicioVenta.postVenta(this.formularioVenta.value).subscribe(
         (res) => {

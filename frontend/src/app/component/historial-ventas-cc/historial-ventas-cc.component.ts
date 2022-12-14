@@ -61,7 +61,7 @@ export class HistorialVentasCcComponent implements OnInit {
 
 
   obtenerVentas(): void {
-    this.servicioVenta.getVenta().subscribe(
+    this.servicioVenta.getVentaCC().subscribe(
       (res) => {
         this.listadoVenta = res;
         console.log(this.listadoVenta)

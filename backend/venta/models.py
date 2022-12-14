@@ -12,7 +12,8 @@ class Venta(models.Model):
     #PrimaryKey
     cliente = models.ForeignKey(Cliente,blank=True, null=True, on_delete=models.DO_NOTHING)
     #ManyToMany
-    producto = models.ManyToManyField(Producto)
+    #Se puede agregar blank true por que en el seriealizador de producto esta el required en False.
+    producto = models.ManyToManyField(Producto,blank=True)
     #Metodo str para mostrar los datos en django admin
     def __str__(self):
         return f'Venta: {self.forma_pago} - {self.fecha} - {self.total} - {self.cliente}'

@@ -60,11 +60,7 @@
                         </div>
                     </td>
                     <td scope="col">{{venta.forma_pago}}</td>
-                    <td scope="col">
-                      <div *ngFor="let cliente of venta.cliente"  >
-                          <h4 *ngIf="cliente.nombre!= null" > {{cliente.nombre}}</h4>
-                      </div>
-                  </td>
+                    <td scope="col">{{venta.cliente.nombre}}</td>
                     <td scope="col" >{{venta.fecha | date:'short'}}</td>
                     <td scope="col"><h1>$ {{venta.total}}</h1></td>
                 </tr>
