@@ -12,7 +12,6 @@ import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-venta',
   templateUrl: './venta.component.html',
@@ -92,12 +91,12 @@ export class VentaComponent implements OnInit {
     recibo_efectivo: [, [Validators.required]],
     interes: [],
     cliente: [{}],
-    productoManual:[]
+    productoManual:[{}]
     //variables destro del formulario para agregar solo los productos manuales
   });
   //Formulario Producto manual
   formularioProductoManual = this.formBuilder.group({
-    nombre:[''],
+    nombre:[],
     precio:[],
     })
 
@@ -106,26 +105,14 @@ export class VentaComponent implements OnInit {
     //Enviamos al servicio el numero de serie y si lo encuentra lo arrega a listadoProductoVenta
     this.servicioProducto.getProductoSerie(buscarSerie).subscribe(
       (res) => {
-
         if (res.length > 0) {
           res.forEach((elemento) => {
-            this.listadoProductosVenta.push(elemento);
-            /*
-              if(this.listadoProductosVenta.length==0){
+              if(elemento.cantidad>0) {
                 this.listadoProductosVenta.push(elemento);
+                this.sumatoria += parseInt(elemento.precio);
+              }else{
+                this.alertas.sinStock();
               }
-            if(this.listadoProductosVenta.find((producto) => producto.id === elemento.id)){
-              const indexCantidad = this.listadoProductosVenta.findIndex((producto) => producto.id === elemento.id);
-              this.listadoProductosVenta[indexCantidad].cantidad--;
-            }else{
-              elemento.cantidad--;
-              this.listadoProductosVenta.push(elemento);
-
-            }
-            */
-            console.log(this.listadoProductosVenta)
-            this.sumatoria += parseInt(elemento.precio);
-
           })
           this.producto = '';
         } else {
@@ -146,6 +133,7 @@ export class VentaComponent implements OnInit {
     console.log("Producto manual " , this.formularioProductoManual.value)
     //Al cargar producto manual ir sumando los precios
     this.sumatoria += parseInt(this.formularioProductoManual.value.precio!);
+    this.formularioProductoManual.reset();
   }
   //Funcion para obtener los clientes
   obtenerCliente(): void {
@@ -254,10 +242,9 @@ export class VentaComponent implements OnInit {
 
   //Funcion para registrar venta
   registrarVenta(): void {
-      console.log("Cantidad de elementos en listado" + this.listadoProductosVenta.length)
       //Se crea array para obtener los ids de los productos que va a ir agregando
       var idsProductos = new Array();
-      var contador =1;
+      var prodManual = new Array();
       //Seteamos la fecha y el total de las sumatoria para registrar la venta
       this.formularioVenta.controls['fecha'].setValue(this.fechaActual);
       this.formularioVenta.controls['total'].setValue(this.sumatoria);
@@ -266,26 +253,36 @@ export class VentaComponent implements OnInit {
       this.listadoProductosVenta.forEach((elemento) => {
         idsProductos.push(elemento.id);
       });
-      var array=new Array();
-      this.listadoProductoManual.forEach((elemento) =>{
-        this.formularioVenta.controls['productoManual'].setValue(elemento.nombre);
+      //Seteamos el listado de productos manuales a la venta
+      this.listadoProductoManual.forEach((elemento) => {
+        prodManual.push(elemento.nombre)
       })
+      this.formularioVenta.controls['productoManual'].setValue(prodManual)
       //Seteamos el producto a la venta
       if(idsProductos.length>0){
         this.formularioVenta.controls['producto'].setValue(idsProductos);
       }else{
         this.formularioVenta.controls['producto'].setValue([]);
       }
-
       //Accedemos al servicioVenta enviando el formulario
       this.servicioVenta.postVenta(this.formularioVenta.value).subscribe(
         (res) => {
-
           this.sumatoria = 0;
           this.alertas.ventaOk();
           this.reset();
           this.listadoProductosVenta = new Array();
           this.listadoProductoManual = new Array();
+          idsProductos.forEach(elemento=>{
+            this.servicioProducto.getProductoStock(elemento).subscribe(
+              (res) => {
+                console.log(res);
+              },
+              (error) => {
+                console.log(error);
+              }
+            )
+          })
+
         },
         (error) => {
           console.log(error);

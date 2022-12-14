@@ -1,6 +1,8 @@
 from django.db import models
 from producto.models import Producto
 from cliente.models import Cliente
+from django.contrib.postgres.fields import ArrayField
+
 
 # Create your models here.
 class Venta(models.Model):
@@ -8,7 +10,7 @@ class Venta(models.Model):
     fecha = models.DateTimeField()
     total = models.CharField(max_length=15)
     #model para Producto Manual
-    productoManual = models.CharField(max_length=40, blank=True, null=True)
+    productoManual = ArrayField(models.CharField(max_length=40),blank=True, null=True)
     #PrimaryKey
     cliente = models.ForeignKey(Cliente,blank=True, null=True, on_delete=models.DO_NOTHING)
     #ManyToMany

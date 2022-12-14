@@ -62,3 +62,19 @@ def getProductoSerie(request,buscarSerie):
     serializer = ProductoSerializer(producto, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+#Obtener producto por id y descontar stock
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def getProductoStock(request,pk=None):
+    #Buscamos el objeto por id
+    producto = Producto.objects.filter(id=pk)
+    serializer = ProductoSerializer(producto, many=True)
+    #Una ves que lo encontro recorremos un for por que pueden existir varios objetos RARISIMO POR QUE FILTRA POR ID PERO BUE
+    for obj in producto:
+        #Recorremos y descontamos de a 1 despues guardamos y listo
+        if(obj.cantidad>0):
+            obj.cantidad-=1
+            obj.save()
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+

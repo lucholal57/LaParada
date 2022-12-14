@@ -6,5 +6,5 @@ urlpatterns = [
     path('venta', VentaListado),
     path('venta/cliente/not_null', VentaClienteNotNull),
     path('venta/cliente/null', VentaClienteNull),
-    path('venta/<int:pk>', VentaBuscarPorId)
+    path('venta/<int:pk>', VentaBuscarPorId),
 ]
