@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
-
+  nombre:String="";
 
   constructor(
     public servicioLogin: LoginService,
@@ -21,6 +21,14 @@ export class InicioComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.servicioLogin.getUsuarioporToken().subscribe(
+      (res) => {
+        this.nombre =  res.username.toUpperCase();
+
+      }
+    )
+
     $(document).ready(function () {
       var trigger = $('.hamburger'),
         overlay = $('.overlay'),

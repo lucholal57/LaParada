@@ -1,9 +1,10 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from user_app.api.serializer import RegistroSerializer
 from rest_framework.authtoken.models import Token
 from user_app import models
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 
 #Creamos metodo para el logout, para cerrar sesion se envia el token desde el front
@@ -38,4 +39,18 @@ def RegistroView(request):
             data = serializer.errors
             
         return Response(data)
+    
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_view(request):
+    user = request.user
+    data = {
+        'username': user.username,
+        'email': user.email,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'rol': user.rol
+    }
+    return Response(data)
 
