@@ -10,7 +10,7 @@
         <div class="sidebar-header">
           <img src="../../../assets/jpg/Laparada.png" width="100px">
           <h3 >La Parada Multirubro</h3>
-          <h4 style="color:white">User: {{nombre}}</h4>
+          <h4 style="color:white">User: {{nombreUsuario}}</h4>
         </div>
 
         <li><a href="/venta">
@@ -28,7 +28,7 @@
           <li><a href="/cliente">
             <mat-icon >people</mat-icon> CLIENTES
           </a></li>
-        <li><a href="/caja" *ngIf="nombre == 'ADMIN'">
+        <li><a href="/caja" *ngIf="nombreUsuario == 'admin'">
             <mat-icon>store</mat-icon> CIERRE CAJA
           </a></li>
           <li><a >

@@ -18,7 +18,10 @@ export class HistorialVentasComponent implements OnInit {
   search:any
   //Variable para el paginado
   p:any;
-  //Pipe para la fecha
+
+  fechaInicio: string=""; // Propiedad para almacenar la fecha y hora de inicio del rango
+  fechaFin: string=""; // Propiedad para almacenar la fecha y hora de fin del rango
+
 
   fecha:any;
   //Variable para Switch mostrar tablas
@@ -39,25 +42,9 @@ export class HistorialVentasComponent implements OnInit {
       this.alertas.alertToken();
       setTimeout(() => {this.router.navigate(['']);},2000)
     }
-    this.mostrarHora();
+
 
   }
-
-  //Funcion mostrar hora
-  mostrarHora() {
-    //Usamos otra variable de fecha por como recibe el backen es necesaria la misma, distinta a la que se muestra en el front por la hora
-    this.fechaActual = this.pipe.transform(Date.now(), 'YYYY-MM-dd hh:mm:s ');
-    //Intervalo para que despues de 1000mls se actualize la hora dandonos asi los segundos por pantalla.
-    setInterval(() => {
-      //utilizamos este formato de hora solo para mostrar en el front
-      this.fechaActual = this.pipe.transform(
-        Date.now(),
-        'YYYY-MM-dd hh:mm:ss '
-      );
-    }, 1000);
-  }
-
-
   obtenerVentas(): void {
     this.servicioVenta.getVenta().subscribe(
       (res) => {
@@ -68,4 +55,13 @@ export class HistorialVentasComponent implements OnInit {
           console.log(error);
         }
         )}
+
+         // Función para calcular el total de las ventas dentro del rango de fechas seleccionado
+  calcularTotalVentas(): void {
+    // Convertir las fechas de tipo string a objetos Date
+    const fechaInicio = new Date(this.fechaInicio);
+    const fechaFin = new Date(this.fechaFin);
+
+}
+
 }

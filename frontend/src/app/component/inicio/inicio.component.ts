@@ -4,30 +4,26 @@ import * as $ from 'jquery';
 import { LoginService } from 'src/app/servicios/login/login.service';
 import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/servicios/Auth/auth.service';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.css']
+  styleUrls: ['./inicio.component.css'],
 })
 export class InicioComponent implements OnInit {
-  nombre:String="";
+  nombreUsuario: String = '';
 
-  constructor(
-    public servicioLogin: LoginService,
-    private router : Router,
-  ) { }
-
-
+  constructor(public servicioLogin: LoginService,
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
-
-    this.servicioLogin.getUsuarioporToken().subscribe(
-      (res) => {
-        this.nombre =  res.username.toUpperCase();
-
-      }
-    )
+    // Suscribirse al observable de estado de autenticación en el servicio
+    this.authService.usuarioAutenticado$.subscribe((nombreUsuario: string) => {
+      // Actualizar la información del nombre de usuario en el componente cuando cambie el estado de autenticación
+      this.nombreUsuario = nombreUsuario;
+    });
 
     $(document).ready(function () {
       var trigger = $('.hamburger'),
@@ -39,7 +35,6 @@ export class InicioComponent implements OnInit {
       });
 
       function hamburger_cross() {
-
         if (isClosed == true) {
           overlay.hide();
           trigger.removeClass('is-open');
@@ -57,14 +52,10 @@ export class InicioComponent implements OnInit {
         $('#wrapper').toggleClass('toggled');
       });
     });
-
   }
 
   logout(): void {
-    localStorage.removeItem("token")
-    this.router.navigateByUrl('')
+    localStorage.clear();
+    this.router.navigateByUrl('');
   }
-
-
-
 }

@@ -1,390 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ventas</title>
-  </head>
 
-  <body>
-    <app-inicio></app-inicio>
-    <legend>VENTAS</legend>
-    <!--Contenedor ingreso producto,sumatoria,forma_pago,fecha-->
-    <div class="container-fluid">
-      <div class="row justify-content-center">
-        <div
-          class="card text-white bg-dark mb-3"
-          style="max-width: 15rem; max-height: 8rem"
-        >
-          <div class="card-header" align="center">Producto</div>
-          <div class="card-body">
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Ingrese Codigo..."
-              ngDefaultControl
-              [(ngModel)]="producto"
-              (change)="obtenerProductoSerie(producto)"
-              appAutoFocus
-            />
-          </div>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ventas</title>
+</head>
 
-        <div
-          class="card text-white bg-dark mb-3"
-          style="max-width: 12rem; max-height: 8rem"
-        >
-          <div class="card-header" align="center">Producto Manual</div>
-          <div class="card-body" align="center">
-            <button
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModalProductoManual"
-            >
-              Manual
-            </button>
-          </div>
-        </div>
-
-        <div
-          class="card text-white bg-dark mb-3"
-          style="max-width: 12rem; max-height: 8rem"
-        >
-          <div class="card-header" align="center">Sumatoria</div>
-          <div class="card-body" align="center">
-            <h1 class="display-1" ngDefaultControl [(ngModel)]="sumatoria">
-              $ {{ sumatoria }}
-            </h1>
-          </div>
-        </div>
-
-        <div
-          class="card text-white bg-dark mb-3"
-          style="max-width: 12rem; max-height: 8rem"
-        >
-          <div class="card-header" align="center">Accion</div>
-          <div class="card-body" align="center">
-            <!-- Button trigger modal -->
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              style="margin-left: -2%"
-            >
-              Forma de Pago
-            </button>
-          </div>
-        </div>
-
-        <div
-          class="card text-white bg-dark mb-3"
-          style="max-width: 15rem; max-height: 8rem"
-        >
-          <div class="card-header" align="center">
-            {{ fechaActual | date: "short" }}
-          </div>
-          <div class="card-body" align="center">
-            <img
-              src="../../../assets/jpg/Laparada.png"
-              width="30%"
-              style="margin-right: 0px; margin-top: -20px"
-              alt=""
-            />
-          </div>
+<body>
+  <app-inicio></app-inicio>
+  <legend>VENTAS</legend>
+  <!--Contenedor ingreso producto,sumatoria,forma_pago,fecha-->
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height: 8rem">
+        <div class="card-header" align="center">Producto</div>
+        <div class="card-body">
+          <input class="form-control" type="text" placeholder="Ingrese Codigo..." ngDefaultControl
+            [(ngModel)]="producto" (change)="obtenerProductoSerie(producto)" appAutoFocus />
         </div>
       </div>
 
-      <!--Formulario modal para la venta-->
-      <form [formGroup]="formularioVenta">
-        <div class="container-fluid">
-          <div class="row justify-content-center">
-            <!--Espacio de codigo para el modal que va a contener la forma de pago y de ser fectivo el ingreso de pago y vuelto-->
-            <!-- Modal -->
-            <div
-              class="modal fade"
-              id="exampleModal"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog modal-md">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel">
-                      Formas de Pago
-                    </h2>
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div class="modal-body">
-                    <!--CheckBox Forma de pago e Inputs para el ingreso de vuelto-->
-                    <div class="form-group">
-                      <div class="container-fluid">
-                        <div class="row">
-                          <div class="col-sm-4">
-                            <div class="form-check form-check-inline">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name="forma_pago"
-                                value="efectivo"
-                                formControlName="forma_pago"
-                                checked
-                                (change)="formaDePago()"
-                              />
-                              <label class="form-check-label" for="inlineRadio1"
-                                >EFECTIVO</label
-                              >
-                            </div>
-                          </div>
+      <div class="card text-white bg-dark mb-3" style="max-width: 12rem; max-height: 8rem">
+        <div class="card-header" align="center">Producto Manual</div>
+        <div class="card-body" align="center">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalProductoManual">
+            Manual
+          </button>
+        </div>
+      </div>
 
-                          <div class="col-sm-4">
-                            <div class="form-check form-check-inline">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name="forma_pago"
-                                value="tarjeta"
-                                formControlName="forma_pago"
-                                (change)="formaDePago()"
-                              />
-                              <label class="form-check-label" for="inlineRadio2"
-                                >TARJETA</label
-                              >
-                            </div>
-                          </div>
+      <div class="card text-white bg-dark mb-3" style="max-width: 12rem; max-height: 8rem">
+        <div class="card-header" align="center">Accion</div>
+        <div class="card-body" align="center">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            style="margin-left: -2%">
+            Forma de Pago
+          </button>
+        </div>
+      </div>
 
-                          <div class="col-sm-4">
-                            <div class="form-check form-check-inline">
-                              <input
-                                class="form-check-input"
-                                type="radio"
-                                name="forma_pago"
-                                value="cuentaCorriente"
-                                formControlName="forma_pago"
-                                (change)="formaDePago()"
-                              />
-                              <label class="form-check-label" for="inlineRadio3"
-                                >CTA.CORRIENTE</label
-                              >
-                            </div>
-                          </div>
+      <div class="card text-white bg-dark mb-3" style="max-width: 12rem; max-height: 8rem">
+        <div class="card-header" align="center">Sumatoria</div>
+        <div class="card-body" align="center">
+          <h1 class="display-1" ngDefaultControl [(ngModel)]="sumatoria">
+            $ {{ sumatoria }}
+          </h1>
+        </div>
+      </div>
 
-                          <div class="col-sm-12" *ngIf="cuentaCorriente">
-                            <hr />
-                            <select
-                              class="form-control"
-                              formControlName="cliente"
-                            >
-                              <option value="" hidden selected>
-                                Seleccione Cliente
-                              </option>
-                              <option
-                                [ngValue]="cliente.id"
-                                *ngFor="let cliente of listadoClientes"
-                              >
-                                {{ cliente.nombre }}
-                              </option>
-                            </select>
-                          </div>
+      <div class="card text-white bg-dark mb-3" style="max-width: 25rem; max-height: 8rem">
+        <div class="card-body" align="center">
+          <img src="../../../assets/jpg/Laparada.png" width="30%" style="margin-right: 0px; margin-top: -20px" alt="" />
+        </div>
+      </div>
+    </div>
 
-                          <div class="container-fluid" *ngIf="tarjeta">
-                            <hr />
-                            <div class="col-sm-5 offset-sm-4">
-                              <input
-                                class="form-control"
-                                type="number"
-                                Placeholder="Ingrese Porcentaje %..."
-                                formControlName="interes"
-                                (change)="obtenerInteres()"
-                                appAutoFocus
-                              />
-                            </div>
+    <!--Formulario modal para la venta-->
+    <form [formGroup]="formularioVenta">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <!--Espacio de codigo para el modal que va a contener la forma de pago y de ser fectivo el ingreso de pago y vuelto-->
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" id="exampleModalLabel">
+                    Formas de Pago
+                  </h2>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <!--CheckBox Forma de pago e Inputs para el ingreso de vuelto-->
+                  <div class="form-group">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="forma_pago" value="efectivo"
+                              formControlName="forma_pago" checked (change)="formaDePago()" />
+                            <label class="form-check-label" for="inlineRadio1">EFECTIVO</label>
                           </div>
                         </div>
-                        <hr />
 
-                        <h1 class="display-1" align="center">
-                          Total: $ {{ sumatoria }}
-                        </h1>
+                        <div class="col-sm-4">
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="forma_pago" value="tarjeta"
+                              formControlName="forma_pago" (change)="formaDePago()" />
+                            <label class="form-check-label" for="inlineRadio2">TARJETA</label>
 
-                        <hr />
-
-                        <div
-                          class="container"
-                          id="contedorVuelto"
-                          *ngIf="vuelto"
-                        >
-                          <div class="row">
-                            <div class="col">
-                              <input
-                                type="number"
-                                class="form-control"
-                                placeholder="Ingrese Monto para Vuelto"
-                                formControlName="recibo_efectivo"
-                                (change)="obtenerVuelto()"
-                                appAutoFocus
-                              />
-                            </div>
                           </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="forma_pago" value="cuentaCorriente"
+                              formControlName="forma_pago" (change)="formaDePago()" />
+                            <label class="form-check-label" for="inlineRadio3">CTA.CORRIENTE</label>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-12" *ngIf="cuentaCorriente">
                           <hr />
-                          <div class="row">
-                            <div class="col">
-                              <h1 class="display-1" align="center">
-                                Vuelto: $ {{ resultado }}
-                              </h1>
+                          <select class="form-control" formControlName="cliente">
+                            <option value="" hidden selected>
+                              Seleccione Cliente
+                            </option>
+                            <option [ngValue]="cliente.id" *ngFor="let cliente of listadoClientes">
+                              {{ cliente.nombre }}
+                            </option>
+                          </select>
+                        </div>
+
+                        <div class="container-fluid" *ngIf="tarjeta">
+                          <hr />
+                          <div class="col-sm-12 text-center">
+
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="interes" value="5"
+                                formControlName="interes" (change)="obtenerInteres()" />
+                              <label class="form-check-label" for="inlineRadio3">5%</label>
                             </div>
+
+                            <div class="form-check form-check-inline"> <!-- Elimina la clase col-sm-4 aquí -->
+                              <input class="form-check-input" type="radio" name="interes" value="10"
+                                formControlName="interes" (change)="obtenerInteres()" />
+                              <label class="form-check-label" for="inlineRadio4">10%</label>
+                            </div>
+
+                            <div class="form-check form-check-inline"> <!-- Elimina la clase col-sm-4 aquí -->
+                              <input class="form-check-input" type="radio" name="interes" value="15"
+                                formControlName="interes" (change)="obtenerInteres()" />
+                              <label class="form-check-label" for="inlineRadio5">15%</label>
+                            </div>
+
+
+                          </div>
+                        </div>
+
+
+                      </div>
+                      <hr />
+
+                      <h1 class="display-1" align="center">
+                        Total: $ {{ sumatoria }}
+                      </h1>
+
+                      <div class="container" id="contedorVuelto" *ngIf="vuelto">
+                        <div class="row">
+                          <div class="col">
+                            <input type="number" class="form-control" placeholder="Ingrese Monto para Vuelto"
+                              formControlName="recibo_efectivo" (change)="obtenerVuelto()" appAutoFocus />
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                          <div class="col">
+                            <h1 class="display-1" align="center">
+                              Vuelto: $ {{ resultado }}
+                            </h1>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-bs-dismiss="modal"
-                      (click)="registrarVenta()"
-                    >
-                      TERMINAR VENTA
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                      (click)="reset()"
-                    >
-                      Close
-                    </button>
-                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="registrarVenta()">
+                    TERMINAR VENTA
+                  </button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reset()">
+                    Close
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </form>
+      </div>
+    </form>
 
-      <!--Formulario modal para la venta producto manual-->
-      <form [formGroup]="formularioProductoManual">
-        <div class="container-fluid">
-          <div class="row justify-content-center">
-            <div
-              class="modal fade"
-              id="exampleModalProductoManual"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog modal-md">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel">
-                      Producto Manual
-                    </h2>
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-sm-12">
-                          <label for="">Nombre</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="nombre"
-                            placeholder="Ingrese Nombre"
-                            formControlName="nombre"
-                            required
-                          />
-                        </div>
+    <!--Formulario modal para la venta producto manual-->
+    <form [formGroup]="formularioProductoManual">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="modal fade" id="exampleModalProductoManual" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" id="exampleModalLabel">
+                    Producto Manual
+                  </h2>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label for="">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese Nombre"
+                          formControlName="nombre" required />
                       </div>
-                      <div class="row">
-                        <div class="col-sm-12">
-                          <label for="">Precio</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            formControlName="precio"
-                            placeholder="Ingrese Precio"
-                            required
-                            appAutoFocus
-                          />
-                        </div>
-                      </div>
-
                     </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label for="">Precio</label>
+                        <input type="number" class="form-control" formControlName="precio" placeholder="Ingrese Precio"
+                          required appAutoFocus />
+                      </div>
+                    </div>
+
                   </div>
-                  <div class="modal-footer">
-                    <button
-                      type="submit"
-                      class="btn btn-primary"
-                      data-bs-dismiss="modal"
-                      (click)="productoManual()"
-                    >
-                      Cargar
-                    </button>
-                    <button type="button" class="btn btn-warning">
-                      Limpiar
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="productoManual()">
+                    Cargar
+                  </button>
+                  <button type="button" class="btn btn-warning">
+                    Limpiar
+                  </button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
+  </div>
 
 
-    <div class="container table-responsive" *ngIf="!tableMixta">
-      <table class="table table-sm table-dark table-striped table-bordered">
-        <thead class="table-ligth">
-          <tr class="text-center">
-            <th scope="col">Serie</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Quitar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let producto of listadoProductosVenta">
-            <td scope="col">{{ producto.serie }}</td>
-            <td scope="col">{{ producto.nombre }}</td>
-            <td scope="col">{{ producto.descripcion }}</td>
-            <td scope="col">${{ producto.precio }}</td>
-            <td scope="col">{{ fechaActual | date: "short" }}</td>
-            <td scope="col">
-              <a type="button" (click)="quitar(producto)">
-                <mat-icon style="color: red"> delete </mat-icon>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="container table-responsive" *ngIf="!tableMixta">
+    <table class="table table-sm table-dark table-striped table-bordered">
+      <thead class="table-dark">
+        <tr class="text-center">
+          <th scope="col">Serie</th>
+          <th scope="col">Producto</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Quitar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of listadoProductosVenta">
+          <td scope="col">{{ producto.serie }}</td>
+          <td scope="col">{{ producto.nombre }}</td>
+          <td scope="col">{{ producto.descripcion }}</td>
+          <td scope="col">${{ producto.precio }}</td>
+          <td scope="col">
+            <a type="button" (click)="quitar(producto)">
+              <mat-icon style="color: red"> delete </mat-icon>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="container mixed" *ngIf="tableMixta">
-      <div class="row">
+  <div class="container mixed" *ngIf="tableMixta">
+    <div class="row">
       <div class="col">
         <div class="container table-responsive">
           <table class="table table-sm table-dark table-striped table-bordered">
@@ -398,7 +279,6 @@
                 <th scope="col">Producto</th>
                 <th scope="col">Descripcion</th>
                 <th scope="col">Precio</th>
-                <th scope="col">Fecha</th>
                 <th scope="col">Quitar</th>
               </tr>
             </thead>
@@ -408,7 +288,6 @@
                 <td scope="col">{{ producto.nombre }}</td>
                 <td scope="col">{{ producto.descripcion }}</td>
                 <td scope="col">${{ producto.precio }}</td>
-                <td scope="col">{{ fechaActual | date: "short" }}</td>
                 <td scope="col">
                   <a type="button" (click)="quitar(producto)">
                     <mat-icon style="color: red"> delete </mat-icon>
@@ -424,13 +303,12 @@
         <div class="container table-responsive">
           <table class="table table-sm table-dark table-striped table-bordered">
             <thead class="table-dark">
-              <tr class="text-center" >
+              <tr class="text-center">
                 <th colspan="6">MANUAL</th>
               </tr>
               <tr class="text-center">
                 <th scope="col">Producto</th>
                 <th scope="col">Precio</th>
-                <th scope="col">Fecha</th>
                 <th scope="col">Quitar</th>
               </tr>
             </thead>
@@ -438,7 +316,6 @@
               <tr *ngFor="let manual of listadoProductoManual">
                 <td scope="col">{{ manual.nombre }}</td>
                 <td scope="col">${{ manual.precio }}</td>
-                <td scope="col">{{ fechaActual | date: "short" }}</td>
                 <td scope="col">
                   <a type="button" (click)="quitarProductoManual(manual)">
                     <mat-icon style="color: red"> delete </mat-icon>
@@ -450,6 +327,7 @@
         </div>
       </div>
     </div>
-    </div>
-  </body>
+  </div>
+</body>
+
 </html>

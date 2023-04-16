@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {  Observable } from 'rxjs';
@@ -14,6 +14,10 @@ const httpOption = {
   providedIn: 'root'
 })
 export class LoginService {
+
+  public userRole="";
+  public onUserRoleChange: EventEmitter<string> = new EventEmitter();
+  
   // Variable para la url
   private url_dev = 'http://127.0.0.1:8000/';
   private url_prod = 'http://192.168.0.100:8080/';

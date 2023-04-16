@@ -21,27 +21,27 @@ private url_prod = 'http://192.168.0.100:8080/';
 
   //get venta
   getVenta():Observable<Venta[]> {
-    return this.http.get<Venta[]>(this.url_prod + 'venta/cliente/null',httpOption);
+    return this.http.get<Venta[]>(this.url_dev + 'venta/cliente/null',httpOption);
   }
 
   //get venta
   getVentaCC():Observable<Venta[]> {
-    return this.http.get<Venta[]>(this.url_prod + 'venta/cliente/not_null',httpOption);
+    return this.http.get<Venta[]>(this.url_dev + 'venta/cliente/not_null',httpOption);
   }
   //post venta
   postVenta(formularioVenta:any):Observable<Venta[]> {
-    return this.http.post<Venta[]>(this.url_prod + 'venta', formularioVenta,httpOption);
+    return this.http.post<Venta[]>(this.url_dev + 'venta', formularioVenta,httpOption);
   }
   //get venta pasando ID
   getVentaId(VentaId: number):Observable<Venta[]> {
-    return this.http.get<Venta[]>(this.url_prod + 'venta/' + VentaId,httpOption);
+    return this.http.get<Venta[]>(this.url_dev + 'venta/' + VentaId,httpOption);
   }
   //update venta
   putVenta(formularioVenta:any, id:any): Observable<Venta[]> {
-    return this.http.put<Venta[]>(this.url_prod + 'venta/' + id, formularioVenta,httpOption)
+    return this.http.put<Venta[]>(this.url_dev + 'venta/' + id, formularioVenta,httpOption)
   }
   //delete venta
   deleteVenta(id:number):Observable<Venta[]> {
-    return this.http.delete<Venta[]>(this.url_prod + 'venta/' + id,httpOption)
+    return this.http.delete<Venta[]>(this.url_dev + 'venta/' + id,httpOption)
   }
 }
