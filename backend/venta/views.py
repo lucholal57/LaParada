@@ -58,7 +58,7 @@ def VentaBuscarPorId(request, pk=None):
 
         elif request.method == 'DELETE':
             venta.delete()
-            return Response({'message': 'Venta eliminada correctament'}, status=status.HTTP_204_OK)
+            return Response({'message': 'Venta eliminada correctament'}, status=status.HTTP_200_OK)
 
     # Validacion si no se encontro la venta
     return Response({'message': 'No se encontro la venta'}, status=status.HTTP_400_BAD_REQUEST)

@@ -4,7 +4,7 @@ export class Venta {
     id=0;
     forma_pago="";
     fecha=new Date();
-    total=0;
+    total='';
     producto: Producto[]=[];
     //Array para los productos manuales
     productoManual= [];

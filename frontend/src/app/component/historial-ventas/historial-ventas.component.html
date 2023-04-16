@@ -43,20 +43,18 @@
         </div>
       </div>
 
-      <!-- Tarjeta para mostrar el total de las ventas dentro del rango -->
-      <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height: 8rem">
-        <div class="card-header" align="center">
-          Total de Ventas
-        </div>
+      <div class="card text-white bg-dark mb-3" style="max-width: 15rem; max-height:8rem">
+        <div class="card-header" align="center">Buscar Ventas</div>
         <div class="card-body" align="center">
-          <p>Total: {{ calcularTotalVentas() }}</p>
+          <button type="button" class="btn btn-primary" (click)="filtrarVentasPorFecha()">Arqueo</button>
+          <button type="button" class="btn btn-warning" (click)="resetFechas()" style="margin-left: 10px;">Reset</button>
         </div>
       </div>
 
     </div>
   </div>
 
-  <div class="container-fluid table-responsive">
+  <div class="container table-responsive">
     <table class="table table-sm table-dark table-bordered table-striped">
       <thead class="table-dark">
         <tr class="text-center">

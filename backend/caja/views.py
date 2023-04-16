@@ -4,13 +4,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
-from backend.caja.serializer import CajaPostPutSerializer
+from caja.serializer import CajaPostPutSerializer
 from caja.models import Caja
-from caja.serializer import CajaSerializer,CajaPostSerializer
+from caja.serializer import CajaSerializer,CajaPostPutSerializer
 
 # Create your views here.
 @api_view(['GET','POST'])
-@permission_classes((IsAuthenticated,))
+
 def CajaListado(request):
     #Listado
     if request.method == 'GET':
@@ -29,7 +29,7 @@ def CajaListado(request):
     
 #Funcion para la edicion y eliminacion pasando id
 @api_view(['GET','PUT','DELETE'])
-@permission_classes((IsAuthenticated,))
+
 def CajaBuscarPorId(request,pk=None):
     #Consulta para obtener el objeto sin First
     caja = Caja.objects.filter(id=pk)

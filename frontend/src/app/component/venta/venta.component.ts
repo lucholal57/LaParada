@@ -286,7 +286,3 @@ export class VentaComponent implements OnInit {
     this.resultado = 0;
   }
 }
-
-function ngAfterViewInit() {
-  throw new Error('Function not implemented.');
-}
