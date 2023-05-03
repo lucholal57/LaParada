@@ -35,8 +35,7 @@ import { AutoFocusDirective } from './directiva/AutoFocus.directive';
     CajaComponent,
     ClienteComponent,
     LoginComponent,
-    AutoFocusDirective
-
+    AutoFocusDirective,
   ],
   imports: [
     BrowserModule,

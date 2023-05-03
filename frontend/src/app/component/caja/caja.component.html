@@ -9,6 +9,34 @@
 <body>
   <app-inicio></app-inicio>
   <legend>CIERRE CAJA</legend>
+
+
+  <div class="card text-white bg-dark mb-3" style="width: 800px;height: 400px; margin: 0 auto; display: flex; justify-content: center;flex-direction: column;">
+    <div class="card-header" align="center"></div>
+    <div class="card-body">
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+
+  <div class="container table-responsive">
+    <table class="table table-sm table-dark table-striped table-bordered">
+        <thead class="table-dark">
+            <tr class="text-center">
+                <th scope="col">Fecha</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Usamos el filter Pipe primero despues de recorrer el array, y como ultima opcion la pagiancion con el atributo totalItems pasandole el length del array asi la busqueda funciona en las paginaciones, obteniendo toda la longitud del array-->
+            <tr
+                *ngFor="let caja of listadoCaja | filter: search |  paginate: { itemsPerPage: 20, currentPage: p, totalItems: listadoCaja.length }">
+                <td scope="row">{{caja.fecha | date:'short'}}</td>
+                <td scope="row">{{caja.total}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination-controls style="color:white;" (pageChange)="p = $event" class="my-pagination"></pagination-controls>
+</div>
 </body>
 </html>
 

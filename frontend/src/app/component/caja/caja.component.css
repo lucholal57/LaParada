@@ -1,19 +1,20 @@
 body {
-  
+  background-color: #a34483;
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  /*background-size: cover;*/
-  background-size: contain;
+  background-size: cover;
   /* atributo css para definir el minimo de largo de body*/
-  min-height: 100vh;
+  min-height: 180vh;
+
+}
+
+table tbody tr td {
+  text-align: center;
 }
 
 legend {
   color: white;
-  text-align: center;
-}
-table tbody tr td {
   text-align: center;
 }
 
@@ -21,3 +22,4 @@ table tbody tr td {
   background-color: #292b2c;
   color: white;
 }
+

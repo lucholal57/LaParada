@@ -15,7 +15,7 @@ import { ProductoService } from '../../servicios/producto/producto.service';
   styleUrls: ['./producto.component.css'],
 })
 export class ProductoComponent implements OnInit {
-  //VAriable p para la Paginacion
+  //Variable p para la Paginacion
   p: any;
   //Variable para la busqueda y filtro de tabla
   search: any;
