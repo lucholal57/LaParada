@@ -17,7 +17,7 @@ export class LoginService {
 
   public userRole="";
   public onUserRoleChange: EventEmitter<string> = new EventEmitter();
-  
+
   // Variable para la url
   private url_dev = 'http://127.0.0.1:8000/';
   private url_prod = 'http://192.168.0.100:8080/';
@@ -30,11 +30,11 @@ export class LoginService {
   ) { }
 
   login(user: any): Observable<any> {
-    return this.http.post(this.url_dev + 'account/login/', user);
+    return this.http.post(this.url_prod + 'account/login/', user);
   }
 
   getUsuarioporToken(): Observable<any> {
-    return this.http.get(this.url_dev + 'account/user/', httpOption)
+    return this.http.get(this.url_prod + 'account/user/', httpOption)
   }
 
 }

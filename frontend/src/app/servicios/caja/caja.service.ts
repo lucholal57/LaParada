@@ -19,10 +19,10 @@ private url_prod = 'http://192.168.0.100:8080/';
   constructor(private http: HttpClient) { }
 
   getCaja():Observable<any> {
-    return this.http.get<any>(this.url_dev + 'caja', httpOption );
+    return this.http.get<any>(this.url_prod + 'caja', httpOption );
   }
 
   postCaja(total:any):Observable<any>{
-    return this.http.post<any>(this.url_dev + 'caja', total, httpOption);
+    return this.http.post<any>(this.url_prod + 'caja', total, httpOption);
   }
 }

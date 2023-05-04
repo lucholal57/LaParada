@@ -21,23 +21,23 @@ private url_prod = 'http://192.168.0.100:8080/';
 
   //get Cliente
   getCliente():Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(this.url_dev + 'cliente',httpOption)
+    return this.http.get<Cliente[]>(this.url_prod + 'cliente',httpOption)
   }
   //get cliente pasando ID
   getClienteId(clienteId:number):Observable<Cliente[]>{
-    return this.http.get<Cliente[]>(this.url_dev + 'cliente/'+ clienteId,httpOption)
+    return this.http.get<Cliente[]>(this.url_prod + 'cliente/'+ clienteId,httpOption)
   }
   //post Cliente
   postCliente(formularioCliente:any):Observable<Cliente[]> {
-    return this.http.post<Cliente[]>(this.url_dev + 'cliente', formularioCliente,httpOption)
+    return this.http.post<Cliente[]>(this.url_prod + 'cliente', formularioCliente,httpOption)
   }
   //update Cliente
   putCliente(formularioCliente:any,id:any):Observable<Cliente[]> {
-    return this.http.put<Cliente[]>(this.url_dev + 'cliente/' + id, formularioCliente,httpOption)
+    return this.http.put<Cliente[]>(this.url_prod + 'cliente/' + id, formularioCliente,httpOption)
   }
   //delete Cliente
   deleteCliente(id:any):Observable<Cliente[]>{
-    return this.http.delete<Cliente[]>(this.url_dev + 'cliente/' + id)
+    return this.http.delete<Cliente[]>(this.url_prod + 'cliente/' + id)
   }
 
 }

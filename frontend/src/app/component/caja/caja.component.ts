@@ -26,35 +26,14 @@ export class CajaComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCaja();
-    var myChart = new Chart("myChart", {
-      type: 'bar',
-      data: {
-          labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio', 'Agosto', 'Septiembre','Octubre','Noviembre','Diciembre'],
-          datasets: [{
-              label: 'Data1',
-              data: [1, 19, 3, 5, 2, 3,2,4,6,21,45,12],
-              backgroundColor:"#0196FD",
-              borderColor: "#0196FD",
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
-          }
-      }
-  });
-
   }
-
-
 
   getCaja(): void {
     this.servicioCaja.getCaja().subscribe(
       (res) => {
         this.listadoCaja = res;
+        this.dashboard();
+        console.log(res)
       },
       (error) => {
         console.log(error);
@@ -63,38 +42,53 @@ export class CajaComponent implements OnInit {
   }
 
   dashboard(): void {
-    const myChart = new Chart('myChart', {
+    const labels = [
+      { mes: 0, nombreMes: 'Enero' },
+      { mes: 1, nombreMes: 'Febrero' },
+      { mes: 2, nombreMes: 'Marzo' },
+      { mes: 3, nombreMes: 'Abril' },
+      { mes: 4, nombreMes: 'Mayo' },
+      { mes: 5, nombreMes: 'Junio' },
+      { mes: 6, nombreMes: 'Julio' },
+      { mes: 7, nombreMes: 'Agosto' },
+      { mes: 8, nombreMes: 'Septiembre' },
+      { mes: 9, nombreMes: 'Octubre' },
+      { mes: 10, nombreMes: 'Noviembre' },
+      { mes: 11, nombreMes: 'Diciembre' }
+    ];
+    const totalesPorMes: {[mes: number]: number} = {};
+    this.listadoCaja.forEach(caja => {
+      const fecha = new Date(caja.fecha);
+      const mes = fecha.getMonth();
+      if (!totalesPorMes[mes]) {
+        totalesPorMes[mes] = 0;
+      }
+      totalesPorMes[mes] += +(caja.total);
+    });
+
+    const datos = labels.map(item => totalesPorMes[item.mes] || 0);
+    const myChart = new Chart("myChart", {
       type: 'bar',
       data: {
-        labels: ['Faltantes', 'Pantalla', 'Tornillos', 'Asistencias'],
+        labels: labels.map(item => item.nombreMes),
         datasets: [{
-          label: 'TM',
-          //Se deja al final el valor 0 y un maximo para que las barrar tengan donde empezar y terminar
-          data: [1,6],
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 1,
-        },
-        {
-          label: 'TT',
-          //Se deja al final el valor 0 y un maximo para que las barrar tengan donde empezar y terminar
-          data: [1,2,3,4,5,6],
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          borderColor: 'rgba(54, 162, 235, 1)',
+          label: 'Cierre Caja x Mes',
+          data: datos,
+          backgroundColor: "#0196FD",
+          borderColor: "#0196FD",
           borderWidth: 1
-        }],
-
+        }]
       },
       options: {
         scales: {
           y: {
-            beginAtZero: true,
+            beginAtZero: true
           }
         }
       }
     });
-
   }
+
 
 
 

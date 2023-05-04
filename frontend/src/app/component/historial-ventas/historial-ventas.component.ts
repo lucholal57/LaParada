@@ -70,26 +70,28 @@ export class HistorialVentasComponent implements OnInit {
     const t = {
       total:this.calcularTotalVentas()
     }
-    this.servicioCaja.postCaja(t).subscribe(
-      (res) => {
-        console.log(res);
-        this.ventasFiltradas.forEach(a => {
-          this.servicioVenta.deleteVenta(a.id).subscribe(
-            (res) => {
-              console.log(res);
-              this.obtenerVentas();
-            },
-            (error) => {
-              console.log(error);
-            }
-          )
-        })
-        this.resetFechas();
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
+    if(t!= null || t!=""){
+      this.servicioCaja.postCaja(t).subscribe(
+        (res) => {
+          console.log(res);
+          this.ventasFiltradas.forEach(a => {
+            this.servicioVenta.deleteVenta(a.id).subscribe(
+              (res) => {
+                console.log(res);
+                this.obtenerVentas();
+              },
+              (error) => {
+                console.log(error);
+              }
+            )
+          })
+          this.resetFechas();
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+    }
   }
 
   // Función para calcular el total de ventas dentro del rango de fechas seleccionado
